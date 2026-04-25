@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Electronic Music Bar HHBAR | Техно бар Мурманск | Электронная музыка и коктейли</title>
+<meta name="description" content="HHBAR — лучший электронный бар в Мурманске. Бастовая музыка, техно вечеринки, авторские коктейли. Где отдохнуть в Мурманске? Живые сеты диджеев, премиум атмосфера. Бронь: +7 (8152) 70-70-57">
+<meta name="keywords" content="техно мурманск, бастовая музыка, электронный бар, где отдохнуть в Мурманске, бар Мурманск, ночной клуб Мурманск, DJ сеты, коктейли Мурманск, HHBAR">
+<link rel="canonical" href="https://hhbar.ru/">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:type" content="business.business">
+<meta property="og:title" content="HHBAR | Electronic Music Bar — Техно бар в Мурманске">
+<meta property="og:description" content="Бастовая музыка, техно вечеринки и авторские коктейли в самом сердце Мурманска.">
+<meta property="og:image" content="https://hhbar.ru/img/hhbar-hero-bg.jpg">
+<meta property="og:url" content="https://hhbar.ru">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="geo.region" content="RU-MUR">
+<meta name="geo.placename" content="Мурманск">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="img/hhbar-logo.png">
+
+<!-- JSON-LD LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BarOrPub",
+  "name": "HHBAR Electronic Music Bar",
+  "image": "https://hhbar.ru/img/hhbar-hero-bg.jpg",
+  "@id": "https://hhbar.ru",
+  "url": "https://hhbar.ru",
+  "telephone": "+78152707057",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Кольский проспект, 44",
+    "addressLocality": "Мурманск",
+    "postalCode": "183025",
+    "addressCountry": "RU"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 68.9585,
+    "longitude": 33.0827
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+      "opens": "17:00",
+      "closes": "03:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Friday",
+      "opens": "17:00",
+      "closes": "05:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "19:00",
+      "closes": "07:00"
+    }
+  ],
+  "priceRange": "₽₽₽",
+  "servesCuisine": ["Коктейли", "Закуски", "Европейская кухня"]
+}
+</script>
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* =========================================
+   CSS VARIABLES & THEME SYSTEM
+   ========================================= */
+:root {
+    --primary: #00f3ff;
+    --secondary: #ff00ff;
+    --dark: #0a0a0a;
+    --darker: #050505;
+    --light: #ffffff;
+    --gray: #2a2a2a;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --transition: all 0.3s ease;
+    --glass-bg: rgba(10, 10, 10, 0.7);
+    --glass-border: rgba(0, 243, 255, 0.1);
+}
+
+body.magenta-mode {
+    --primary: #ff00ff;
+    --secondary: #00f3ff;
+    --glass-border: rgba(255, 0, 255, 0.1);
+}
+
+/* =========================================
+   RESET & BASE
+   ========================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--dark);
+    color: var(--light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+/* =========================================
+   PARTICLE CANVAS
+   ========================================= */
+#particleCanvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1;
+}
+
+/* =========================================
+   SCANLINES
+   ========================================= */
+.scanline-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 10;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 243, 255, 0.015) 50%);
+    background-size: 100% 2px; animation: scanline 8s linear infinite;
+}
+@keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+
+/* =========================================
+   HEADER & GLASSMORPHISM NAV
+   ========================================= */
+header {
+    position: fixed; width: 100%; top: 0; z-index: 1000;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+}
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+.logo {
+    font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 700;
+    color: var(--primary); display: flex; align-items: center;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+.logo span { color: var(--light); margin-left: 5px; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { 
+    font-weight: 500; position: relative; padding: 8px 16px; border-radius: 20px;
+    transition: all 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active { 
+    color: var(--primary);
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.05));
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+}
+.theme-toggle {
+    background: none; border: 2px solid var(--primary); color: var(--primary);
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; font-size: 1.2rem;
+}
+.theme-toggle:hover { 
+    background: var(--primary); color: var(--darker);
+    box-shadow: 0 0 20px var(--primary);
+}
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--light); font-size: 1.5rem; cursor: pointer; }
+
+/* =========================================
+   HERO WITH PARALLAX
+   ========================================= */
+.hero {
+    height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 0 20px; position: relative; overflow: hidden;
+    background: linear-gradient(rgba(10,10,10,0.7), rgba(5,5,5,0.85)), url('img/hhbar-hero-bg.jpg');
+    background-size: cover; background-position: center; background-attachment: fixed;
+}
+.hero-content { position: relative; z-index: 20; }
+.hero h1 {
+    font-size: 4.5rem; margin-bottom: 20px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+    animation: heroGlow 3s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+    0% { filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.3)); }
+    100% { filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.3)); }
+}
+.hero p { font-size: 1.5rem; max-width: 700px; margin: 0 auto 40px; color: #aaa; }
+
+.floating-logo {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    animation: float 6s ease-in-out infinite; z-index: 10;
+    max-width: 300px; opacity: 0.95; width: 250px; pointer-events: none;
+}
+@keyframes float {
+    0% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-20px); }
+    100% { transform: translate(-50%, -50%) translateY(0px); }
+}
+
+.hero-parallax-layer {
+    position: absolute; top: -10%; left: -10%; width: 120%; height: 120%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(0, 243, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none; z-index: 5;
+}
+
+/* =========================================
+   MAGNETIC BUTTONS & RIPPLE
+   ========================================= */
+.btn {
+    display: inline-block; background: linear-gradient(90deg, var(--primary), #00a8ff);
+    color: var(--darker); padding: 15px 40px; border-radius: 50px;
+    font-weight: 600; font-size: 1.1rem; margin: 10px; border: none;
+    box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4); transition: var(--transition);
+    position: relative; overflow: hidden; cursor: pointer;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 243, 255, 0.6); }
+.btn-secondary { background: transparent; border: 2px solid var(--primary); color: var(--primary); box-shadow: none; }
+.btn-secondary:hover { background: rgba(0, 243, 255, 0.1); }
+.btn-tertiary { background: transparent; border: 2px solid var(--secondary); color: var(--secondary); box-shadow: none; }
+.btn-tertiary:hover { background: rgba(255, 0, 255, 0.1); }
+
+.ripple {
+    position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.6);
+    transform: scale(0); animation: rippleEffect 0.6s linear; pointer-events: none;
+}
+@keyframes rippleEffect {
+    to { transform: scale(4); opacity: 0; }
+}
+
+/* =========================================
+   SECTIONS GENERAL
+   ========================================= */
+section { padding: 100px 0; position: relative; }
+section:not(.hero) { background-color: rgba(10, 10, 10, 0.95); }
+.section-title { text-align: center; margin-bottom: 70px; }
+.section-title h2 { font-size: 2.8rem; margin-bottom: 15px; position: relative; display: inline-block; }
+.section-title h2::after {
+    content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+.section-title p { color: #aaa; max-width: 700px; margin: 30px auto 0; }
+
+.reveal-text { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.reveal-text.visible { opacity: 1; transform: translateY(0); }
+.reveal-text .word {
+    display: inline-block; opacity: 0; transform: translateY(20px);
+    transition: opacity 0.4s, transform 0.4s;
+}
+.reveal-text.visible .word { opacity: 1; transform: translateY(0); }
+
+/* =========================================
+   FEATURES
+   ========================================= */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+.feature-card {
+    background: var(--gray); border-radius: 15px; padding: 35px; text-align: center;
+    transition: var(--transition); border: 1px solid rgba(0, 243, 255, 0.1);
+}
+.feature-card:hover { 
+    transform: translateY(-10px); 
+    border-color: rgba(0, 243, 255, 0.3); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+.feature-icon { font-size: 3.5rem; margin-bottom: 20px; color: var(--primary); }
+
+/* =========================================
+   MENU WITH 3D TILT & PHOTOS
+   ========================================= */
+.menu-categories { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 50px; }
+.category-btn {
+    background: rgba(255, 255, 255, 0.1); border: none; color: var(--light);
+    padding: 10px 25px; border-radius: 30px; font-family: 'Montserrat', sans-serif;
+    font-weight: 500; cursor: pointer; transition: var(--transition);
+}
+.category-btn.active, .category-btn:hover { background: var(--primary); color: var(--darker); }
+
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.menu-item {
+    background: var(--gray); border-radius: 15px; padding: 25px;
+    border-left: 4px solid var(--primary); position: relative; overflow: hidden;
+    min-height: 200px; display: flex; flex-direction: column; justify-content: flex-end;
+    transition: all 0.4s ease; transform-style: preserve-3d; perspective: 1000px;
+    cursor: pointer;
+}
+.menu-item::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center; opacity: 0.4; transition: var(--transition); z-index: 0;
+}
+.menu-item.error-image::before {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    opacity: 1;
+}
+.menu-item::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 70%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 1;
+}
+.menu-item h3, .menu-item p { position: relative; z-index: 1; }
+.menu-item:hover { 
+    transform: translateY(-5px) rotateX(5deg) rotateY(5deg); 
+    border-left-color: var(--secondary);
+    box-shadow: 0 20px 40px rgba(0, 243, 255, 0.2), 0 0 60px rgba(0, 243, 255, 0.1);
+}
+.menu-item:hover::before { opacity: 0.7; transform: scale(1.1); }
+.menu-item h3 { font-size: 1.5rem; margin-bottom: 10px; display: flex; justify-content: space-between; }
+.menu-item h3 span { color: var(--primary); font-weight: 700; }
+.menu-item p { color: #aaa; }
+
+/* Menu Modal */
+.menu-modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.3s ease;
+}
+.menu-modal.active { display: flex; opacity: 1; }
+.menu-modal-content {
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    border: 1px solid var(--primary); border-radius: 20px;
+    padding: 40px; max-width: 500px; width: 90%;
+    box-shadow: 0 0 60px rgba(0, 243, 255, 0.2);
+    position: relative;
+}
+.menu-modal-img {
+    width: 100%; height: 300px; border-radius: 15px;
+    background-size: cover; background-position: center; margin-bottom: 20px;
+    border: 2px solid var(--primary);
+}
+.menu-modal-img.no-image {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gray); font-size: 4rem; color: var(--primary);
+}
+.menu-modal-name { font-size: 1.8rem; color: var(--primary); margin-bottom: 10px; }
+.menu-modal-price { color: var(--secondary); font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+.menu-modal-desc { color: #ccc; line-height: 1.6; }
+.close-menu-modal {
+    position: absolute; top: 15px; right: 20px; color: #888;
+    font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+}
+.close-menu-modal:hover { color: var(--primary); }
+
+/* =========================================
+   EVENTS (3D CARDS + GLOW)
+   ========================================= */
+.events-grid-3d { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; perspective: 1000px; }
+.event-card-3d {
+    position: relative; width: 100%; height: 450px; transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
+}
+.event-card-3d:hover { 
+    transform: rotateY(10deg) rotateX(5deg) translateZ(20px);
+    filter: drop-shadow(0 0 30px var(--primary));
+}
+.event-card-3d.flipped { transform: rotateY(180deg); }
+.card-face {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+.card-front {
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.95)), var(--bg-img);
+    background-size: cover; background-position: center;
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+}
+.card-back {
+    background: var(--gray); transform: rotateY(180deg); padding: 30px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    border: 1px solid var(--primary);
+}
+.event-date {
+    position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg, var(--secondary), #ff0066);
+    color: var(--darker); padding: 8px 15px; border-radius: 10px; font-weight: 800;
+    box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+}
+
+/* =========================================
+   GALLERY MASONRY + PARALLAX + SLIDER
+   ========================================= */
+.gallery-masonry { column-count: 3; column-gap: 20px; }
+.gallery-item {
+    position: relative; margin-bottom: 20px; break-inside: avoid;
+    border-radius: 15px; overflow: hidden; cursor: pointer;
+    box-shadow: var(--shadow); transition: var(--transition);
+}
+.gallery-item:hover { 
+    transform: scale(1.03); 
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+}
+.gallery-item img { width: 100%; height: auto; transition: transform 0.5s; }
+.gallery-item:hover img { transform: scale(1.1); }
+.gallery-item .gallery-caption {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 20px; transform: translateY(100%); transition: transform 0.3s;
+}
+.gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+/* Gallery Slider Modal */
+.gallery-modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.3s ease;
+}
+.gallery-modal.active { display: flex; opacity: 1; }
+.modal-gallery-container {
+    position: relative; width: 90%; max-width: 1000px;
+    border-radius: 15px; overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
+}
+.modal-gallery-slide {
+    display: none; width: 100%; height: 600px;
+    background-size: cover; background-position: center;
+}
+.modal-gallery-slide.active { display: block; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-gallery-nav {
+    position: absolute; top: 50%; width: 100%;
+    display: flex; justify-content: space-between; padding: 0 30px;
+    transform: translateY(-50%);
+}
+.modal-gallery-btn {
+    background: rgba(0, 0, 0, 0.7); color: var(--primary); border: none;
+    width: 60px; height: 60px; border-radius: 50%; font-size: 1.8rem;
+    cursor: pointer; transition: var(--transition);
+    display: flex; align-items: center; justify-content: center; z-index: 10;
+}
+.modal-gallery-btn:hover { background: var(--primary); color: var(--darker); transform: scale(1.1); }
+.modal-gallery-counter {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7); color: var(--primary);
+    padding: 8px 20px; border-radius: 30px; font-weight: 600; font-size: 1.2rem; z-index: 10;
+}
+.close-gallery-modal {
+    position: absolute; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.7);
+    color: var(--primary); border: none; width: 50px; height: 50px;
+    border-radius: 50%; font-size: 1.5rem; cursor: pointer;
+    transition: var(--transition); z-index: 20;
+}
+.close-gallery-modal:hover { background: var(--primary); color: var(--darker); transform: rotate(90deg); }
+
+/* =========================================
+   VIDEOS (VK IFRAMES) - LAZY LOAD
+   ========================================= */
+.videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+.video-card { 
+    position: relative; padding-top: 56.25%; background: var(--gray); 
+    border-radius: 15px; overflow: hidden; cursor: pointer;
+    box-shadow: var(--shadow); transition: var(--transition);
+}
+.video-card:hover { transform: scale(1.03); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+.video-card.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+}
+.video-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+.video-container iframe { width: 100%; height: 100%; border: none; display: block; }
+.video-placeholder {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    cursor: pointer; z-index: 2;
+}
+.video-placeholder i {
+    font-size: 4rem; color: var(--primary);
+    margin-bottom: 15px; transition: transform 0.3s;
+}
+.video-card:hover .video-placeholder i { transform: scale(1.2); }
+.video-placeholder span {
+    color: #aaa; font-size: 1rem; text-align: center; padding: 0 20px;
+}
+.video-title {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0, 0, 0, 0.75); color: var(--light);
+    padding: 15px; text-align: center; font-weight: 600; font-size: 1.2rem;
+    transition: var(--transition); z-index: 3;
+}
+.video-card:hover .video-title { background: rgba(0, 243, 255, 0.85); color: var(--darker); }
+
+/* =========================================
+   MUSIC PLAYER WITH VINYL & WAVEFORM
+   ========================================= */
+.music-container {
+    background: var(--gray); border-radius: 20px; padding: 30px; display: flex; gap: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(0,243,255,0.1);
+}
+.dj-list { width: 30%; max-height: 500px; overflow-y: auto; padding-right: 10px; }
+.dj-item {
+    display: flex; align-items: center; padding: 15px; border-radius: 12px; cursor: pointer;
+    transition: all 0.3s; border: 1px solid transparent; margin-bottom: 10px; background: rgba(0,0,0,0.3);
+}
+.dj-item:hover, .dj-item.active { background: rgba(0, 243, 255, 0.1); border-color: var(--primary); }
+.dj-item.active .dj-name { color: var(--primary); text-shadow: 0 0 10px rgba(0,243,255,0.5); }
+.dj-photo {
+    width: 50px; height: 50px; border-radius: 50%; margin-right: 15px;
+    display: flex; align-items: center; justify-content: center; font-weight: bold;
+    border: 2px solid var(--primary); overflow: hidden; background-size: cover; background-position: center;
+    cursor: zoom-in; position: relative; transition: all 0.3s;
+}
+.dj-photo::after {
+    content: '+'; position: absolute; font-size: 1.5rem; opacity: 0;
+    transition: opacity 0.3s; color: var(--primary);
+    background: rgba(0,0,0,0.7); width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+}
+.dj-photo:hover::after { opacity: 1; }
+.dj-photo:hover { box-shadow: 0 0 20px rgba(0, 243, 255, 0.5); transform: scale(1.1); }
+.dj-name { font-weight: 600; }
+
+.player-section { width: 70%; display: flex; flex-direction: column; }
+
+/* Vinyl Record */
+.vinyl-container {
+    width: 200px; height: 200px; margin: 0 auto 20px;
+    position: relative;
+}
+.vinyl-record {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: repeating-radial-gradient(#111 0, #111 2px, #222 3px, #222 4px);
+    border: 8px solid #1a1a1a;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    position: relative;
+    animation: spin 3s linear infinite;
+    animation-play-state: paused;
+}
+.vinyl-record.playing { animation-play-state: running; }
+.vinyl-record::before {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 60px; height: 60px; background: var(--primary); border-radius: 50%; border: 4px solid var(--dark);
+}
+.vinyl-record::after {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 15px; height: 15px; background: var(--dark); border-radius: 50%;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Waveform Canvas */
+.waveform-container {
+    width: 100%; height: 60px; background: rgba(0,0,0,0.3);
+    border-radius: 10px; margin-bottom: 15px; overflow: hidden;
+    border: 1px solid rgba(0,243,255,0.1);
+}
+#waveformCanvas { width: 100%; height: 100%; }
+
+.player-box {
+    background: linear-gradient(135deg, #111, #222); border-radius: 15px; padding: 25px;
+    text-align: center; margin-bottom: 20px; border: 1px solid rgba(0,243,255,0.2);
+    position: relative; overflow: hidden;
+}
+.player-box::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+    animation: rotateGlow 10s linear infinite; pointer-events: none;
+}
+@keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.player-box-content { position: relative; z-index: 1; }
+
+.current-track-info { font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; font-weight: 600; text-shadow: 0 0 15px rgba(0,243,255,0.4); animation: glowText 2s ease-in-out infinite; }
+@keyframes glowText {
+    0%, 100% { text-shadow: 0 0 20px rgba(0, 243, 255, 0.5); }
+    50% { text-shadow: 0 0 30px rgba(0, 243, 255, 0.8), 0 0 40px rgba(0, 243, 255, 0.4); }
+}
+.controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 15px; }
+.ctrl-btn {
+    background: none; border: 2px solid var(--primary); color: var(--primary);
+    width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
+    transition: var(--transition); display: flex; align-items: center; justify-content: center;
+}
+.ctrl-btn:hover { background: var(--primary); color: var(--darker); box-shadow: 0 0 15px rgba(0,243,255,0.4); }
+.ctrl-btn.play { width: 60px; height: 60px; font-size: 1.5rem; background: rgba(0,243,255,0.1); }
+.ctrl-btn.play:hover { box-shadow: 0 0 50px rgba(0, 243, 255, 0.6), 0 0 100px rgba(0, 243, 255, 0.3); }
+
+.volume-control {
+    display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;
+}
+.volume-control i { color: var(--primary); font-size: 1rem; }
+.volume-slider {
+    width: 120px; height: 6px; -webkit-appearance: none; appearance: none;
+    background: #333; border-radius: 3px; outline: none; cursor: pointer;
+}
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--primary); cursor: pointer; box-shadow: 0 0 10px rgba(0,243,255,0.5);
+}
+.volume-slider::-moz-range-thumb {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--primary); cursor: pointer; border: none;
+}
+
+.progress-bar { width: 100%; height: 6px; background: #333; border-radius: 3px; cursor: pointer; position: relative; }
+.progress-fill { height: 100%; background: var(--primary); width: 0%; border-radius: 3px; transition: width 0.1s; }
+
+.time-display {
+    display: flex; justify-content: space-between; color: #888; font-size: 0.9rem; margin-top: 10px;
+}
+.time-display span { font-family: 'Courier New', monospace; background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 5px; border: 1px solid rgba(0,243,255,0.2); }
+.time-display .current { color: var(--primary); text-shadow: 0 0 10px rgba(0,243,255,0.5); }
+
+.playlist {
+    background: rgba(0,0,0,0.3); border-radius: 15px; padding: 20px; height: 200px; overflow-y: auto;
+    border: 1px solid rgba(0,243,255,0.1);
+}
+.track-item {
+    display: flex; justify-content: space-between; padding: 10px 15px; border-bottom: 1px solid #333;
+    cursor: pointer; transition: var(--transition);
+}
+.track-item:hover, .track-item.active { background: rgba(0, 243, 255, 0.1); color: var(--primary); }
+
+/* Loading indicator */
+.track-loading {
+    display: inline-block; width: 16px; height: 16px; border: 2px solid var(--primary);
+    border-top-color: transparent; border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin-left: 10px;
+}
+
+/* DJ Photo Modal */
+.dj-modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 4000; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.3s ease;
+}
+.dj-modal.active { display: flex; opacity: 1; }
+.dj-modal-content {
+    background: var(--gray); border-radius: 20px; padding: 30px;
+    text-align: center; max-width: 500px; width: 90%;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); position: relative;
+}
+.close-dj-modal {
+    position: absolute; top: 15px; right: 15px; background: none; border: none;
+    color: var(--light); font-size: 1.8rem; cursor: pointer; transition: var(--transition);
+}
+.close-dj-modal:hover { color: var(--primary); transform: rotate(90deg); }
+.dj-modal-photo {
+    width: 200px; height: 200px; border-radius: 50%; margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center; font-size: 5rem;
+    font-weight: 700; color: var(--darker); background-size: cover; background-position: center;
+    background-color: var(--gray); border: 3px solid var(--primary);
+}
+.dj-modal-name { font-size: 1.8rem; margin-bottom: 10px; color: var(--primary); }
+.dj-social-link {
+    display: inline-block; margin-top: 15px; color: var(--primary);
+    font-weight: 600; font-size: 1.1rem; transition: var(--transition);
+    border-bottom: 2px solid transparent;
+}
+.dj-social-link:hover { border-bottom: 2px solid var(--primary); transform: translateY(-2px); }
+
+/* =========================================
+   BOOKING MODAL
+   ========================================= */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+    z-index: 20000; justify-content: center; align-items: center;
+}
+.modal-overlay.active { display: flex; }
+.booking-modal {
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    border: 1px solid var(--primary); border-radius: 20px;
+    padding: 40px; max-width: 500px; width: 90%;
+    box-shadow: 0 0 60px rgba(0, 243, 255, 0.2);
+    position: relative; animation: modalIn 0.3s ease;
+}
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.booking-modal h3 {
+    font-size: 1.8rem; margin-bottom: 25px; text-align: center;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; color: #aaa; font-size: 0.9rem; }
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 15px; background: rgba(255,255,255,0.05);
+    border: 1px solid #333; border-radius: 10px; color: var(--light);
+    font-family: inherit; transition: all 0.3s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-group input:invalid:not(:placeholder-shown) { border-color: #ff4444; }
+.form-group input:valid:not(:placeholder-shown) { border-color: #00ff88; }
+.modal-close {
+    position: absolute; top: 15px; right: 20px; color: #888;
+    font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+}
+.modal-close:hover { color: var(--primary); }
+
+/* Form loader */
+.form-loader {
+    display: none; text-align: center; padding: 20px;
+}
+.form-loader.active { display: block; }
+.form-loader-spinner {
+    width: 40px; height: 40px; border: 3px solid var(--primary);
+    border-top-color: transparent; border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 15px;
+}
+
+/* Toast notification */
+.toast {
+    position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--gray); border: 1px solid var(--primary); color: var(--light);
+    padding: 15px 30px; border-radius: 10px; z-index: 50000;
+    opacity: 0; transition: all 0.3s ease; font-weight: 500;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+.toast.active { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.error { border-color: #ff4444; }
+
+/* =========================================
+   CONTACT
+   ========================================= */
+.contact-wrapper { display: flex; flex-wrap: wrap; gap: 50px; }
+.contact-info { flex: 1; min-width: 300px; }
+.contact-info h3 { font-size: 2rem; margin-bottom: 30px; position: relative; padding-bottom: 15px; }
+.contact-info h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: var(--primary); }
+.contact-info p { margin-bottom: 15px; font-size: 1.1rem; }
+.social-links { display: flex; gap: 15px; margin-top: 30px; }
+.social-link {
+    width: 60px; height: 60px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-size: 1.8rem;
+    transition: var(--transition); text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.social-link.vk { background: #4C75A3; }
+.social-link.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social-link.telegram { background: #0088cc; }
+.social-link:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.4); opacity: 0.9; }
+.contact-map { flex: 1; min-width: 300px; height: 400px; background: var(--gray); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+.contact-map iframe { width: 100%; height: 100%; border: none; filter: grayscale(100%) invert(92%) contrast(83%); }
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer { background: var(--darker); padding: 40px 0; text-align: center; color: #666; border-top: 1px solid #222; }
+
+/* =========================================
+   MOBILE NAV
+   ========================================= */
+.mobile-nav {
+    display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+    background: rgba(10, 10, 10, 0.98); border-top: 1px solid #333;
+    justify-content: space-around; padding: 15px 0; z-index: 1000;
+    backdrop-filter: blur(20px);
+}
+.mobile-nav a { color: #888; font-size: 0.8rem; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.mobile-nav a i { font-size: 1.4rem; margin-bottom: 5px; }
+.mobile-nav a.active { color: var(--primary); }
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 992px) {
+    .music-container { flex-direction: column; height: auto; }
+    .dj-list, .player-section { width: 100%; }
+    .dj-list { max-height: 350px; margin-bottom: 20px; }
+    .gallery-masonry { column-count: 2; }
+    .modal-gallery-slide { height: 400px; }
+}
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .nav-links.active {
+        display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; width: 100%;
+        background: var(--dark); padding: 40px 0; text-align: center; gap: 20px;
+        animation: fadeIn 0.3s ease;
+    }
+    .mobile-nav { display: flex; }
+    .hero h1 { font-size: 2.5rem; }
+    section { padding: 60px 0; }
+    footer { margin-bottom: 70px; }
+    .gallery-masonry { column-count: 1; }
+    .vinyl-container { width: 150px; height: 150px; }
+    .modal-gallery-slide { height: 300px; }
+    body { padding-bottom: 70px; }
+}
+@media (max-width: 480px) {
+    .hero h1 { font-size: 2rem; }
+    .section-title h2 { font-size: 2rem; }
+    .event-card-3d { height: 350px; }
+}
+
+/* Utility */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Back to top */
+.back-to-top {
+    position: fixed; bottom: 90px; right: 20px;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--primary); color: var(--darker);
+    border: none; cursor: pointer; font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(20px); transition: all 0.3s;
+    z-index: 999; box-shadow: 0 4px 15px rgba(0,243,255,0.4);
+}
+.back-to-top.active { opacity: 1; transform: translateY(0); }
+.back-to-top:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,243,255,0.6); }
+</style>
+</head>
+<body>
+
+<!-- Particle Canvas -->
+<canvas id="particleCanvas"></canvas>
+
+<div class="scanline-overlay"></div>
+
+<!-- HEADER -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="#home" class="logo">ELECTRONIC<span>Music Bar</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Открыть меню"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Главная</a></li>
+                <li><a href="#features">О нас</a></li>
+                <li><a href="#menu">Меню</a></li>
+                <li><a href="#events">Мероприятия</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#videos">Видео</a></li>
+                <li><a href="#music">Музыка</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Сменить тему" aria-label="Сменить тему">
+                <i class="fas fa-palette"></i>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+    <div class="hero-parallax-layer" id="heroParallax"></div>
+    <div class="floating-logo">
+        <img src="img/logo-main.png" alt="Electronic Music Bar Logo" style="width:100%; filter: drop-shadow(0 0 20px rgba(0,243,255,0.5));">
+    </div>
+    <div class="container hero-content">
+        <h1 class="reveal-text" id="heroTitle">ELECTRONIC MUSIC BAR</h1>
+        <p class="reveal-text" id="heroSubtitle">Пожалуй, лучшее место, чтобы расслабиться под электронные биты в самом сердце Мурманска</p>
+        <div>
+            <button class="btn magnetic-btn" id="bookBtn">Забронировать столик</button>
+            <a href="#menu" class="btn btn-secondary magnetic-btn">Меню</a>
+            <a href="#events" class="btn btn-tertiary magnetic-btn">Мероприятия</a>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2>Почему именно мы?</h2>
+            <p>Мы создали уникальное пространство для ценителей электронной музыки и качественных напитков</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-cocktail"></i></div>
+                <h3>Премиальные коктейли</h3>
+                <p>Авторские коктейли из лучших ингредиентов со всего мира</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-music"></i></div>
+                <h3>Электронная музыка</h3>
+                <p>Лучшие DJ и электронные исполнители каждые выходные</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-star"></i></div>
+                <h3>Уютная атмосфера</h3>
+                <p>Стильный интерьер и комфортная обстановка</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2>Наше меню</h2>
+            <p>Откройте для себя уникальные вкусы наших фирменных блюд и напитков</p>
+        </div>
+        <div class="menu-categories">
+            <button class="category-btn active" data-cat="kitchen">Кухня</button>
+            <button class="category-btn" data-cat="cocktails">Коктейли</button>
+            <button class="category-btn" data-cat="drinks">Напитки</button>
+            <button class="category-btn" data-cat="snacks">Закуски</button>
+        </div>
+        
+        <div class="menu-grid" id="menuGrid">
+            <!-- Kitchen -->
+            <div class="menu-item reveal tilt-card" data-category="kitchen" data-name="HH Special" data-price="890₽" data-desc="Эксклюзивное блюдо нашего шеф-повара" data-img="img/kitchen/k1/1.jpg" style="--bg-img: url('img/kitchen/k1/1.jpg');">
+                <h3>HH Special <span>890₽</span></h3>
+                <p>Эксклюзивное блюдо нашего шеф-повара</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="kitchen" data-name="Midnight Moscow" data-price="750₽" data-desc="Нежное сочетание морепродуктов и соусов" data-img="img/kitchen/k2/1.jpg" style="--bg-img: url('img/kitchen/k2/1.jpg');">
+                <h3>Midnight Moscow <span>750₽</span></h3>
+                <p>Нежное сочетание морепродуктов и соусов</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="kitchen" data-name="Purple Rain" data-price="690₽" data-desc="Вегетарианский деликатес с трюфельным соусом" data-img="img/kitchen/k3/1.jpg" style="--bg-img: url('img/kitchen/k3/1.jpg');">
+                <h3>Purple Rain <span>690₽</span></h3>
+                <p>Вегетарианский деликатес с трюфельным соусом</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="kitchen" data-name="Golden Hour" data-price="820₽" data-desc="Стейк из мраморной говядины премиум-класса" data-img="img/kitchen/k4/1.jpg" style="--bg-img: url('img/kitchen/k4/1.jpg');">
+                <h3>Golden Hour <span>820₽</span></h3>
+                <p>Стейк из мраморной говядины премиум-класса</p>
+            </div>
+            <!-- Cocktails -->
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Margarita" data-price="620₽" data-desc="Классический коктейль с текилой и лаймом" data-img="img/cocktails/c1.jpg" style="display:none; --bg-img: url('img/cocktails/c1.jpg');">
+                <h3>Margarita <span>620₽</span></h3>
+                <p>Классический коктейль с текилой и лаймом</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Mojito" data-price="580₽" data-desc="Освежающий коктейль с мятой и лаймом" data-img="img/cocktails/c2.jpg" style="display:none; --bg-img: url('img/cocktails/c2.jpg');">
+                <h3>Mojito <span>580₽</span></h3>
+                <p>Освежающий коктейль с мятой и лаймом</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Cosmopolitan" data-price="650₽" data-desc="Элегантный коктейль с водкой и клюквой" data-img="img/cocktails/c3.jpg" style="display:none; --bg-img: url('img/cocktails/c3.jpg');">
+                <h3>Cosmopolitan <span>650₽</span></h3>
+                <p>Элегантный коктейль с водкой и клюквой</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Blue Lagoon" data-price="700₽" data-desc="Яркий коктейль с ликером и лимонным соком" data-img="img/cocktails/c4.jpg" style="display:none; --bg-img: url('img/cocktails/c4.jpg');">
+                <h3>Blue Lagoon <span>700₽</span></h3>
+                <p>Яркий коктейль с ликером и лимонным соком</p>
+            </div>
+            <!-- Drinks -->
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Вода (0.5л)" data-price="150₽" data-desc="Питьевая вода высшей категории" data-img="img/drinks/d1.jpg" style="display:none; --bg-img: url('img/drinks/d1.jpg');">
+                <h3>Вода (0.5л) <span>150₽</span></h3>
+                <p>Питьевая вода высшей категории</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Сок (0.3л)" data-price="280₽" data-desc="Свежевыжатый сок на выбор" data-img="img/drinks/d2.jpg" style="display:none; --bg-img: url('img/drinks/d2.jpg');">
+                <h3>Сок (0.3л) <span>280₽</span></h3>
+                <p>Свежевыжатый сок на выбор</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Энергетик (0.25л)" data-price="320₽" data-desc="Энергетический напиток премиум-класса" data-img="img/drinks/d3.jpg" style="display:none; --bg-img: url('img/drinks/d3.jpg');">
+                <h3>Энергетик (0.25л) <span>320₽</span></h3>
+                <p>Энергетический напиток премиум-класса</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Шампанское (бокал)" data-price="520₽" data-desc="Игристое вино высшего качества" data-img="img/drinks/d4.jpg" style="display:none; --bg-img: url('img/drinks/d4.jpg');">
+                <h3>Шампанское (бокал) <span>520₽</span></h3>
+                <p>Игристое вино высшего качества</p>
+            </div>
+            <!-- Snacks -->
+            <div class="menu-item reveal tilt-card" data-category="snacks" data-name="Сыр & Ветчина" data-price="450₽" data-desc="Ассорти из сыров и ветчины" data-img="img/snacks/s1.jpg" style="display:none; --bg-img: url('img/snacks/s1.jpg');">
+                <h3>Сыр & Ветчина <span>450₽</span></h3>
+                <p>Ассорти из сыров и ветчины</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="snacks" data-name="Крылья куриные" data-price="380₽" data-desc="Острые куриные крылья с соусом" data-img="img/snacks/s2.jpg" style="display:none; --bg-img: url('img/snacks/s2.jpg');">
+                <h3>Крылья куриные <span>380₽</span></h3>
+                <p>Острые куриные крылья с соусом</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="snacks" data-name="Картофель фри" data-price="320₽" data-desc="Хрустящий картофель фри с соусами" data-img="img/snacks/s3.jpg" style="display:none; --bg-img: url('img/snacks/s3.jpg');">
+                <h3>Картофель фри <span>320₽</span></h3>
+                <p>Хрустящий картофель фри с соусами</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="snacks" data-name="Кальмары" data-price="520₽" data-desc="Жареные кальмары с лимоном" data-img="img/snacks/s4.jpg" style="display:none; --bg-img: url('img/snacks/s4.jpg');">
+                <h3>Кальмары <span>520₽</span></h3>
+                <p>Жареные кальмары с лимоном</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Menu Modal -->
+<div class="menu-modal" id="menuModal" role="dialog" aria-modal="true" aria-label="Детали блюда">
+    <div class="menu-modal-content">
+        <span class="close-menu-modal" id="closeMenuModal" aria-label="Закрыть">&times;</span>
+        <div class="menu-modal-img" id="menuModalImg"></div>
+        <h3 class="menu-modal-name" id="menuModalName"></h3>
+        <p class="menu-modal-price" id="menuModalPrice"></p>
+        <p class="menu-modal-desc" id="menuModalDesc"></p>
+    </div>
+</div>
+
+<!-- EVENTS -->
+<section id="events">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2>Афиша</h2>
+            <p>Не пропустите самые яркие события</p>
+        </div>
+        <div class="events-grid-3d">
+            <div class="event-card-3d" onclick="this.classList.toggle('flipped')">
+                <div class="card-face card-front" style="--bg-img: url('img/events/ev-1.jpg')">
+                    <div class="event-date">18 ОКТ</div>
+                    <h3>Dub Papper</h3>
+                    <p>Deep techno и progressive house</p>
+                </div>
+                <div class="card-face card-back">
+                    <h3>Dub Papper</h3>
+                    <p>Специальный гость из Москвы. Начало в 21:00.</p>
+                    <button class="btn magnetic-btn book-trigger" style="margin-top:20px">Бронь</button>
+                </div>
+            </div>
+            <div class="event-card-3d" onclick="this.classList.toggle('flipped')">
+                <div class="card-face card-front" style="--bg-img: url('img/events/ev-2.jpg')">
+                    <div class="event-date">31 ОКТ</div>
+                    <h3>Halloween</h3>
+                    <p>Бал Снежной Королевы</p>
+                </div>
+                <div class="card-face card-back">
+                    <h3>Бал Снежной Королевы</h3>
+                    <p>Дресс-код: бело-серебряная палитра.</p>
+                    <button class="btn magnetic-btn book-trigger" style="margin-top:20px">Бронь</button>
+                </div>
+            </div>
+            <div class="event-card-3d" onclick="this.classList.toggle('flipped')">
+                <div class="card-face card-front" style="--bg-img: url('img/events/ev-3.jpg')">
+                    <div class="event-date">2 НОЯ</div>
+                    <h3>Sonar Birthday</h3>
+                    <p>День рождения Alexey Sonar</p>
+                </div>
+                <div class="card-face card-back">
+                    <h3>Sonar Birthday</h3>
+                    <p>Эксклюзивный сет от резидента.</p>
+                    <button class="btn magnetic-btn book-trigger" style="margin-top:20px">Бронь</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2>Галерея</h2>
+            <p>Атмосфера наших вечеринок</p>
+        </div>
+        <div class="gallery-masonry">
+            <div class="gallery-item reveal" data-gallery-index="0" data-caption="Вечеринка COORD 2008">
+                <img src="img/gallery/g1/1.jpg" alt="Вечеринка COORD 2008" loading="lazy">
+                <div class="gallery-caption">Вечеринка COORD 2008</div>
+            </div>
+            <div class="gallery-item reveal" data-gallery-index="1" data-caption="DJ Set G-POL">
+                <img src="img/gallery/g2/1.jpg" alt="DJ Set G-POL" loading="lazy">
+                <div class="gallery-caption">DJ Set G-POL</div>
+            </div>
+            <div class="gallery-item reveal" data-gallery-index="2" data-caption="Halloween Special">
+                <img src="img/gallery/g3/1.jpg" alt="Halloween Special" loading="lazy">
+                <div class="gallery-caption">Halloween Special</div>
+            </div>
+            <div class="gallery-item reveal" data-gallery-index="3" data-caption="7 Лет HHBAR">
+                <img src="img/gallery/g4/1.jpg" alt="7 Лет HHBAR" loading="lazy">
+                <div class="gallery-caption">7 Лет HHBAR</div>
+            </div>
+            <div class="gallery-item reveal" data-gallery-index="4" data-caption="-30 Бал Снежной Королевы">
+                <img src="img/gallery/g5/1.jpg" alt="-30 Бал Снежной Королевы" loading="lazy">
+                <div class="gallery-caption">-30 Бал Снежной Королевы</div>
+            </div>
+            <div class="gallery-item reveal" data-gallery-index="5" data-caption="Live Set AIWASKA">
+                <img src="img/gallery/g6/1.jpg" alt="Live Set AIWASKA" loading="lazy">
+                <div class="gallery-caption">Live Set AIWASKA</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Slider Modal -->
+<div class="gallery-modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="Галерея фото">
+    <div class="modal-gallery-container">
+        <div class="modal-gallery-slide" id="slide0"></div>
+        <div class="modal-gallery-slide" id="slide1"></div>
+        <div class="modal-gallery-slide" id="slide2"></div>
+        <div class="modal-gallery-slide" id="slide3"></div>
+        <div class="modal-gallery-slide" id="slide4"></div>
+        <div class="modal-gallery-slide" id="slide5"></div>
+        <div class="modal-gallery-nav">
+            <button class="modal-gallery-btn" id="modalPrevBtn" aria-label="Предыдущее фото">‹</button>
+            <button class="modal-gallery-btn" id="modalNextBtn" aria-label="Следующее фото">›</button>
+        </div>
+        <div class="modal-gallery-counter" id="modalCounter">1 / 6</div>
+        <button class="close-gallery-modal" id="closeGalleryModal" aria-label="Закрыть галерею">×</button>
+    </div>
+</div>
+
+<!-- VIDEOS -->
+<section id="videos">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2>Видео отчеты</h2>
+            <p>Атмосфера наших мероприятий в движении</p>
+        </div>
+        <div class="videos-grid">
+            <div class="video-card reveal" data-video-src="https://vk.com/video_ext.php?oid=-30291448&id=456239486&hd=2">
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Видео отчет COORD 2008 11.04.26</span>
+                </div>
+                <div class="video-title">Видео отчет COORD 2008 11.04.26</div>
+            </div>
+            <div class="video-card reveal" data-video-src="https://vk.com/video_ext.php?oid=-30291448&id=456239487&hd=2">
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Видео отчет G-POL 14.02.26</span>
+                </div>
+                <div class="video-title">Видео отчет G-POL 14.02.26</div>
+            </div>
+            <div class="video-card reveal" data-video-src="https://vk.com/video_ext.php?oid=-30291448&id=456239472&hd=2">
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Видео отчет ISENTIE 24.01.26</span>
+                </div>
+                <div class="video-title">Видео отчет ISENTIE 24.01.26</div>
+            </div>
+            <div class="video-card reveal" data-video-src="https://vk.com/video_ext.php?oid=-30291448&id=456239471&hd=2">
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Видео отчет AIWASKA 07.01.2026</span>
+                </div>
+                <div class="video-title">Видео отчет AIWASKA 07.01.2026</div>
+            </div>
+            <div class="video-card reveal" data-video-src="https://vk.com/video_ext.php?oid=-30291448&id=456239454&hd=2">
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Видео отчет HHBAR Нам 7 Лет 29.11.25</span>
+                </div>
+                <div class="video-title">Видео отчет HHBAR Нам 7 Лет 29.11.25</div>
+            </div>
+            <div class="video-card reveal" data-video-src="https://vk.com/video_ext.php?oid=-30291448&id=456239450&hd=2">
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Видео отчет -30, Бал Снежной Королевы 01.11.25</span>
+                </div>
+                <div class="video-title">Видео отчет -30, Бал Снежной Королевы 01.11.25</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MUSIC -->
+<section id="music">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2>Музыка</h2>
+            <p>Наши резиденты</p>
+        </div>
+        <div class="music-container reveal">
+            <div class="dj-list">
+                <div class="dj-item active" data-dj="Ver-Dikt & Andy Dav" data-tracks='[{"name":"Ver-Dikt & Andy Dav - Cruel World","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},{"name":"Ver-Dikt & Andy Dav - Fleksta","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"}]' data-photo="img/Dj/dj-1.jpg" data-social="https://vk.com/verdiktandydav">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-1.jpg');" data-dj="Ver-Dikt & Andy Dav" role="img" aria-label="Фото Ver-Dikt & Andy Dav"></div>
+                    <div class="dj-name">Ver-Dikt & Andy Dav</div>
+                </div>
+                <div class="dj-item" data-dj="Hunter(RU)" data-tracks='[{"name":"Electric Storm","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},{"name":"Bassline Journey","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"}]' data-photo="img/Dj/dj-2.jpg" data-social="https://vk.com/hunter_ru">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-2.jpg');" data-dj="Hunter(RU)" role="img" aria-label="Фото Hunter(RU)"></div>
+                    <div class="dj-name">Hunter(RU)</div>
+                </div>
+                <div class="dj-item" data-dj="Dany`S" data-tracks='[{"name":"Deep Space","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"},{"name":"Cosmic Waves","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"}]' data-photo="img/Dj/dj-3.jpg" data-social="https://vk.com/danys_music">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-3.jpg');" data-dj="Dany`S" role="img" aria-label="Фото Dany`S"></div>
+                    <div class="dj-name">Dany`S</div>
+                </div>
+                <div class="dj-item" data-dj="Darsa" data-tracks='[{"name":"Future Beats","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"},{"name":"Synthwave Nights","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"}]' data-photo="img/Dj/dj-4.jpg" data-social="https://vk.com/darsa_dj">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-4.jpg');" data-dj="Darsa" role="img" aria-label="Фото Darsa"></div>
+                    <div class="dj-name">Darsa</div>
+                </div>
+                <div class="dj-item" data-dj="AHO" data-tracks='[{"name":"Dark Energy","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"},{"name":"Techno Drive","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"}]' data-photo="img/Dj/dj-5.jpg" data-social="https://vk.com/aho_music">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-5.jpg');" data-dj="AHO" role="img" aria-label="Фото AHO"></div>
+                    <div class="dj-name">AHO</div>
+                </div>
+                <div class="dj-item" data-dj="Teit" data-tracks='[{"name":"Rhythm Flow","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},{"name":"Bass Drop","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"}]' data-photo="img/Dj/dj-6.jpg" data-social="https://vk.com/teit_dj">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-6.jpg');" data-dj="Teit" role="img" aria-label="Фото Teit"></div>
+                    <div class="dj-name">Teit</div>
+                </div>
+                <div class="dj-item" data-dj="Nikto" data-tracks='[{"name":"Urban Groove","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},{"name":"Night Drive","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"}]' data-photo="img/Dj/dj-7.jpg" data-social="https://vk.com/nikto_dj">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-7.jpg');" data-dj="Nikto" role="img" aria-label="Фото Nikto"></div>
+                    <div class="dj-name">Nikto</div>
+                </div>
+                <div class="dj-item" data-dj="Globus" data-tracks='[{"name":"Space Odyssey","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"},{"name":"Galactic Beats","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"}]' data-photo="img/Dj/dj-8.jpg" data-social="https://vk.com/globus_dj">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-8.jpg');" data-dj="Globus" role="img" aria-label="Фото Globus"></div>
+                    <div class="dj-name">Globus</div>
+                </div>
+                <div class="dj-item" data-dj="Paul P" data-tracks='[{"name":"Sunset Vibes","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"},{"name":"Ocean Breeze","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"}]' data-photo="img/Dj/dj-1.jpg" data-social="https://vk.com/paulp_music">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-1.jpg');" data-dj="Paul P" role="img" aria-label="Фото Paul P"></div>
+                    <div class="dj-name">Paul P</div>
+                </div>
+                <div class="dj-item" data-dj="SkyWave" data-tracks='[{"name":"Aurora Borealis","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"},{"name":"Northern Lights","src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"}]' data-photo="img/Dj/dj-2.jpg" data-social="https://vk.com/skywave_music">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-2.jpg');" data-dj="SkyWave" role="img" aria-label="Фото SkyWave"></div>
+                    <div class="dj-name">SkyWave</div>
+                </div>
+            </div>
+
+            <div class="player-section">
+                <!-- Vinyl Record -->
+                <div class="vinyl-container">
+                    <div class="vinyl-record" id="vinylRecord"></div>
+                </div>
+                
+                <div class="player-box">
+                    <div class="player-box-content">
+                        <!-- Waveform -->
+                        <div class="waveform-container">
+                            <canvas id="waveformCanvas"></canvas>
+                        </div>
+                        
+                        <div class="current-track-info" id="trackName">🎧 Выберите трек</div>
+                        
+                        <!-- Volume Control -->
+                        <div class="volume-control">
+                            <i class="fas fa-volume-down"></i>
+                            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        
+                        <div class="controls">
+                            <button class="ctrl-btn prev" id="prevTrack" aria-label="Предыдущий трек"><i class="fas fa-step-backward"></i></button>
+                            <button class="ctrl-btn play" id="playBtn" aria-label="Воспроизвести"><i class="fas fa-play"></i></button>
+                            <button class="ctrl-btn next" id="nextTrack" aria-label="Следующий трек"><i class="fas fa-step-forward"></i></button>
+                        </div>
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="time-display">
+                            <span class="current" id="currentTime">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playlist">
+                    <div class="track-item active" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" data-name="🎧 Cruel World">
+                        <span><i class="fas fa-music" style="margin-right:8px"></i>Cruel World</span>
+                    </div>
+                    <div class="track-item" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" data-name="🎧 Fleksta">
+                        <span><i class="fas fa-music" style="margin-right:8px"></i>Fleksta</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DJ Photo Modal -->
+<div class="dj-modal" id="djModal" role="dialog" aria-modal="true" aria-label="Профиль DJ">
+    <div class="dj-modal-content">
+        <button class="close-dj-modal" id="closeDjModal" aria-label="Закрыть">×</button>
+        <div class="dj-modal-photo" id="djModalPhoto" style="background-image: url('img/Dj/dj-1.jpg');" role="img" aria-label="Фото DJ"></div>
+        <div class="dj-modal-name" id="djModalName">Ver-Dikt & Andy Dav</div>
+        <a href="#" class="dj-social-link" id="djSocialLink" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-vk" style="margin-right:8px"></i>
+            <span>Перейти в профиль</span>
+        </a>
+    </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2>Контакты</h2>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-info reveal-left">
+                <h3>Свяжитесь с нами</h3>
+                <p><strong>Адрес:</strong> г. Мурманск, Кольский проспект д.44</p>
+                <p><strong>Телефон:</strong> <a href="tel:+78152707057">8 (8152) 70-70-57</a></p>
+                <p><strong>Часы работы:</strong><br>Вс-Чт 17:00-03:00 | Пт 17:00-05:00 | Сб 19:00-07:00</p>
+                
+                <div class="social-links">
+                    <a href="https://vk.com/hh_bar" target="_blank" rel="noopener noreferrer" class="social-link vk" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+                    <a href="https://instagram.com/hhbar51" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://t.me/hhbar51" target="_blank" rel="noopener noreferrer" class="social-link telegram" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+            </div>
+            <div class="contact-map reveal-right">
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A63d1e1c5606cbb15a4a83b092b8ae426246f7825b0cbf918479213023d3edcd0&amp;source=constructor" width="100%" height="400" frameborder="0" allowfullscreen="true" style="position:relative;" loading="lazy" title="Карта расположения HHBAR"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Electronic Music Bar. Все права защищены.</p>
+</footer>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav">
+    <a href="#home" class="active"><i class="fas fa-home"></i><span>Главная</span></a>
+    <a href="#menu"><i class="fas fa-utensils"></i><span>Меню</span></a>
+    <a href="#events"><i class="fas fa-calendar"></i><span>Афиша</span></a>
+    <a href="#music"><i class="fas fa-music"></i><span>Музыка</span></a>
+    <a href="#contact"><i class="fas fa-map-marker-alt"></i><span>Контакты</span></a>
+</nav>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-label="Бронирование столика">
+    <div class="booking-modal">
+        <span class="modal-close" id="modalClose" aria-label="Закрыть">&times;</span>
+        <h3>Бронирование столика</h3>
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="bookingName">Ваше имя</label>
+                <input type="text" id="bookingName" name="name" required placeholder="Иван Иванов">
+            </div>
+            <div class="form-group">
+                <label for="bookingPhone">Телефон</label>
+                <input type="tel" id="bookingPhone" name="phone" required placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}" title="Формат: +7 (XXX) XXX-XX-XX">
+            </div>
+            <div class="form-group">
+                <label for="bookingDate">Дата</label>
+                <input type="date" id="bookingDate" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="bookingGuests">Количество гостей</label>
+                <select id="bookingGuests" name="guests" required>
+                    <option value="1">1 человек</option>
+                    <option value="2" selected>2 человека</option>
+                    <option value="3">3 человека</option>
+                    <option value="4">4 человека</option>
+                    <option value="5">5 человек</option>
+                    <option value="6+">6+ человек</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bookingNotes">Пожелания</label>
+                <textarea id="bookingNotes" name="notes" placeholder="Особые пожелания, повод визита..."></textarea>
+            </div>
+            <button type="submit" class="btn magnetic-btn" style="width:100%" id="submitBooking">Отправить заявку</button>
+            <div class="form-loader" id="formLoader">
+                <div class="form-loader-spinner"></div>
+                <p>Отправка заявки...</p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<audio id="audioPlayer"></audio>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // =========================================
+    // PARTICLE BACKGROUND
+    // =========================================
+    const pCanvas = document.getElementById('particleCanvas');
+    const pCtx = pCanvas.getContext('2d');
+    let particles = [];
+    let pMouse = { x: null, y: null, radius: 150 };
+    
+    function resizePCanvas() {
+        pCanvas.width = window.innerWidth;
+        pCanvas.height = window.innerHeight;
+    }
+    resizePCanvas();
+    window.addEventListener('resize', resizePCanvas);
+    
+    class Particle {
+        constructor() {
+            this.x = Math.random() * pCanvas.width;
+            this.y = Math.random() * pCanvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.color = Math.random() > 0.5 ? 'rgba(0, 243, 255, ' : 'rgba(255, 0, 255, ';
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > pCanvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > pCanvas.height) this.speedY *= -1;
+            
+            if (pMouse.x != null) {
+                let dx = pMouse.x - this.x;
+                let dy = pMouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < pMouse.radius) {
+                    const force = (pMouse.radius - distance) / pMouse.radius;
+                    this.x -= dx * force * 0.02;
+                    this.y -= dy * force * 0.02;
+                }
+            }
+        }
+        draw() {
+            pCtx.fillStyle = this.color + (Math.random() * 0.3 + 0.2) + ')';
+            pCtx.beginPath();
+            pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            pCtx.fill();
+        }
+    }
+    
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+    }
+    initParticles();
+    
+    function connectParticles() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i; j < particles.length; j++) {
+                let dx = particles[i].x - particles[j].x;
+                let dy = particles[i].y - particles[j].y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 120) {
+                    pCtx.strokeStyle = 'rgba(0, 243, 255, ' + (0.1 - dist/1200) + ')';
+                    pCtx.lineWidth = 0.5;
+                    pCtx.beginPath();
+                    pCtx.moveTo(particles[i].x, particles[i].y);
+                    pCtx.lineTo(particles[j].x, particles[j].y);
+                    pCtx.stroke();
+                }
+            }
+        }
+    }
+    
+    function animateParticles() {
+        pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        connectParticles();
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+    
+    document.addEventListener('mousemove', (e) => {
+        pMouse.x = e.clientX;
+        pMouse.y = e.clientY;
+    });
+
+    // =========================================
+    // HERO MOUSE PARALLAX
+    // =========================================
+    const heroParallax = document.getElementById('heroParallax');
+    const hero = document.querySelector('.hero');
+    hero.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        heroParallax.style.setProperty('--mouse-x', x + '%');
+        heroParallax.style.setProperty('--mouse-y', y + '%');
+    });
+
+    // =========================================
+    // MAGNETIC BUTTONS
+    // =========================================
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0, 0)';
+        });
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            const rect = this.getBoundingClientRect();
+            ripple.style.left = (e.clientX - rect.left) + 'px';
+            ripple.style.top = (e.clientY - rect.top) + 'px';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+
+    // =========================================
+    // THEME TOGGLE
+    // =========================================
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('magenta-mode');
+        const isMagenta = body.classList.contains('magenta-mode');
+        themeToggle.innerHTML = isMagenta ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+
+    // =========================================
+    // MOBILE MENU
+    // =========================================
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+
+    // =========================================
+    // MENU FILTER
+    // =========================================
+    const catBtns = document.querySelectorAll('.category-btn');
+    const menuItems = document.querySelectorAll('.menu-item');
+    catBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            catBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const cat = btn.dataset.cat;
+            menuItems.forEach(item => {
+                if (item.dataset.category === cat) {
+                    item.style.display = 'flex';
+                    setTimeout(() => item.style.opacity = '1', 10);
+                } else {
+                    item.style.display = 'none';
+                    item.style.opacity = '0';
+                }
+            });
+        });
+    });
+
+    // =========================================
+    // MENU 3D TILT
+    // =========================================
+    document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+        
+        // Проверка загрузки изображений
+        const imgUrl = card.dataset.img;
+        if (imgUrl) {
+            const testImg = new Image();
+            testImg.onerror = () => {
+                card.classList.add('error-image');
+            };
+            testImg.src = imgUrl;
+        }
+    });
+
+    // =========================================
+    // MENU MODAL
+    // =========================================
+    const menuModal = document.getElementById('menuModal');
+    const closeMenuModal = document.getElementById('closeMenuModal');
+    
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const imgUrl = item.dataset.img;
+            const modalImg = document.getElementById('menuModalImg');
+            if (imgUrl) {
+                modalImg.style.backgroundImage = `url('${imgUrl}')`;
+                modalImg.classList.remove('no-image');
+                modalImg.innerHTML = '';
+            } else {
+                modalImg.style.backgroundImage = 'none';
+                modalImg.classList.add('no-image');
+                modalImg.innerHTML = '<i class="fas fa-utensils"></i>';
+            }
+            document.getElementById('menuModalName').textContent = item.dataset.name;
+            document.getElementById('menuModalPrice').textContent = item.dataset.price;
+            document.getElementById('menuModalDesc').textContent = item.dataset.desc;
+            menuModal.classList.add('active');
+        });
+    });
+    closeMenuModal.addEventListener('click', () => menuModal.classList.remove('active'));
+    menuModal.addEventListener('click', (e) => { if(e.target === menuModal) menuModal.classList.remove('active'); });
+
+    // =========================================
+    // GALLERY SLIDER MODAL
+    // =========================================
+    const galleryModal = document.getElementById('galleryModal');
+    const modalSlides = document.querySelectorAll('.modal-gallery-slide');
+    const modalPrevBtn = document.getElementById('modalPrevBtn');
+    const modalNextBtn = document.getElementById('modalNextBtn');
+    const modalCounter = document.getElementById('modalCounter');
+    const closeGalleryModal = document.getElementById('closeGalleryModal');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentModalSlide = 0;
+    let currentGallerySet = 0;
+    
+    function showModalSlide(index) {
+        modalSlides.forEach(slide => slide.classList.remove('active'));
+        modalSlides[index].classList.add('active');
+        modalCounter.textContent = `${index + 1} / ${modalSlides.length}`;
+        currentModalSlide = index;
+    }
+    
+    galleryItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            currentGallerySet = parseInt(item.dataset.galleryIndex);
+            modalSlides.forEach((slide, slideIndex) => {
+                const imgPath = `img/gallery/g${currentGallerySet + 1}/${slideIndex + 1}.jpg`;
+                slide.style.backgroundImage = `url('${imgPath}')`;
+            });
+            currentModalSlide = 0;
+            showModalSlide(0);
+            galleryModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    modalPrevBtn.addEventListener('click', () => {
+        currentModalSlide = (currentModalSlide - 1 + modalSlides.length) % modalSlides.length;
+        showModalSlide(currentModalSlide);
+    });
+    
+    modalNextBtn.addEventListener('click', () => {
+        currentModalSlide = (currentModalSlide + 1) % modalSlides.length;
+        showModalSlide(currentModalSlide);
+    });
+    
+    closeGalleryModal.addEventListener('click', () => {
+        galleryModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    galleryModal.addEventListener('click', (e) => {
+        if(e.target === galleryModal) {
+            galleryModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // =========================================
+    // VIDEO LAZY LOAD
+    // =========================================
+    document.querySelectorAll('.video-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const src = this.dataset.videoSrc;
+            if (!src) return;
+            
+            this.classList.add('loading');
+            const placeholder = this.querySelector('.video-placeholder');
+            if (!placeholder) return;
+            
+            setTimeout(() => {
+                const container = document.createElement('div');
+                container.className = 'video-container';
+                container.innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`;
+                placeholder.replaceWith(container);
+                this.classList.remove('loading');
+                this.style.cursor = 'default';
+            }, 100);
+        });
+    });
+
+    // =========================================
+    // DJ PHOTO MODAL
+    // =========================================
+    const djModal = document.getElementById('djModal');
+    const closeDjModal = document.getElementById('closeDjModal');
+    const djModalPhoto = document.getElementById('djModalPhoto');
+    const djModalName = document.getElementById('djModalName');
+    const djSocialLink = document.getElementById('djSocialLink');
+    const djPhotos = document.querySelectorAll('.dj-photo');
+    
+    djPhotos.forEach(photo => {
+        photo.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const djItem = photo.closest('.dj-item');
+            const djName = djItem.dataset.dj;
+            const djPhoto = djItem.dataset.photo;
+            const djSocial = djItem.dataset.social;
+            
+            djModalName.textContent = djName;
+            djModalPhoto.style.backgroundImage = `url('${djPhoto}')`;
+            djSocialLink.href = djSocial;
+            
+            djModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    djSocialLink.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    
+    closeDjModal.addEventListener('click', () => {
+        djModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    djModal.addEventListener('click', (e) => {
+        if(e.target === djModal) {
+            djModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // =========================================
+    // MUSIC PLAYER WITH WEB AUDIO API - FIXED
+    // =========================================
+    const audio = document.getElementById('audioPlayer');
+    const playBtn = document.getElementById('playBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    const trackName = document.getElementById('trackName');
+    const vinylRecord = document.getElementById('vinylRecord');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const prevTrackBtn = document.getElementById('prevTrack');
+    const nextTrackBtn = document.getElementById('nextTrack');
+    const volumeSlider = document.getElementById('volumeSlider');
+    let isPlaying = false;
+    let audioContext, analyser, dataArray, source;
+    let currentTracks = [];
+    let currentTrackIndex = 0;
+    let currentDjIndex = 0;
+
+    function initAudioContext() {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 256;
+            source = audioContext.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioContext.destination);
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+        }
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+    }
+
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function loadTrack(src, name) {
+        audio.src = src;
+        trackName.textContent = name;
+        currentTimeEl.textContent = '0:00';
+        durationEl.textContent = '0:00';
+        progressFill.style.width = '0%';
+    }
+
+    function playAudio() {
+        initAudioContext();
+        if (!audio.src) {
+            const firstTrack = document.querySelector('.track-item');
+            if (firstTrack) {
+                loadTrack(firstTrack.dataset.src, firstTrack.dataset.name);
+                firstTrack.classList.add('active');
+            }
+        }
+        audio.play().catch(e => {
+            console.log('Playback error:', e);
+            showToast('Нажмите на страницу для воспроизведения музыки', false);
+        });
+        isPlaying = true;
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        vinylRecord.classList.add('playing');
+    }
+
+    function pauseAudio() {
+        audio.pause();
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        vinylRecord.classList.remove('playing');
+    }
+
+    playBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            pauseAudio();
+        } else {
+            playAudio();
+        }
+    });
+
+    prevTrackBtn.addEventListener('click', () => {
+        const tracks = document.querySelectorAll('.track-item');
+        if (currentTrackIndex > 0) {
+            currentTrackIndex--;
+            tracks.forEach(t => t.classList.remove('active'));
+            tracks[currentTrackIndex].classList.add('active');
+            loadTrack(tracks[currentTrackIndex].dataset.src, tracks[currentTrackIndex].dataset.name);
+            if (isPlaying) playAudio();
+        }
+    });
+
+    nextTrackBtn.addEventListener('click', () => {
+        const tracks = document.querySelectorAll('.track-item');
+        if (currentTrackIndex < tracks.length - 1) {
+            currentTrackIndex++;
+            tracks.forEach(t => t.classList.remove('active'));
+            tracks[currentTrackIndex].classList.add('active');
+            loadTrack(tracks[currentTrackIndex].dataset.src, tracks[currentTrackIndex].dataset.name);
+            if (isPlaying) playAudio();
+        }
+    });
+
+    // Volume control
+    audio.volume = 0.8;
+    volumeSlider.addEventListener('input', (e) => {
+        audio.volume = e.target.value / 100;
+    });
+
+    audio.addEventListener('timeupdate', () => {
+        if(audio.duration && !isNaN(audio.duration)) {
+            const pct = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = pct + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            durationEl.textContent = formatTime(audio.duration);
+        }
+    });
+
+    audio.addEventListener('ended', () => {
+        nextTrackBtn.click();
+    });
+
+    audio.addEventListener('waiting', () => {
+        trackName.innerHTML = '🎧 Загрузка... <span class="track-loading"></span>';
+    });
+
+    audio.addEventListener('canplay', () => {
+        const activeTrack = document.querySelector('.track-item.active');
+        if (activeTrack) {
+            trackName.textContent = activeTrack.dataset.name;
+        }
+    });
+
+    audio.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        showToast('Ошибка загрузки аудиофайла', true);
+        trackName.textContent = '🎧 Ошибка загрузки';
+    });
+
+    progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        if (audio.duration && !isNaN(audio.duration)) {
+            audio.currentTime = pos * audio.duration;
+        }
+    });
+
+    // DJ selection with tracks
+    const djItems = document.querySelectorAll('.dj-item');
+    const playlistContainer = document.querySelector('.playlist');
+
+    djItems.forEach((item, index) => {
+        item.addEventListener('click', (e) => {
+            if (e.target.classList.contains('dj-photo')) return;
+            
+            djItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            currentDjIndex = index;
+            
+            const djName = item.dataset.dj;
+            const tracksData = JSON.parse(item.dataset.tracks);
+            currentTracks = tracksData;
+            
+            // Update playlist
+            playlistContainer.innerHTML = '';
+            tracksData.forEach((track, i) => {
+                const trackEl = document.createElement('div');
+                trackEl.className = `track-item ${i === 0 ? 'active' : ''}`;
+                trackEl.dataset.src = track.src;
+                trackEl.dataset.name = `🎧 ${track.name}`;
+                trackEl.innerHTML = `<span><i class="fas fa-music" style="margin-right:8px"></i>${track.name}</span>`;
+                trackEl.addEventListener('click', () => {
+                    document.querySelectorAll('.track-item').forEach(t => t.classList.remove('active'));
+                    trackEl.classList.add('active');
+                    currentTrackIndex = i;
+                    loadTrack(track.src, `🎧 ${track.name}`);
+                    if (isPlaying) {
+                        playAudio();
+                    }
+                });
+                playlistContainer.appendChild(trackEl);
+            });
+            
+            // Load first track
+            if (tracksData.length > 0) {
+                currentTrackIndex = 0;
+                loadTrack(tracksData[0].src, `🎧 ${tracksData[0].name}`);
+            }
+        });
+    });
+
+    // Track items click
+    document.querySelectorAll('.track-item').forEach((track, index) => {
+        track.addEventListener('click', () => {
+            document.querySelectorAll('.track-item').forEach(t => t.classList.remove('active'));
+            track.classList.add('active');
+            currentTrackIndex = index;
+            loadTrack(track.dataset.src, track.dataset.name);
+            if (isPlaying) {
+                playAudio();
+            }
+        });
+    });
+
+    // Waveform Visualization
+    const wfCanvas = document.getElementById('waveformCanvas');
+    const wfCtx = wfCanvas.getContext('2d');
+    let lastTimestamp = 0;
+    const DRAW_INTERVAL = 1000 / 30;
+    
+    function resizeWfCanvas() {
+        wfCanvas.width = wfCanvas.offsetWidth;
+        wfCanvas.height = wfCanvas.offsetHeight;
+    }
+    resizeWfCanvas();
+    window.addEventListener('resize', resizeWfCanvas);
+    
+    function drawWaveform() {
+        const now = performance.now();
+        if (now - lastTimestamp >= DRAW_INTERVAL) {
+            if (!analyser) {
+                requestAnimationFrame(drawWaveform);
+                return;
+            }
+            
+            analyser.getByteFrequencyData(dataArray);
+            wfCtx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            wfCtx.fillRect(0, 0, wfCanvas.width, wfCanvas.height);
+            
+            const barWidth = (wfCanvas.width / dataArray.length) * 2.5;
+            let x = 0;
+            
+            for(let i = 0; i < dataArray.length; i++) {
+                const barHeight = (dataArray[i] / 255) * wfCanvas.height;
+                const primaryColor = getComputedStyle(document.body).getPropertyValue('--primary').trim() || '#00f3ff';
+                const secondaryColor = getComputedStyle(document.body).getPropertyValue('--secondary').trim() || '#ff00ff';
+                const gradient = wfCtx.createLinearGradient(0, wfCanvas.height - barHeight, 0, wfCanvas.height);
+                gradient.addColorStop(0, primaryColor);
+                gradient.addColorStop(1, secondaryColor);
+                
+                wfCtx.fillStyle = gradient;
+                wfCtx.fillRect(x, wfCanvas.height - barHeight, barWidth, barHeight);
+                x += barWidth + 1;
+            }
+            lastTimestamp = now;
+        }
+        requestAnimationFrame(drawWaveform);
+    }
+    drawWaveform();
+
+    // =========================================
+    // BOOKING MODAL
+    // =========================================
+    const bookingModal = document.getElementById('bookingModal');
+    const modalClose = document.getElementById('modalClose');
+    const bookBtn = document.getElementById('bookBtn');
+    const bookTriggers = document.querySelectorAll('.book-trigger');
+    
+    function openModal() {
+        bookingModal.classList.add('active');
+        const dateInput = document.getElementById('bookingDate');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        bookingModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    bookBtn.addEventListener('click', openModal);
+    bookTriggers.forEach(btn => btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openModal();
+    }));
+    modalClose.addEventListener('click', closeModal);
+    bookingModal.addEventListener('click', (e) => {
+        if(e.target === bookingModal) closeModal();
+    });
+
+    // Escape key handler for all modals
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.active, .gallery-modal.active, .menu-modal.active, .dj-modal.active')
+                .forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+        }
+    });
+
+    // Toast notification
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast' + (isError ? ' error' : '');
+        toast.classList.add('active');
+        setTimeout(() => toast.classList.remove('active'), 4000);
+    }
+
+    // Phone mask
+    const phoneInput = document.getElementById('bookingPhone');
+    phoneInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.startsWith('7') || value.startsWith('8')) {
+            value = value.substring(1);
+        }
+        let formatted = '+7';
+        if (value.length > 0) formatted += ' (' + value.substring(0, 3);
+        if (value.length >= 3) formatted += ') ' + value.substring(3, 6);
+        if (value.length >= 6) formatted += '-' + value.substring(6, 8);
+        if (value.length >= 8) formatted += '-' + value.substring(8, 10);
+        e.target.value = formatted;
+    });
+
+    // Form submission
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        const submitBtn = document.getElementById('submitBooking');
+        const loader = document.getElementById('formLoader');
+        
+        submitBtn.style.display = 'none';
+        loader.classList.add('active');
+        
+        setTimeout(() => {
+            loader.classList.remove('active');
+            submitBtn.style.display = 'block';
+            showToast('Спасибо! Ваша заявка принята. Мы свяжемся с вами для подтверждения.');
+            closeModal();
+            e.target.reset();
+        }, 1500);
+    });
+
+    // =========================================
+    // SCROLL TEXT REVEAL
+    // =========================================
+    function initTextReveal() {
+        document.querySelectorAll('.reveal-text').forEach(el => {
+            const text = el.textContent;
+            el.innerHTML = '';
+            text.split(' ').forEach((word, i) => {
+                const span = document.createElement('span');
+                span.classList.add('word');
+                span.textContent = word + ' ';
+                span.style.transitionDelay = (i * 0.05) + 's';
+                el.appendChild(span);
+            });
+            setTimeout(() => el.classList.add('visible'), 100);
+        });
+    }
+    initTextReveal();
+
+    // =========================================
+    // SCROLL ANIMATIONS
+    // =========================================
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // =========================================
+    // SMOOTH SCROLL FOR ANCHORS
+    // =========================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // =========================================
+    // GALLERY PARALLAX SCROLL (FIXED)
+    // =========================================
+    let parallaxRunning = true;
+    function parallaxGallery() {
+        if (!parallaxRunning) return;
+        galleryItems.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * 0.02;
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                item.style.transform = `translateY(${rate}px)`;
+            }
+        });
+        requestAnimationFrame(parallaxGallery);
+    }
+    parallaxGallery();
+    
+    window.addEventListener('beforeunload', () => { parallaxRunning = false; });
+
+    // =========================================
+    // BACK TO TOP BUTTON
+    // =========================================
+    const backToTop = document.createElement('button');
+    backToTop.className = 'back-to-top';
+    backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    backToTop.setAttribute('aria-label', 'Наверх');
+    document.body.appendChild(backToTop);
+    
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            if (window.pageYOffset > 500) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        }, 100);
+    });
+
+    // =========================================
+    // SERVICE WORKER REGISTRATION
+    // =========================================
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(() => {})
+            .catch(() => {});
+    }
+    
+    // Автоматически инициализируем AudioContext при первом взаимодействии
+    document.body.addEventListener('click', () => {
+        if (audioContext && audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+    }, { once: true });
+});
+</script>
+</body>
+</html>
