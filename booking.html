@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Бронирование столика — HHBAR Electronic Music Bar</title>
+<meta name="description" content="Забронируйте столик в HHBAR — лучшем электронном баре Мурманска. Схема зала.">
+<link rel="canonical" href="https://hhbar.ru/booking.html">
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+    --primary: #00f3ff;
+    --secondary: #ff00ff;
+    --dark: #0a0a0a;
+    --darker: #050505;
+    --light: #ffffff;
+    --gray: #2a2a2a;
+    --transition: all 0.3s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark);
+    color: var(--light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+/* HEADER */
+header {
+    position: fixed; width: 100%; top: 0; z-index: 1000;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+}
+nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+
+.logo { font-family: 'Montserrat', sans-serif; display: flex; align-items: baseline; gap: 8px; }
+.logo-main { font-size: 1.6rem; font-weight: 900; color: var(--primary); letter-spacing: 2px; text-shadow: 0 0 20px rgba(0, 243, 255, 0.4); }
+.logo-sub { font-size: 0.75rem; font-weight: 500; color: var(--light); opacity: 0.7; letter-spacing: 3px; text-transform: uppercase; }
+
+.back-link {
+    color: var(--primary); font-weight: 500; display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 20px; border: 1px solid var(--primary);
+}
+.back-link:hover { background: rgba(0, 243, 255, 0.1); box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); }
+
+/* HERO */
+.booking-hero {
+    padding: 120px 0 40px; text-align: center;
+    background: linear-gradient(135deg, rgba(10,10,10,0.85), rgba(5,5,5,0.9)), url('img/hhbar-hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.booking-hero h1 {
+    font-size: 2.8rem; margin-bottom: 15px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.booking-hero p { color: #aaa; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* HALL SCHEME */
+.hall-section { padding: 40px 0 60px; }
+.section-title { text-align: center; margin-bottom: 40px; }
+.section-title h2 { font-size: 2.2rem; margin-bottom: 15px; position: relative; display: inline-block; }
+.section-title h2::after {
+    content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+.section-title p { color: #aaa; margin-top: 25px; }
+
+.hall-scheme {
+    background: var(--gray); border-radius: 20px; padding: 40px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    overflow-x: auto;
+}
+
+.hall-container {
+    position: relative;
+    width: 950px;
+    height: 750px;
+    margin: 0 auto;
+    background: #151515;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+/* Table Styles */
+.table {
+    position: absolute;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border: 2px solid var(--primary);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 2px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 5;
+}
+.table:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+    transform: scale(1.08);
+    z-index: 20;
+}
+.table.selected {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(255, 0, 255, 0.1));
+    border-color: var(--secondary);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+}
+.table.occupied {
+    background: linear-gradient(135deg, #3a1a1a, #2a1a1a);
+    border-color: #ff4444;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.table.occupied:hover { transform: none; box-shadow: none; }
+.table-number { font-size: 0.9rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
+.table-capacity { font-size: 0.6rem; color: #888; line-height: 1.1; }
+
+/* VIP */
+.table-vip {
+    background: linear-gradient(135deg, #2a1a3a, #1a1a2a);
+    border-color: var(--secondary);
+}
+.table-vip .table-number { color: var(--secondary); }
+
+/* Bar Counter */
+.bar-area {
+    position: absolute;
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    border: 2px solid #444;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: #888;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    z-index: 3;
+}
+
+/* DJ Booth */
+.dj-booth {
+    position: absolute;
+    background: linear-gradient(135deg, #1a1a2a, #0a0a1a);
+    border: 2px solid var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+    z-index: 3;
+}
+
+/* Dance Bar */
+.dance-bar {
+    position: absolute;
+    background: linear-gradient(135deg, #2a1a2a, #1a0a1a);
+    border: 2px dashed var(--secondary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.65rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    z-index: 3;
+}
+
+/* Striped zone */
+.striped-zone {
+    position: absolute;
+    background: repeating-linear-gradient(90deg, #1a1a1a, #1a1a1a 10px, #222 10px, #222 20px);
+    border: 1px solid #333;
+    border-radius: 4px;
+    z-index: 2;
+}
+
+/* Legend */
+.hall-legend {
+    display: flex; justify-content: center; gap: 30px;
+    margin-top: 30px; flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #aaa; }
+.legend-box { width: 24px; height: 24px; border-radius: 4px; border: 2px solid; }
+.legend-available { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); border-color: var(--primary); }
+.legend-selected { background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(255, 0, 255, 0.1)); border-color: var(--secondary); }
+.legend-occupied { background: linear-gradient(135deg, #3a1a1a, #2a1a1a); border-color: #ff4444; }
+.legend-vip { background: linear-gradient(135deg, #2a1a3a, #1a1a2a); border-color: var(--secondary); }
+
+/* Contact */
+.contact-info {
+    text-align: center; padding: 40px 0;
+    background: linear-gradient(135deg, rgba(10,10,10,0.95), rgba(5,5,5,0.98));
+}
+.contact-info h3 {
+    font-size: 1.5rem; margin-bottom: 20px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.contact-info p { color: #aaa; font-size: 1.1rem; margin-bottom: 10px; }
+.contact-info a { color: var(--primary); font-weight: 600; }
+.contact-info a:hover { text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
+
+/* Footer */
+footer { background: var(--darker); padding: 40px 0; text-align: center; color: #666; border-top: 1px solid #222; }
+
+/* Toast */
+.toast {
+    position: fixed; bottom: 100px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--gray); border: 1px solid var(--primary);
+    color: var(--light); padding: 15px 30px; border-radius: 10px;
+    z-index: 50000; opacity: 0; transition: all 0.3s ease;
+    font-weight: 500; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+.toast.active { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .booking-hero h1 { font-size: 2rem; }
+    .hall-scheme { padding: 20px; }
+    .hall-container { transform: scale(0.6); transform-origin: top left; }
+    .hall-legend { gap: 15px; }
+}
+@media (max-width: 480px) {
+    .booking-hero { padding: 100px 0 30px; }
+    .booking-hero h1 { font-size: 1.6rem; }
+    .hall-container { transform: scale(0.45); transform-origin: top left; height: 600px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">
+                <span class="logo-main">HHBAR</span>
+                <span class="logo-sub">Electronic Music Bar</span>
+            </a>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>Назад на сайт</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<section class="booking-hero">
+    <div class="container">
+        <h1>Бронирование столика</h1>
+        <p>Выберите столик на схеме зала и свяжитесь с нами для бронирования</p>
+    </div>
+</section>
+
+<section class="hall-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Схема зала</h2>
+            <p>Нажмите на свободный столик, чтобы узнать подробности</p>
+        </div>
+
+        <div class="hall-scheme">
+            <div class="hall-container" id="hallContainer">
+
+                <!-- DJ Booth -->
+                <div class="dj-booth" style="top: 130px; right: 100px; width: 75px; height: 75px; left: 741px;">DJ</div>
+
+                <!-- Dance Bar -->
+                <div class="dance-bar" style="top: 77px; right: 15px; width: 55px; height: 334px; left: 862px;">Танцевальный бар</div>
+
+                <!-- ========== TOP ROW ========== -->
+                <div class="table" data-table="1" data-capacity="4" style="top: 15px; left: 15px; width: 60px; height: 90px;">
+                    <span class="table-number">1</span>
+                    <span class="table-capacity">4 чел</span>
+                </div>
+                <div class="table" data-table="2" data-capacity="4" style="top: 15px; left: 85px; width: 75px; height: 75px;">
+                    <span class="table-number">2</span>
+                    <span class="table-capacity">4 чел</span>
+                </div>
+                <div class="table" data-table="3" data-capacity="6" style="top: 15px; left: 170px; width: 85px; height: 85px;">
+                    <span class="table-number">3</span>
+                    <span class="table-capacity">6 чел</span>
+                </div>
+                <div class="table" data-table="4" data-capacity="6" style="top: 15px; left: 265px; width: 70px; height: 100px;">
+                    <span class="table-number">4</span>
+                    <span class="table-capacity">6 чел</span>
+                </div>
+                <div class="table" data-table="11" data-capacity="3" style="top: 15px; left: 345px; width: 65px; height: 65px;">
+                    <span class="table-number">11</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+                <div class="table" data-table="10" data-capacity="3" style="top: 90px; left: 345px; width: 65px; height: 65px;">
+                    <span class="table-number">10</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+                <div class="table" data-table="12" data-capacity="3" style="top: 15px; left: 420px; width: 65px; height: 65px;">
+                    <span class="table-number">12</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+
+                <!-- ========== MIDDLE ROW ========== -->
+                <div class="table" data-table="5" data-capacity="2" style="top: 184px; left: 18px; width: 60px; height: 60px;">
+                    <span class="table-number">5</span>
+                    <span class="table-capacity">2 чел</span>
+                </div>
+                <div class="table" data-table="6" data-capacity="2" style="top: 183px; left: 88px; width: 60px; height: 60px;">
+                    <span class="table-number">6</span>
+                    <span class="table-capacity">2 чел</span>
+                </div>
+                <div class="table" data-table="7" data-capacity="2" style="top: 183px; left: 157px; width: 60px; height: 60px;">
+                    <span class="table-number">7</span>
+                    <span class="table-capacity">2 чел</span>
+                </div>
+                <div class="table" data-table="8" data-capacity="4" style="top: 185px; left: 226px; width: 75px; height: 75px;">
+                    <span class="table-number">8</span>
+                    <span class="table-capacity">4 чел</span>
+                </div>
+                <div class="table" data-table="9" data-capacity="4" style="top: 182px; left: 315px; width: 75px; height: 75px;">
+                    <span class="table-number">9</span>
+                    <span class="table-capacity">4 чел</span>
+                </div>
+
+                <!-- ========== RIGHT MIDDLE BLOCK (13, 14) ========== -->
+                <!-- Table 14 - crossed out (occupied) -->
+                <div class="table occupied" data-table="14" data-capacity="3" style="top: 352px; right: 200px; width: 60px; height: 60px; left: 652px;">
+                    <span class="table-number">14</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+                <!-- Table 15 - occupied, same as 14 -->
+                <div class="table occupied" data-table="15" data-capacity="3" style="top: 352px; right: 130px; width: 60px; height: 60px; left: 582px;">
+                    <span class="table-number">15</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+                <!-- Table 13 -->
+                <div class="table" data-table="13" data-capacity="5" style="top: 333px; right: 85px; width: 80px; height: 80px; left: 727px;">
+                    <span class="table-number">13</span>
+                    <span class="table-capacity">5 чел</span>
+                </div>
+
+                <!-- ========== BAR AREA (LEFT BOTTOM) ========== -->
+                <!-- Row 21-27 -->
+                <div class="table" data-table="21" data-capacity="2" style="bottom: 280px; left: 15px; width: 50px; height: 40px;">
+                    <span class="table-number">21</span>
+                </div>
+                <div class="table" data-table="22" data-capacity="2" style="bottom: 280px; left: 72px; width: 50px; height: 40px;">
+                    <span class="table-number">22</span>
+                </div>
+                <div class="table" data-table="23" data-capacity="2" style="bottom: 280px; left: 129px; width: 50px; height: 40px;">
+                    <span class="table-number">23</span>
+                </div>
+                <div class="table" data-table="24" data-capacity="2" style="bottom: 280px; left: 186px; width: 50px; height: 40px;">
+                    <span class="table-number">24</span>
+                </div>
+                <div class="table" data-table="25" data-capacity="2" style="bottom: 280px; left: 243px; width: 50px; height: 40px;">
+                    <span class="table-number">25</span>
+                </div>
+                <div class="table" data-table="26" data-capacity="2" style="bottom: 280px; left: 300px; width: 50px; height: 40px;">
+                    <span class="table-number">26</span>
+                </div>
+                <div class="table" data-table="27" data-capacity="2" style="bottom: 280px; left: 357px; width: 50px; height: 40px;">
+                    <span class="table-number">27</span>
+                </div>
+
+                <!-- Bar Counter -->
+                <div class="bar-area" style="bottom: 220px; left: 15px; width: 392px; height: 45px;">
+                    <i class="fas fa-glass-martini-alt" style="margin-right:10px"></i>Барная стойка
+                </div>
+
+                <!-- Service Bar -->
+                <div class="bar-area" style="bottom: 165px; left: 15px; width: 392px; height: 45px;">
+                    <i class="fas fa-concierge-bell" style="margin-right:10px"></i>Сервис бар
+                </div>
+
+                <!-- Row 28-34 -->
+                <div class="table" data-table="28" data-capacity="2" style="bottom: 110px; left: 15px; width: 50px; height: 40px;">
+                    <span class="table-number">28</span>
+                </div>
+                <div class="table" data-table="29" data-capacity="2" style="bottom: 110px; left: 72px; width: 50px; height: 40px;">
+                    <span class="table-number">29</span>
+                </div>
+                <div class="table" data-table="30" data-capacity="2" style="bottom: 110px; left: 129px; width: 50px; height: 40px;">
+                    <span class="table-number">30</span>
+                </div>
+                <div class="table" data-table="31" data-capacity="2" style="bottom: 110px; left: 186px; width: 50px; height: 40px;">
+                    <span class="table-number">31</span>
+                </div>
+                <div class="table" data-table="32" data-capacity="2" style="bottom: 110px; left: 243px; width: 50px; height: 40px;">
+                    <span class="table-number">32</span>
+                </div>
+                <div class="table" data-table="33" data-capacity="2" style="bottom: 110px; left: 300px; width: 50px; height: 40px;">
+                    <span class="table-number">33</span>
+                </div>
+                <div class="table" data-table="34" data-capacity="2" style="bottom: 110px; left: 357px; width: 50px; height: 40px;">
+                    <span class="table-number">34</span>
+                </div>
+
+                <!-- ========== BOTTOM CENTER/RIGHT BLOCK ========== -->
+                <!-- Table 16 (10 чел) - tall vertical, left of bottom row -->
+                <div class="table" data-table="16" data-capacity="10" style="top: 502px; left: 502px; width: 70px; height: 129px;">
+                    <span class="table-number">16</span>
+                    <span class="table-capacity">10 чел</span>
+                </div>
+
+                <!-- VIP (10 чел) - vertical, next to 16 -->
+                <div class="table table-vip" data-table="VIP" data-capacity="10" style="top: 535px; left: 420px; width: 70px; height: 100px;">
+                    <span class="table-number">VIP</span>
+                    <span class="table-capacity">10 чел</span>
+                </div>
+
+                <!-- Table 17 (5 чел) -->
+                <div class="table" data-table="17" data-capacity="5" style="top: 510px; left: 585px; width: 70px; height: 70px;">
+                    <span class="table-number">17</span>
+                    <span class="table-capacity">5 чел</span>
+                </div>
+
+                <!-- Table 18 (3 чел) -->
+                <div class="table" data-table="18" data-capacity="3" style="top: 523px; left: 674px; width: 60px; height: 55px;">
+                    <span class="table-number">18</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+
+                <!-- Table 19 (3 чел) -->
+                <div class="table" data-table="19" data-capacity="3" style="top: 521px; left: 750px; width: 60px; height: 55px;">
+                    <span class="table-number">19</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+
+                <!-- Table 20 (10 чел) - large, right side -->
+                <div class="table" data-table="20" data-capacity="10" style="top: 483px; left: 827px; width: 90px; height: 90px;">
+                    <span class="table-number">20</span>
+                    <span class="table-capacity">10 чел</span>
+                </div>
+
+                <!-- Striped zone at bottom under 17-19 -->
+                <div class="striped-zone" style="bottom: 220px; left: 584px; width: 344px; height: 40px; top: 593px;"></div>
+
+            </div>
+        </div>
+
+        <div class="hall-legend">
+            <div class="legend-item">
+                <div class="legend-box legend-available"></div>
+                <span>Свободен</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-selected"></div>
+                <span>Выбран</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-occupied"></div>
+                <span>Занят</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-vip"></div>
+                <span>VIP</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-info">
+    <div class="container">
+        <h3>Для бронирования свяжитесь с нами</h3>
+        <p><i class="fas fa-phone" style="margin-right: 8px; color: var(--primary);"></i>Телефон: <a href="tel:+78152500000">+7 (8152) 70-70-57</a></p>
+        <p><i class="fab fa-telegram" style="margin-right: 8px; color: var(--primary);"></i>Telegram: <a href="https://t.me/hhbar_murmansk" target="_blank">@hhbar_murmansk</a></p>
+        <p><i class="fab fa-vk" style="margin-right: 8px; color: var(--primary);"></i>VK: <a href="https://vk.com/hhbar" target="_blank">vk.com/hhbar</a></p>
+        <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">Нажмите на столик, чтобы увидеть его номер и вместимость</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&#169; 2026 HHBAR Electronic Music Bar. Все права защищены.</p>
+    </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tables = document.querySelectorAll('.table:not(.occupied)');
+    let selectedTable = null;
+
+    tables.forEach(table => {
+        table.addEventListener('click', () => {
+            tables.forEach(t => t.classList.remove('selected'));
+            table.classList.add('selected');
+            selectedTable = table;
+            const num = table.dataset.table;
+            const cap = table.dataset.capacity;
+            showToast('Столик ' + num + ' — до ' + cap + ' человек. Свяжитесь с нами для брони!');
+        });
+    });
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('active');
+        setTimeout(() => toast.classList.remove('active'), 4000);
+    }
+});
+</script>
+</body>
+</html>
