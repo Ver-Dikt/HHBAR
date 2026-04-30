@@ -2,27 +2,39 @@ const fs = require('fs');
 const path = require('path');
 
 const audioDir = path.join(__dirname, 'audio');
-const djsData = [];
+const outputPath = path.join(__dirname, 'src/scripts/music_data.json');
+const djsData = {};
 
-// Iterate through dj directories (dj1, dj2, etc.)
-for (let i = 1; i <= 8; i++) {
-    const djDirPath = path.join(audioDir, `dj${i}`);
-    const djTracks = [];
-
-    if (fs.existsSync(djDirPath) && fs.lstatSync(djDirPath).isDirectory()) {
-        const files = fs.readdirSync(djDirPath);
-        files.forEach(file => {
-            if (file.endsWith('.mp3')) {
-                const trackPath = `audio/dj${i}/${file}`.replace(/\\/g, '/');
-                let trackName = file.replace(\.mp3$\, '').replace(/_/g, ' ').replace(/-/g, ' ').trim();
-                // Capitalize first letter of each word
-                trackName = trackName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-                djTracks.push({ name: trackName, src: trackPath });
-            }
-        });
-    }
-    djsData.push(djTracks);
+function prettifyTrackName(fileName) {
+    return fileName
+        .replace(/\.mp3$/i, '')
+        .replace(/[_-]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
 }
 
-fs.writeFileSync(path.join(__dirname, 'src/scripts/music_data.json'), JSON.stringify(djsData, null, 2));
-console.log('music_data.json generated successfully!');
+if (!fs.existsSync(audioDir)) {
+    throw new Error(`Audio directory not found: ${audioDir}`);
+}
+
+const djDirs = fs.readdirSync(audioDir, { withFileTypes: true })
+    .filter(entry => entry.isDirectory() && /^dj\d+$/i.test(entry.name))
+    .map(entry => entry.name)
+    .sort((a, b) => Number(a.replace(/\D/g, '')) - Number(b.replace(/\D/g, '')));
+
+djDirs.forEach((djDirName) => {
+    const djDirPath = path.join(audioDir, djDirName);
+    const tracks = fs.readdirSync(djDirPath)
+        .filter(file => /\.mp3$/i.test(file))
+        .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true, sensitivity: 'base' }))
+        .map((file) => ({
+            src: `audio/${djDirName}/${file}`.replace(/\\/g, '/'),
+            displayName: prettifyTrackName(file),
+            fileName: file
+        }));
+
+    djsData[djDirName] = tracks;
+});
+
+fs.writeFileSync(outputPath, JSON.stringify(djsData, null, 2), 'utf-8');
+console.log(`music_data.json generated successfully: ${outputPath}`);

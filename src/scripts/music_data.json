@@ -1,0 +1,26 @@
+{
+  "dj1": [
+    {
+      "src": "audio/dj1/01.mp3",
+      "displayName": "01",
+      "fileName": "01.mp3"
+    },
+    {
+      "src": "audio/dj1/02.mp3",
+      "displayName": "02",
+      "fileName": "02.mp3"
+    },
+    {
+      "src": "audio/dj1/Erich-LH_-Noise-Generation-Reflection_Ver-Dikt-_-Andy-Dav-Remix_-__SKY-TOP__.mp3",
+      "displayName": "Erich LH Noise Generation Reflection Ver Dikt Andy Dav Remix SKY TOP",
+      "fileName": "Erich-LH_-Noise-Generation-Reflection_Ver-Dikt-_-Andy-Dav-Remix_-__SKY-TOP__.mp3"
+    }
+  ],
+  "dj2": [],
+  "dj3": [],
+  "dj4": [],
+  "dj5": [],
+  "dj6": [],
+  "dj7": [],
+  "dj8": []
+}

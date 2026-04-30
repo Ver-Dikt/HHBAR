@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v4';
-const DYNAMIC_CACHE = 'dynamic-v4';
+const STATIC_CACHE = 'static-v5';
+const DYNAMIC_CACHE = 'dynamic-v5';
 const OFFLINE_PAGE = '/offline.html';
 
 const STATIC_ASSETS = [
@@ -7,11 +7,15 @@ const STATIC_ASSETS = [
   '/index.html',
   '/booking.html',
   '/offline.html',
-  '/img/hhbar-logo.png',
   '/img/logo-main.png',
   '/img/hhbar-hero-bg.jpg',
-  '/manifest.json'
+  '/manifest.json',
+  '/src/scripts/music_data.json'
 ];
+
+function isStaticAssetPath(pathname) {
+  return STATIC_ASSETS.includes(pathname);
+}
 
 // Install
 self.addEventListener('install', (event) => {
@@ -56,14 +60,17 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Static assets — cache first
-  if (STATIC_ASSETS.some(path => url.pathname === path || url.pathname.endsWith(path))) {
+  if (isStaticAssetPath(url.pathname)) {
     event.respondWith(
       caches.match(request).then(cached => 
         cached || fetch(request).then(resp => {
           const copy = resp.clone();
           caches.open(STATIC_CACHE).then(cache => cache.put(request, copy));
           return resp;
-        }).catch(() => caches.match('/index.html'))
+        }).catch(() => {
+          if (request.destination === 'document') return caches.match('/offline.html');
+          return new Response('', { status: 503, statusText: 'Service Unavailable' });
+        })
       )
     );
     return;
