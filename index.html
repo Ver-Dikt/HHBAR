@@ -189,11 +189,11 @@ nav {
 /* Floating Logo - ABOVE title */
 .floating-logo {
     position: relative;
-    margin: -40px auto 30px;
+    margin: 10px auto 34px;
     animation: float 6s ease-in-out infinite;
     max-width: 720px;
     opacity: 0.9;
-    width: min(600px, 82vw);
+    width: min(680px, 86vw);
     pointer-events: none;
 }
 @keyframes float {
@@ -211,6 +211,7 @@ nav {
     font-weight: 900;
     letter-spacing: 2px;
 }
+#heroTitle { display: none; }
 @keyframes heroGlow {
     0% { filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.3)); }
     100% { filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.3)); }
@@ -435,6 +436,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg, var(--secondary), #ff0066);
     color: var(--darker); padding: 8px 15px; border-radius: 10px; font-weight: 800;
     box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+    display: none;
 }
 
 /* GALLERY */
@@ -1099,9 +1101,9 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     }
 
     .floating-logo {
-        width: min(74vw, 320px);
-        max-width: 320px;
-        margin: 0 auto 18px;
+        width: min(82vw, 350px);
+        max-width: 350px;
+        margin: 34px auto 26px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1140,7 +1142,8 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         gap: 22px;
     }
     .event-card-3d {
-        height: min(126vw, 520px);
+        aspect-ratio: 4 / 5;
+        height: auto;
     }
     .event-card-3d:hover {
         transform: none;
@@ -1209,7 +1212,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 @media (max-width: 480px) {
     .hero h1 { font-size: 1.8rem; }
     .section-title h2 { font-size: 2rem; }
-    .event-card-3d { height: min(130vw, 500px); }
+    .event-card-3d { height: auto; }
     .video-title {
         font-size: 0.95rem;
         padding: 12px;
@@ -1901,9 +1904,9 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-1.jpg');" data-dj="Paul P" role="img" aria-label="Фото Paul P"></div>
                     <div class="dj-name">Paul P</div>
                 </div>
-                <div class="dj-item" data-dj="SkyWave" data-tracks='[{"name":"SkyWave - Track 01","src":"audio/dj2/01.mp3"},{"name":"SkyWave - Track 02","src":"audio/dj2/02.mp3"}]' data-photo="img/Dj/dj-2.jpg" data-social="https://vk.com/skywave_music">
-                    <div class="dj-photo" style="background-image: url('img/Dj/dj-2.jpg');" data-dj="SkyWave" role="img" aria-label="Фото SkyWave"></div>
-                    <div class="dj-name">SkyWave</div>
+                <div class="dj-item" data-dj="Dshef" data-tracks='[{"name":"Dshef - Track 01","src":"audio/dj2/01.mp3"},{"name":"Dshef - Track 02","src":"audio/dj2/02.mp3"}]' data-photo="img/Dj/dj-2.jpg" data-social="https://vk.com/dshef_music">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-2.jpg');" data-dj="Dshef" role="img" aria-label="Фото Dshef"></div>
+                    <div class="dj-name">Dshef</div>
                 </div>
             </div>
 
