@@ -968,6 +968,48 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);
 }
 
+.map-embed {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #111;
+}
+
+.map-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    filter: saturate(0.95) contrast(1.04);
+}
+
+.map-embed .map-link {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: calc(100% - 36px);
+    max-width: 310px;
+    min-height: 48px;
+    background: linear-gradient(90deg, var(--primary), #00a8ff);
+    color: var(--darker);
+    padding: 0 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.94rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 24px rgba(0, 243, 255, 0.3);
+}
+
+.map-embed .map-link:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5), 0 0 34px rgba(0, 243, 255, 0.5);
+}
+
 .social-links { display: flex; gap: 15px; margin-top: 30px; }
 .social-link {
     width: 60px; height: 60px; border-radius: 50%; display: flex;
@@ -1993,10 +2035,14 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                 </div>
             </div>
             <div class="map-container reveal-right">
-                <div class="map-static">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <h4>HHBAR Electronic Music Bar</h4>
-                    <p>Кольский проспект, 44<br>Мурманск, Россия</p>
+                <div class="map-embed">
+                    <iframe
+                        src="https://yandex.ru/map-widget/v1/?ll=33.102358%2C68.943852&z=17&pt=33.102358%2C68.943852%2Cpm2rdm&text=HHBAR%2C%20%D0%9A%D0%BE%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%2044"
+                        title="HHBAR на Яндекс.Картах"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen>
+                    </iframe>
                     <a href="https://yandex.ru/maps/-/CPGWQKph" target="_blank" rel="noopener noreferrer" class="map-link">
                         <i class="fas fa-external-link-alt"></i>
                         <span>Открыть в Яндекс.Картах</span>
