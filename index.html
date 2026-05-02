@@ -1014,9 +1014,19 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         height: auto;
         padding-top: 90px;
         padding-bottom: 40px;
+        justify-content: center;
+        align-items: center;
     }
     .hero-content {
         transform: none;
+        width: 100%;
+        max-width: 390px;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .hero h1 { font-size: 2.2rem; }
     .hero p { font-size: 1rem; }
@@ -1054,10 +1064,18 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     }
 
     .floating-logo {
-        max-width: 420px;
-        width: min(76vw, 360px);
-        margin-top: 0;
-        margin-bottom: 20px;
+        width: min(74vw, 320px);
+        max-width: 320px;
+        margin: 0 auto 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: none;
+        transform: none;
+    }
+    .floating-logo img {
+        width: 100%;
+        margin: 0 auto;
     }
 
     .music-container {
