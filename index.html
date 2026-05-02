@@ -311,8 +311,11 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 }
 .menu-item::before {
     content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--bg-img);
-    background-size: cover; background-position: center; opacity: 0.4; transition: var(--transition); z-index: 0;
+    background:
+        radial-gradient(circle at 18% 18%, rgba(0, 243, 255, 0.18), transparent 34%),
+        radial-gradient(circle at 82% 12%, rgba(255, 0, 255, 0.12), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0.01));
+    background-size: cover; background-position: center; opacity: 1; transition: var(--transition); z-index: 0;
 }
 .menu-item.error-image::before {
     background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
@@ -328,7 +331,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     border-left-color: var(--secondary);
     box-shadow: 0 20px 40px rgba(0, 243, 255, 0.2), 0 0 60px rgba(0, 243, 255, 0.1);
 }
-.menu-item:hover::before { opacity: 0.7; transform: scale(1.1); }
+.menu-item:hover::before { opacity: 1; transform: scale(1.03); }
 .menu-item h3 { font-size: 1.25rem; margin-bottom: 8px; }
 .menu-item h3 span { color: var(--primary); font-weight: 700; display: none; }
 .menu-item p { color: #aaa; font-size: 0.92rem; }
@@ -885,13 +888,45 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 .map-static {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    background:
+        linear-gradient(180deg, rgba(5,5,8,0.14), rgba(5,5,8,0.8)),
+        radial-gradient(circle at 50% 40%, rgba(0, 243, 255, 0.16), transparent 24%),
+        linear-gradient(135deg, #171717, #080808);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px;
     text-align: center;
+    position: relative;
+    isolation: isolate;
+}
+
+.map-static::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border-radius: 16px;
+    background:
+        linear-gradient(90deg, rgba(0, 243, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(rgba(0, 243, 255, 0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    opacity: 0.32;
+    z-index: -1;
+}
+
+.map-static::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 8px rgba(0, 243, 255, 0.16), 0 0 34px rgba(0, 243, 255, 0.9);
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 
 .map-static i {
@@ -1105,7 +1140,16 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         gap: 22px;
     }
     .event-card-3d {
-        height: 420px;
+        height: min(126vw, 520px);
+    }
+    .event-card-3d:hover {
+        transform: none;
+    }
+    .card-front {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: #050508;
+        background-position: center;
     }
     .menu-modal-content,
     .kitchen-modal-content {
@@ -1165,7 +1209,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 @media (max-width: 480px) {
     .hero h1 { font-size: 1.8rem; }
     .section-title h2 { font-size: 2rem; }
-    .event-card-3d { height: 350px; }
+    .event-card-3d { height: min(130vw, 500px); }
     .video-title {
         font-size: 0.95rem;
         padding: 12px;
@@ -2255,8 +2299,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item.classList.contains('kitchen-cat-card')) return;
 
             const imgUrl = item.dataset.img;
+            const hasRealImage = imgUrl && !(imgUrl.includes('hhbar-hero-bg.jpg') && (item.dataset.category === 'drinks' || item.dataset.category === 'cocktails'));
             const modalImg = document.getElementById('menuModalImg');
-            if (imgUrl) {
+            if (hasRealImage) {
                 modalImg.style.backgroundImage = `url('${imgUrl}')`;
                 modalImg.classList.remove('no-image');
                 modalImg.innerHTML = '';
@@ -2857,68 +2902,62 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    const kitchenModal = document.getElementById("kitchenModal");
-    const closeKitchenModal = document.getElementById("closeKitchenModal");
-    const kitchenModalTitle = document.getElementById("kitchenModalTitle");
-    const kitchenModalList = document.getElementById("kitchenModalList");
+    const getKitchenModalParts = () => ({
+        modal: document.getElementById("kitchenModal"),
+        close: document.getElementById("closeKitchenModal"),
+        title: document.getElementById("kitchenModalTitle"),
+        list: document.getElementById("kitchenModalList")
+    });
 
-    if (kitchenModal && closeKitchenModal && kitchenModalTitle && kitchenModalList) {
+    const closeKitchenMenu = () => {
+        const { modal } = getKitchenModalParts();
+        modal?.classList.remove("active");
+        window.hhbarUnlockPageScroll?.();
+    };
 
-        // Open kitchen modal when clicking on a kitchen category card
-        document.querySelectorAll(".kitchen-cat-card").forEach(card => {
-            card.addEventListener("click", () => {
-                const subcat = card.dataset.subcat;
-                const title = card.dataset.name;
-                const items = kitchenMenuData[subcat];
+    document.addEventListener("click", (e) => {
+        const card = e.target.closest(".kitchen-cat-card");
+        if (!card) return;
 
-                if (!items) return;
+        const { modal, title, list } = getKitchenModalParts();
+        const items = kitchenMenuData[card.dataset.subcat];
+        if (!modal || !title || !list || !items) return;
 
-                kitchenModalTitle.textContent = title;
-                kitchenModalList.replaceChildren();
+        title.textContent = card.dataset.name;
+        list.replaceChildren();
 
-                items.forEach(item => {
-                    const itemEl = document.createElement("div");
-                    itemEl.className = "kitchen-modal-item";
-                    const infoEl = document.createElement("div");
-                    infoEl.className = "kitchen-modal-item-info";
-                    const nameEl = document.createElement("div");
-                    nameEl.className = "kitchen-modal-item-name";
-                    nameEl.textContent = item.name;
-                    const descEl = document.createElement("div");
-                    descEl.className = "kitchen-modal-item-desc";
-                    descEl.textContent = item.desc;
-                    const priceEl = document.createElement("div");
-                    priceEl.className = "kitchen-modal-item-price";
-                    priceEl.textContent = item.price;
-                    infoEl.append(nameEl, descEl);
-                    itemEl.append(infoEl, priceEl);
-                    kitchenModalList.appendChild(itemEl);
-                });
-
-                kitchenModal.classList.add("active");
-                window.hhbarLockPageScroll?.();
-            });
+        items.forEach(item => {
+            const itemEl = document.createElement("div");
+            itemEl.className = "kitchen-modal-item";
+            const infoEl = document.createElement("div");
+            infoEl.className = "kitchen-modal-item-info";
+            const nameEl = document.createElement("div");
+            nameEl.className = "kitchen-modal-item-name";
+            nameEl.textContent = item.name;
+            const descEl = document.createElement("div");
+            descEl.className = "kitchen-modal-item-desc";
+            descEl.textContent = item.desc;
+            const priceEl = document.createElement("div");
+            priceEl.className = "kitchen-modal-item-price";
+            priceEl.textContent = item.price;
+            infoEl.append(nameEl, descEl);
+            itemEl.append(infoEl, priceEl);
+            list.appendChild(itemEl);
         });
 
-        closeKitchenModal.addEventListener("click", () => {
-            kitchenModal.classList.remove("active");
-            window.hhbarUnlockPageScroll?.();
-        });
+        modal.classList.add("active");
+        window.hhbarLockPageScroll?.();
+    });
 
-        kitchenModal.addEventListener("click", (e) => {
-            if (e.target === kitchenModal) {
-                kitchenModal.classList.remove("active");
-                window.hhbarUnlockPageScroll?.();
-            }
-        });
+    document.addEventListener("click", (e) => {
+        const { modal, close } = getKitchenModalParts();
+        if (!modal) return;
+        if (e.target === modal || e.target === close) closeKitchenMenu();
+    });
 
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                kitchenModal.classList.remove("active");
-                window.hhbarUnlockPageScroll?.();
-            }
-        });
-    }
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeKitchenMenu();
+    });
 </script>
 
 <!-- Kitchen Subcategory Modal -->
