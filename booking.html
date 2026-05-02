@@ -7,8 +7,6 @@
 <meta name="description" content="Забронируйте столик в HHBAR — лучшем электронном баре Мурманска. Схема зала.">
 <link rel="canonical" href="https://hhbar.ru/booking.html">
 <meta name="theme-color" content="#0a0a0a">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="manifest" href="/manifest.json">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -252,15 +250,24 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 /* Responsive */
 @media (max-width: 768px) {
+    nav { gap: 12px; }
+    .logo { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .logo-main { font-size: 1.3rem; }
+    .logo-sub { font-size: 0.58rem; letter-spacing: 1.5px; }
     .booking-hero h1 { font-size: 2rem; }
-    .hall-scheme { padding: 20px; }
-    .hall-container { transform: scale(0.6); transform-origin: top left; }
+    .hall-scheme { padding: 12px; overflow: hidden; }
+    .hall-container {
+        margin: 0;
+        transform-origin: top left;
+    }
     .hall-legend { gap: 15px; }
 }
 @media (max-width: 480px) {
     .booking-hero { padding: 100px 0 30px; }
     .booking-hero h1 { font-size: 1.6rem; }
-    .hall-container { transform: scale(0.45); transform-origin: top left; height: 600px; }
+    .back-link { padding: 8px 10px; font-size: 0.86rem; }
+    .back-link span { display: none; }
+    .contact-info p { font-size: 0.98rem; overflow-wrap: anywhere; }
 }
 </style>
 </head>
@@ -515,7 +522,24 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const tables = document.querySelectorAll('.table:not(.occupied)');
+    const hallScheme = document.querySelector('.hall-scheme');
+    const hallContainer = document.getElementById('hallContainer');
     let selectedTable = null;
+
+    function resizeHallScheme() {
+        if (!hallScheme || !hallContainer) return;
+
+        const baseWidth = 950;
+        const baseHeight = 750;
+        const availableWidth = hallScheme.clientWidth - 24;
+        const scale = Math.min(1, Math.max(0.34, availableWidth / baseWidth));
+
+        hallContainer.style.transform = `scale(${scale})`;
+        hallScheme.style.height = `${baseHeight * scale + 24}px`;
+    }
+
+    resizeHallScheme();
+    window.addEventListener('resize', resizeHallScheme);
 
     tables.forEach(table => {
         table.addEventListener('click', () => {

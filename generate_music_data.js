@@ -2,39 +2,44 @@ const fs = require('fs');
 const path = require('path');
 
 const audioDir = path.join(__dirname, 'audio');
-const outputPath = path.join(__dirname, 'src/scripts/music_data.json');
-const djsData = {};
+const outputFile = path.join(__dirname, 'src', 'scripts', 'music_data.json');
 
-function prettifyTrackName(fileName) {
-    return fileName
-        .replace(/\.mp3$/i, '')
+function cleanTrackName(fileName) {
+    return path.basename(fileName, path.extname(fileName))
         .replace(/[_-]+/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
 }
 
-if (!fs.existsSync(audioDir)) {
-    throw new Error(`Audio directory not found: ${audioDir}`);
+function getDjFolders() {
+    if (!fs.existsSync(audioDir)) return [];
+
+    return fs.readdirSync(audioDir, { withFileTypes: true })
+        .filter(entry => entry.isDirectory() && /^dj\d+$/i.test(entry.name))
+        .sort((a, b) => {
+            const aNum = Number(a.name.replace(/\D/g, ''));
+            const bNum = Number(b.name.replace(/\D/g, ''));
+            return aNum - bNum;
+        })
+        .map(entry => entry.name);
 }
 
-const djDirs = fs.readdirSync(audioDir, { withFileTypes: true })
-    .filter(entry => entry.isDirectory() && /^dj\d+$/i.test(entry.name))
-    .map(entry => entry.name)
-    .sort((a, b) => Number(a.replace(/\D/g, '')) - Number(b.replace(/\D/g, '')));
+const musicData = {};
 
-djDirs.forEach((djDirName) => {
-    const djDirPath = path.join(audioDir, djDirName);
-    const tracks = fs.readdirSync(djDirPath)
-        .filter(file => /\.mp3$/i.test(file))
-        .sort((a, b) => a.localeCompare(b, 'ru', { numeric: true, sensitivity: 'base' }))
-        .map((file) => ({
-            src: `audio/${djDirName}/${file}`.replace(/\\/g, '/'),
-            displayName: prettifyTrackName(file),
-            fileName: file
+getDjFolders().forEach(folder => {
+    const folderPath = path.join(audioDir, folder);
+    const tracks = fs.readdirSync(folderPath, { withFileTypes: true })
+        .filter(entry => entry.isFile() && path.extname(entry.name).toLowerCase() === '.mp3')
+        .sort((a, b) => a.name.localeCompare(b.name, 'ru', { numeric: true }))
+        .map(entry => ({
+            src: `audio/${folder}/${entry.name}`.replace(/\\/g, '/'),
+            displayName: cleanTrackName(entry.name),
+            fileName: entry.name
         }));
 
-    djsData[djDirName] = tracks;
+    musicData[folder.toLowerCase()] = tracks;
 });
 
-fs.writeFileSync(outputPath, JSON.stringify(djsData, null, 2), 'utf-8');
-console.log(`music_data.json generated successfully: ${outputPath}`);
+fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+fs.writeFileSync(outputFile, JSON.stringify(musicData, null, 2) + '\n', 'utf8');
+console.log(`Generated ${outputFile}`);

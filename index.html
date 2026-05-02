@@ -20,7 +20,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="img/logo-main.png">
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="manifest.json">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +56,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
 }
+body.modal-open { overflow: hidden; }
 h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 a { text-decoration: none; color: inherit; transition: var(--transition); }
 ul { list-style: none; }
@@ -188,11 +189,11 @@ nav {
 /* Floating Logo - ABOVE title */
 .floating-logo {
     position: relative;
-    margin: -70px auto 30px;
+    margin: -40px auto 30px;
     animation: float 6s ease-in-out infinite;
     max-width: 720px;
     opacity: 0.9;
-    width: 600px;
+    width: min(600px, 82vw);
     pointer-events: none;
 }
 @keyframes float {
@@ -284,6 +285,11 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     flex-wrap: wrap; 
     gap: 12px; 
     margin-bottom: 50px; 
+    max-width: 760px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: visible;
 }
 .category-btn {
     background: rgba(255, 255, 255, 0.1); border: none; color: var(--light);
@@ -291,6 +297,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     font-weight: 500; cursor: pointer; transition: var(--transition);
     font-size: 0.9rem;
     white-space: nowrap;
+    box-sizing: border-box;
 }
 .category-btn.active, .category-btn:hover { background: var(--primary); color: var(--darker); }
 
@@ -304,6 +311,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 }
 .menu-item::before {
     content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-img);
     background-size: cover; background-position: center; opacity: 0.4; transition: var(--transition); z-index: 0;
 }
 .menu-item.error-image::before {
@@ -512,7 +520,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 }
 .close-gallery-modal:hover { background: var(--primary); color: var(--darker); transform: rotate(90deg); }
 
-/* VIDEOS - THUMBNAILS ALWAYS VISIBLE */
+/* VIDEOS */
 .videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
 .video-card { 
     position: relative; padding-top: 56.25%; background: var(--gray); 
@@ -520,80 +528,6 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     box-shadow: var(--shadow); transition: var(--transition);
 }
 .video-card:hover { transform: scale(1.03); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
-
-.video-thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-    transition: transform 0.5s ease;
-}
-.video-card:hover .video-thumbnail {
-    transform: scale(1.05);
-}
-
-.video-thumbnail::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
-    z-index: 2;
-}
-
-.video-play-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.video-play-overlay i {
-    font-size: 3rem;
-    color: var(--primary);
-    transition: all 0.3s ease;
-    filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.5));
-}
-
-.video-card:hover .video-play-overlay i {
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 25px rgba(0, 243, 255, 0.8));
-}
-
-.video-play-overlay span {
-    color: #fff;
-    font-size: 0.85rem;
-    text-align: center;
-    padding: 0 20px;
-    font-weight: 500;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-
-.video-card.loading::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    border: 3px solid var(--primary);
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    z-index: 10;
-    transform: translate(-50%, -50%);
-}
 
 .video-container {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -749,6 +683,12 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     align-items: center;
     justify-content: center;
     gap: 10px;
+    min-width: 0;
+}
+.current-track-info .track-title {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.35;
 }
 
 .current-track-info .track-status {
@@ -811,10 +751,14 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     border: 1px solid rgba(0,243,255,0.1);
 }
 .track-item {
-    display: flex; justify-content: space-between; padding: 10px 15px; border-bottom: 1px solid #333;
+    width: 100%; display: flex; align-items: center; gap: 10px; text-align: left;
+    padding: 10px 15px; border: 0; border-bottom: 1px solid #333;
+    background: transparent; color: var(--light); font: inherit;
     cursor: pointer; transition: var(--transition);
+    overflow-wrap: anywhere;
 }
 .track-item:hover, .track-item.active { background: rgba(0, 243, 255, 0.1); color: var(--primary); }
+.track-item.empty { justify-content: center; color: #888; cursor: default; }
 
 .track-loading {
     display: inline-block; width: 16px; height: 16px; border: 2px solid var(--primary);
@@ -825,33 +769,100 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 /* DJ Photo Modal */
 .dj-modal {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); z-index: 4000; justify-content: center; align-items: center;
+    background: rgba(0,0,0,0.88); z-index: 4000; justify-content: center; align-items: center;
     opacity: 0; transition: opacity 0.3s ease;
+    padding: 20px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 .dj-modal.active { display: flex; opacity: 1; }
 .dj-modal-content {
-    background: var(--gray); border-radius: 20px; padding: 30px;
-    text-align: center; max-width: 500px; width: 90%;
-    box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); position: relative;
+    background: linear-gradient(145deg, rgba(9, 9, 12, 0.96), rgba(22, 22, 26, 0.98));
+    border: 1px solid rgba(0, 243, 255, 0.32);
+    border-radius: 20px;
+    padding: 0;
+    text-align: left;
+    max-width: 920px;
+    width: min(94vw, 920px);
+    max-height: 90svh;
+    box-shadow: 0 26px 90px rgba(0, 0, 0, 0.7), 0 0 70px rgba(0, 243, 255, 0.22);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(280px, 58%) 1fr;
 }
 .close-dj-modal {
-    position: absolute; top: 15px; right: 15px; background: none; border: none;
+    position: absolute; top: 16px; right: 16px; background: rgba(0, 0, 0, 0.48); border: 1px solid rgba(255,255,255,0.18);
     color: var(--light); font-size: 1.8rem; cursor: pointer; transition: var(--transition);
+    width: 44px; height: 44px; border-radius: 50%; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
 }
 .close-dj-modal:hover { color: var(--primary); transform: rotate(90deg); }
 .dj-modal-photo {
-    width: 200px; height: 200px; border-radius: 50%; margin: 0 auto 20px;
-    display: flex; align-items: center; justify-content: center; font-size: 5rem;
-    font-weight: 700; color: var(--darker); background-size: cover; background-position: center;
-    background-color: var(--gray); border: 3px solid var(--primary);
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    font-size: 5rem;
+    font-weight: 700; color: var(--light); background-size: contain; background-position: center;
+    background-repeat: no-repeat;
+    background-color: #050508; border: 0;
+    position: relative;
 }
-.dj-modal-name { font-size: 1.8rem; margin-bottom: 10px; color: var(--primary); }
+.dj-modal-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.04) 60%, rgba(0,0,0,0.16) 100%),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.08), rgba(255, 0, 255, 0.05));
+    pointer-events: none;
+}
+.dj-modal-info {
+    position: relative;
+    padding: 34px 30px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+.dj-modal-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.dj-modal-name {
+    font-size: clamp(1.65rem, 4vw, 3.4rem);
+    margin-bottom: 12px;
+    color: var(--light);
+    line-height: 1.05;
+    text-shadow: 0 10px 35px rgba(0,0,0,0.8);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: manual;
+}
+.dj-modal-note {
+    color: #d6d6d6;
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 560px;
+    margin-bottom: 20px;
+}
 .dj-social-link {
-    display: inline-block; margin-top: 15px; color: var(--primary);
-    font-weight: 600; font-size: 1.1rem; transition: var(--transition);
-    border-bottom: 2px solid transparent;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 46px; padding: 0 18px; color: var(--darker);
+    background: var(--primary);
+    border-radius: 999px;
+    font-weight: 700; font-size: 0.98rem; transition: var(--transition);
+    border-bottom: 0;
 }
-.dj-social-link:hover { border-bottom: 2px solid var(--primary); transform: translateY(-2px); }
+.dj-social-link:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0, 243, 255, 0.45); }
 
 /* CONTACT & MAP */
 .contact-wrapper { display: flex; flex-wrap: wrap; gap: 50px; }
@@ -998,6 +1009,15 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         overflow-y: auto;
     }
     .mobile-nav { display: flex; }
+    .hero {
+        min-height: 100svh;
+        height: auto;
+        padding-top: 90px;
+        padding-bottom: 40px;
+    }
+    .hero-content {
+        transform: none;
+    }
     .hero h1 { font-size: 2.2rem; }
     .hero p { font-size: 1rem; }
     section { padding: 60px 0; }
@@ -1007,12 +1027,21 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     body { padding-bottom: 70px; }
 
     .menu-categories {
-        gap: 8px;
-        padding: 0 10px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding: 0;
+        width: 100%;
+        max-width: 420px;
+        overflow-x: clip;
     }
     .category-btn {
-        padding: 8px 16px;
+        width: 100%;
+        padding: 10px 12px;
         font-size: 0.85rem;
+        min-height: 44px;
+        white-space: normal;
+        line-height: 1.15;
     }
 
     .hero-buttons {
@@ -1025,10 +1054,90 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     }
 
     .floating-logo {
-        max-width: 460px;
-        width: 380px;
-        margin-top: -50px;
+        max-width: 420px;
+        width: min(76vw, 360px);
+        margin-top: 0;
         margin-bottom: 20px;
+    }
+
+    .music-container {
+        padding: 20px;
+        border-radius: 16px;
+        gap: 18px;
+    }
+    .player-box {
+        padding: 20px 16px;
+    }
+    .current-track-info {
+        font-size: 1rem;
+        align-items: flex-start;
+    }
+    .playlist {
+        height: auto;
+        max-height: 260px;
+        padding: 12px;
+    }
+    .track-item {
+        min-height: 46px;
+        padding: 11px 10px;
+    }
+    .events-grid-3d,
+    .videos-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    .event-card-3d {
+        height: 420px;
+    }
+    .menu-modal-content,
+    .kitchen-modal-content {
+        width: calc(100% - 28px);
+        max-height: 88svh;
+        padding: 24px 18px;
+        border-radius: 16px;
+    }
+    .menu-modal-img {
+        height: 220px;
+    }
+    .modal-gallery-container {
+        width: calc(100% - 24px);
+    }
+    .modal-gallery-nav {
+        padding: 0 10px;
+    }
+    .modal-gallery-btn {
+        width: 46px;
+        height: 46px;
+        font-size: 1.4rem;
+    }
+    .dj-modal {
+        padding: 14px;
+        align-items: center;
+    }
+    .dj-modal-content {
+        width: 100%;
+        max-height: 88svh;
+        border-radius: 16px;
+        display: grid;
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+    .dj-modal-photo {
+        aspect-ratio: 4 / 5;
+        min-height: 0;
+        background-position: center;
+    }
+    .dj-modal-info {
+        padding: 22px 20px 24px;
+        justify-content: flex-start;
+    }
+    .dj-modal-name {
+        font-size: clamp(1.55rem, 8vw, 2.35rem);
+        line-height: 1.08;
+    }
+    .dj-modal-note {
+        font-size: 0.92rem;
+        margin-bottom: 16px;
     }
 
     .logo-main { font-size: 1.3rem; }
@@ -1039,20 +1148,17 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     .hero h1 { font-size: 1.8rem; }
     .section-title h2 { font-size: 2rem; }
     .event-card-3d { height: 350px; }
+    .video-title {
+        font-size: 0.95rem;
+        padding: 12px;
+    }
 
     .menu-categories {
-        justify-content: flex-start;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding: 0 15px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-    .menu-categories::-webkit-scrollbar {
-        display: none;
+        grid-template-columns: 1fr 1fr;
+        max-width: 100%;
     }
     .category-btn {
-        flex-shrink: 0;
+        font-size: 0.82rem;
     }
 }
 
@@ -1418,12 +1524,12 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                 <h3>Пиццы</h3>
                 <p>С креветками, мясная, сырная, с копченой грудкой.</p>
             </div>
-            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="hot" data-name="Горячее" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="hot" data-name="Горячее" data-img="img/kitchen/k4/1.jpg" style="--bg-img: url('img/kitchen/k4/1.jpg');">
                 <span class="menu-subcat">9 позиций</span>
                 <h3>Горячее</h3>
                 <p>Стейки, паста, рыба на гриле. Граммовка: 300-450г.</p>
             </div>
-            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="snacks" data-name="Закуски" data-img="img/kitchen/k4/1.jpg" style="--bg-img: url('img/kitchen/k4/1.jpg');">
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="snacks" data-name="Закуски" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
                 <span class="menu-subcat">13 позиций</span>
                 <h3>Закуски</h3>
                 <p>Брускетты, тартар, севиче, фри, крылышки. Граммовка: 100-320г.</p>
@@ -1521,7 +1627,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
             <div class="menu-item reveal tilt-card" data-category="hookah" data-name="ЭЛЕКТРОННЫЙ КАЛЬЯН" data-price="—" data-desc="Современный альтернативный формат. Чистый вкус, никакого дыма, только пар и насыщенный аромат." data-img="img/kitchen/k4/5.jpg" style="display:none; --bg-img: url('img/kitchen/k4/5.jpg');">
                 <h3>ЭЛЕКТРОННЫЙ КАЛЬЯН <span>—</span></h3>
                 <p>Современный альтернативный формат</p>
-            </div></div>
+            </div>
         </div>
     </div>
 </section>
@@ -1539,7 +1645,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 <!-- EVENTS - NO CAPTIONS ON FRONT -->
 <section id="events">
-    <video class="events-video-bg" autoplay muted loop playsinline poster="img/hhbar-hero-bg.jpg">
+    <video class="events-video-bg" autoplay muted loop playsinline poster="img/events/ev-1.jpg">
         <source src="Video/hero-video.mp4" type="video/mp4">
     </video>
     <div class="events-overlay"></div>
@@ -1549,7 +1655,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
             <p>Не пропустите самые яркие события</p>
         </div>
         <div class="events-grid-3d">
-            <div class="event-card-3d" onclick="this.classList.toggle('flipped')">
+            <div class="event-card-3d">
                 <div class="card-face card-front" style="--bg-img: url('img/events/ev-1.jpg')">
                     <div class="event-date">18 ОКТ</div>
                 </div>
@@ -1560,7 +1666,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                     <a href="booking.html" class="btn magnetic-btn book-trigger" style="margin-top:20px">Бронь</a>
                 </div>
             </div>
-            <div class="event-card-3d" onclick="this.classList.toggle('flipped')">
+            <div class="event-card-3d">
                 <div class="card-face card-front" style="--bg-img: url('img/events/ev-2.jpg')">
                     <div class="event-date">31 ОКТ</div>
                 </div>
@@ -1571,7 +1677,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                     <a href="booking.html" class="btn magnetic-btn book-trigger" style="margin-top:20px">Бронь</a>
                 </div>
             </div>
-            <div class="event-card-3d" onclick="this.classList.toggle('flipped')">
+            <div class="event-card-3d">
                 <div class="card-face card-front" style="--bg-img: url('img/events/ev-3.jpg')">
                     <div class="event-date">2 НОЯ</div>
                 </div>
@@ -1650,37 +1756,37 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         <div class="videos-grid">
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe src="https://vk.com/video_ext.php?oid=-30291448&id=456239486&hd=2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239486&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет COORD 2008 11.04.26</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe src="https://vk.com/video_ext.php?oid=-30291448&id=456239487&hd=2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239487&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет G-POL 14.02.26</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe src="https://vk.com/video_ext.php?oid=-30291448&id=456239472&hd=2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239472&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет ISENTIE 24.01.26</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe src="https://vk.com/video_ext.php?oid=-30291448&id=456239471&hd=2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239471&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет AIWASKA 07.01.2026</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe src="https://vk.com/video_ext.php?oid=-30291448&id=456239454&hd=2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239454&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет HHBAR Нам 7 Лет 29.11.25</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe src="https://vk.com/video_ext.php?oid=-30291448&id=456239450&hd=2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239450&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет -30, Бал Снежной Королевы 01.11.25</div>
             </div>
@@ -1747,8 +1853,8 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                 <div class="player-box">
                     <div class="player-box-content">
                         <div class="current-track-info" id="trackName">
-                            <span class="track-status paused" id="trackStatus"></span>
-                            <span>Выберите трек</span>
+                            <span class="track-status paused" aria-hidden="true"></span>
+                            <span class="track-title">Выберите трек</span>
                         </div>
 
                         <div class="volume-control">
@@ -1790,11 +1896,15 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     <div class="dj-modal-content">
         <button class="close-dj-modal" id="closeDjModal" aria-label="Закрыть">&#215;</button>
         <div class="dj-modal-photo" id="djModalPhoto" style="background-image: url('img/Dj/dj-1.jpg');" role="img" aria-label="Фото DJ"></div>
-        <div class="dj-modal-name" id="djModalName">Ver-Dikt & Andy Dav</div>
-        <a href="#" class="dj-social-link" id="djSocialLink" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-vk" style="margin-right:8px"></i>
-            <span>Перейти в профиль</span>
-        </a>
+        <div class="dj-modal-info">
+            <div class="dj-modal-kicker"><i class="fas fa-headphones-alt"></i><span>HHBAR artist</span></div>
+            <div class="dj-modal-name" id="djModalName">Ver-Dikt & Andy Dav</div>
+            <p class="dj-modal-note">Сеты, настроение и актуальные анонсы артиста. Откройте профиль, чтобы следить за новыми выступлениями.</p>
+            <a href="#" class="dj-social-link" id="djSocialLink" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-vk"></i>
+                <span>Профиль артиста</span>
+            </a>
+        </div>
     </div>
 </div>
 
@@ -1860,13 +1970,10 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Performance: lazy-load non-critical images
-    document.querySelectorAll('img').forEach((img) => {
-        if (!img.closest('.hero') && !img.classList.contains('floating-logo')) {
-            img.loading = 'lazy';
-            img.decoding = 'async';
-        }
-    });
+    const lockPageScroll = () => document.body.classList.add('modal-open');
+    const unlockPageScroll = () => document.body.classList.remove('modal-open');
+    window.hhbarLockPageScroll = lockPageScroll;
+    window.hhbarUnlockPageScroll = unlockPageScroll;
 
     // =========================================
     // PARTICLE BACKGROUND
@@ -2050,6 +2157,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     // MENU 3D TILT
     // =========================================
+    document.querySelectorAll('.event-card-3d').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            card.classList.toggle('flipped');
+        });
+    });
+
     document.querySelectorAll('.tilt-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -2082,13 +2196,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeMenuModal = document.getElementById('closeMenuModal');
     const menuModalDesc = document.getElementById('menuModalDesc');
 
-    const escapeHtml = (str = '') => str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-
     const renderModalDescription = (item) => {
         const raw = item.dataset.desc || '';
         const lines = raw
@@ -2097,14 +2204,29 @@ document.addEventListener('DOMContentLoaded', () => {
             .filter(Boolean);
 
         if ((item.dataset.category === 'drinks' || item.dataset.category === 'cocktails') && lines.length > 1) {
-            const html = lines.map(line => {
+            const linesWrap = document.createElement('div');
+            linesWrap.className = 'menu-modal-lines';
+
+            lines.forEach(line => {
                 const parts = line.split(/\s[—-]\s(.+)/);
+                const lineEl = document.createElement('div');
+                lineEl.className = 'menu-modal-line';
+                const titleEl = document.createElement('div');
+                titleEl.className = 'menu-modal-line-title';
+                titleEl.textContent = parts[0] || line;
+                lineEl.appendChild(titleEl);
+
                 if (parts.length >= 3) {
-                    return `<div class="menu-modal-line"><div class="menu-modal-line-title">${escapeHtml(parts[0])}</div><div class="menu-modal-line-desc">${escapeHtml(parts[1])}</div></div>`;
+                    const descEl = document.createElement('div');
+                    descEl.className = 'menu-modal-line-desc';
+                    descEl.textContent = parts[1];
+                    lineEl.appendChild(descEl);
                 }
-                return `<div class="menu-modal-line"><div class="menu-modal-line-title">${escapeHtml(line)}</div></div>`;
-            }).join('');
-            menuModalDesc.innerHTML = `<div class="menu-modal-lines">${html}</div>`;
+
+                linesWrap.appendChild(lineEl);
+            });
+
+            menuModalDesc.replaceChildren(linesWrap);
         } else {
             menuModalDesc.textContent = raw;
         }
@@ -2129,10 +2251,19 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('menuModalPrice').textContent = item.dataset.price;
             renderModalDescription(item);
             menuModal.classList.add('active');
+            lockPageScroll();
         });
     });
-    closeMenuModal.addEventListener('click', () => menuModal.classList.remove('active'));
-    menuModal.addEventListener('click', (e) => { if(e.target === menuModal) menuModal.classList.remove('active'); });
+    closeMenuModal.addEventListener('click', () => {
+        menuModal.classList.remove('active');
+        unlockPageScroll();
+    });
+    menuModal.addEventListener('click', (e) => {
+        if(e.target === menuModal) {
+            menuModal.classList.remove('active');
+            unlockPageScroll();
+        }
+    });
 
     // =========================================
     // GALLERY SLIDER MODAL
@@ -2164,7 +2295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentModalSlide = 0;
             showModalSlide(0);
             galleryModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            lockPageScroll();
         });
     });
 
@@ -2180,77 +2311,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeGalleryModal.addEventListener('click', () => {
         galleryModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        unlockPageScroll();
     });
 
     galleryModal.addEventListener('click', (e) => {
         if(e.target === galleryModal) {
             galleryModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            unlockPageScroll();
         }
     });
 
-    // Accessibility: close active modal dialogs by Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key !== 'Escape') return;
-        const modalIds = ['menuModal', 'galleryModal', 'djModal', 'kitchenModal'];
-        modalIds.forEach((id) => {
-            const modal = document.getElementById(id);
-            if (modal && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    });
-
     // =========================================
-    // VIDEO LAZY LOAD WITH THUMBNAILS
-    // =========================================
-    document.querySelectorAll('.video-card').forEach(card => {
-        card.addEventListener('click', function(e) {
-            // If clicking close button, don't reopen
-            if (e.target.closest('.video-close-btn')) return;
-
-            const src = this.dataset.videoSrc;
-            const thumb = this.dataset.thumb;
-            if (!src) return;
-
-            // If already has iframe, don't recreate
-            if (this.querySelector('.video-container')) return;
-
-            this.classList.add('loading');
-            const thumbnail = this.querySelector('.video-thumbnail');
-            if (!thumbnail) return;
-
-            setTimeout(() => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'video-container';
-                wrapper.innerHTML = `
-                    <iframe src="${src}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
-                    <button class="video-close-btn" aria-label="Закрыть видео">&times;</button>
-                `;
-                thumbnail.replaceWith(wrapper);
-                this.classList.remove('loading');
-                this.style.cursor = 'default';
-
-                // Add close functionality
-                wrapper.querySelector('.video-close-btn').addEventListener('click', (ev) => {
-                    ev.stopPropagation();
-                    const newThumb = document.createElement('div');
-                    newThumb.className = 'video-thumbnail';
-                    newThumb.style.backgroundImage = `url('${thumb}')`;
-                    newThumb.innerHTML = `
-                        <div class="video-play-overlay">
-                            <i class="fas fa-play-circle"></i>
-                            <span>${this.querySelector('.video-title').textContent}</span>
-                        </div>
-                    `;
-                    wrapper.replaceWith(newThumb);
-                    this.style.cursor = 'pointer';
-                });
-            }, 100);
-        });
-    });// DJ PHOTO MODAL
+    // DJ PHOTO MODAL
     // =========================================
     const djModal = document.getElementById('djModal');
     const closeDjModal = document.getElementById('closeDjModal');
@@ -2258,6 +2330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const djModalName = document.getElementById('djModalName');
     const djSocialLink = document.getElementById('djSocialLink');
     const djPhotos = document.querySelectorAll('.dj-photo');
+    const formatDjName = (name) => name.replace(/\(([^)]+)\)/g, '\u00A0($1)');
 
     djPhotos.forEach(photo => {
         photo.addEventListener('click', (e) => {
@@ -2267,12 +2340,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const djPhoto = djItem.dataset.photo;
             const djSocial = djItem.dataset.social;
 
-            djModalName.textContent = djName;
+            djModalName.textContent = formatDjName(djName);
             djModalPhoto.style.backgroundImage = `url('${djPhoto}')`;
             djSocialLink.href = djSocial;
 
             djModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            lockPageScroll();
         });
     });
 
@@ -2282,14 +2355,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeDjModal.addEventListener('click', () => {
         djModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        unlockPageScroll();
     });
 
     djModal.addEventListener('click', (e) => {
         if(e.target === djModal) {
             djModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            unlockPageScroll();
         }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+
+        [menuModal, galleryModal, djModal].forEach(modal => modal.classList.remove('active'));
+        unlockPageScroll();
     });
 
     // =========================================
@@ -2300,7 +2380,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('progressBar');
     const progressFill = document.getElementById('progressFill');
     const trackName = document.getElementById('trackName');
-    const trackStatus = document.getElementById('trackStatus');
     const currentTimeEl = document.getElementById('currentTime');
     const durationEl = document.getElementById('duration');
     const prevTrackBtn = document.getElementById('prevTrack');
@@ -2311,6 +2390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTracks = [];
     let currentTrackIndex = 0;
     let currentDjIndex = 0;
+    let musicLibrary = null;
 
     function initAudioContext() {
         if (!audioContext) {
@@ -2334,42 +2414,52 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
 
+    function getTrackTitleEl() {
+        return document.querySelector('#trackName .track-title');
+    }
+
     function updateTrackStatus(playing) {
-        if (trackStatus) {
-            trackStatus.classList.toggle('paused', !playing);
+        const status = document.querySelector('#trackName .track-status');
+        if (status) {
+            status.classList.toggle('paused', !playing);
         }
+    }
+
+    function setTrackTitle(name) {
+        const title = getTrackTitleEl();
+        if (title) title.textContent = name;
     }
 
     function loadTrack(src, name) {
         audio.src = src;
-        const trackInfo = document.querySelector('#trackName span:last-child') || trackName;
-        if (trackInfo !== trackName) {
-            trackInfo.textContent = name;
-        } else {
-            trackName.innerHTML = `<span class="track-status paused" id="trackStatus"></span><span>${name}</span>`;
-        }
+        setTrackTitle(name);
         currentTimeEl.textContent = '0:00';
         durationEl.textContent = '0:00';
         progressFill.style.width = '0%';
         updateTrackStatus(false);
     }
 
-    function playAudio() {
+    async function playAudio() {
         initAudioContext();
         if (!audio.src) {
-            const firstTrack = document.querySelector('.track-item');
-            if (firstTrack) {
-                loadTrack(firstTrack.dataset.src, firstTrack.dataset.name);
-                firstTrack.classList.add('active');
+            if (currentTracks.length) {
+                selectTrack(0, false);
             }
         }
-        audio.play().catch(e => {
+        if (!audio.src) return;
+
+        try {
+            await audio.play();
+            isPlaying = true;
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            updateTrackStatus(true);
+        } catch (e) {
             console.log('Playback error:', e);
             showToast('Нажмите на страницу для воспроизведения музыки', false);
-        });
-        isPlaying = true;
-        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        updateTrackStatus(true);
+            isPlaying = false;
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            updateTrackStatus(false);
+        }
     }
 
     function pauseAudio() {
@@ -2387,27 +2477,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    prevTrackBtn.addEventListener('click', () => {
-        const tracks = document.querySelectorAll('.track-item');
-        if (currentTrackIndex > 0) {
-            currentTrackIndex--;
-            tracks.forEach(t => t.classList.remove('active'));
-            tracks[currentTrackIndex].classList.add('active');
-            loadTrack(tracks[currentTrackIndex].dataset.src, tracks[currentTrackIndex].dataset.name);
-            if (isPlaying) playAudio();
-        }
-    });
-
-    nextTrackBtn.addEventListener('click', () => {
-        const tracks = document.querySelectorAll('.track-item');
-        if (currentTrackIndex < tracks.length - 1) {
-            currentTrackIndex++;
-            tracks.forEach(t => t.classList.remove('active'));
-            tracks[currentTrackIndex].classList.add('active');
-            loadTrack(tracks[currentTrackIndex].dataset.src, tracks[currentTrackIndex].dataset.name);
-            if (isPlaying) playAudio();
-        }
-    });
+    prevTrackBtn.addEventListener('click', () => moveTrack(-1));
+    nextTrackBtn.addEventListener('click', () => moveTrack(1));
 
     audio.volume = 0.8;
     volumeSlider.addEventListener('input', (e) => {
@@ -2424,29 +2495,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     audio.addEventListener('ended', () => {
-        nextTrackBtn.click();
-    });
-
-    audio.addEventListener('waiting', () => {
-        const trackInfo = document.querySelector('#trackName span:last-child');
-        if (trackInfo) {
-            trackInfo.innerHTML = 'Загрузка... <span class="track-loading"></span>';
+        if (currentTrackIndex < currentTracks.length - 1) {
+            moveTrack(1, true);
+        } else {
+            pauseAudio();
+            audio.currentTime = 0;
         }
     });
 
+    audio.addEventListener('waiting', () => {
+        setTrackTitle('Загрузка...');
+    });
+
     audio.addEventListener('canplay', () => {
-        const activeTrack = document.querySelector('.track-item.active');
+        const activeTrack = currentTracks[currentTrackIndex];
         if (activeTrack) {
-            const trackInfo = document.querySelector('#trackName span:last-child');
-            if (trackInfo) trackInfo.textContent = activeTrack.dataset.name;
+            setTrackTitle(activeTrack.displayName);
         }
     });
 
     audio.addEventListener('error', (e) => {
         console.error('Audio error:', e);
         showToast('Ошибка загрузки аудиофайла', true);
-        const trackInfo = document.querySelector('#trackName span:last-child');
-        if (trackInfo) trackInfo.textContent = 'Ошибка загрузки';
+        setTrackTitle('Ошибка загрузки');
     });
 
     progressBar.addEventListener('click', (e) => {
@@ -2457,132 +2528,112 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // AUTO-SCAN DJ TRACKS FROM FOLDERS
-    // =========================================
-    let generatedMusicData = null;
-
-    async function loadGeneratedMusicData() {
-        if (generatedMusicData !== null) return generatedMusicData;
-        try {
-            const response = await fetch('src/scripts/music_data.json', { cache: 'no-store' });
-            if (!response.ok) throw new Error('music_data.json not found');
-            generatedMusicData = await response.json();
-        } catch (e) {
-            generatedMusicData = {};
-        }
-        return generatedMusicData;
-    }
-
-    async function scanDjTracks(djFolder) {
-        const musicData = await loadGeneratedMusicData();
-        if (musicData && Array.isArray(musicData[djFolder]) && musicData[djFolder].length > 0) {
-            return musicData[djFolder].map((track) => ({
-                src: track.src,
-                name: track.displayName || track.name || track.fileName || track.src,
-                displayName: track.displayName || track.name || track.fileName || track.src
-            }));
-        }
-
-        const tracks = [];
-        const maxTracks = 20; // Maximum tracks to scan per DJ
-
-        for (let i = 1; i <= maxTracks; i++) {
-            const num = i.toString().padStart(2, '0');
-            const src = `audio/${djFolder}/${num}.mp3`;
-
-            try {
-                const response = await fetch(src, { method: 'HEAD' });
-                if (response.ok) {
-                    // Use filename as track name (without extension)
-                    // You can rename files to: "Artist - Track Name.mp3"
-                    const trackName = `${num}`; // Default, will be updated if we can read ID3
-                    tracks.push({
-                        src: src,
-                        name: trackName,
-                        displayName: `${djFolder} - Track ${num}`
-                    });
-                } else {
-                    break; // Stop scanning if file not found
-                }
-            } catch (e) {
-                break; // Stop on error
-            }
-        }
-
-        return tracks;
-    }
-
-    // DJ selection with auto-scanned tracks
+    // DJ selection with generated local audio data
     const djItems = document.querySelectorAll('.dj-item');
     const playlistContainer = document.querySelector('.playlist');
 
+    function normalizeTrack(track) {
+        const displayName = track.displayName || track.name || track.fileName || 'Без названия';
+        return { src: track.src, displayName };
+    }
+
+    async function loadMusicLibrary() {
+        try {
+            const response = await fetch('src/scripts/music_data.json', { cache: 'no-store' });
+            if (!response.ok) throw new Error(`music_data.json ${response.status}`);
+            musicLibrary = await response.json();
+        } catch (e) {
+            console.warn('Music data fallback:', e);
+            musicLibrary = null;
+        }
+    }
+
+    function getFallbackTracks(item) {
+        try {
+            return JSON.parse(item.dataset.tracks || '[]').map(normalizeTrack);
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function getTracksForDj(item, index) {
+        const key = item.dataset.folder || `dj${index + 1}`;
+        if (musicLibrary && Object.prototype.hasOwnProperty.call(musicLibrary, key)) {
+            return musicLibrary[key].map(normalizeTrack);
+        }
+        return musicLibrary ? [] : getFallbackTracks(item);
+    }
+
+    function renderPlaylist(tracks) {
+        playlistContainer.innerHTML = '';
+
+        if (!tracks.length) {
+            const empty = document.createElement('div');
+            empty.className = 'track-item empty';
+            empty.textContent = 'Треки не найдены';
+            playlistContainer.appendChild(empty);
+            setTrackTitle('Треки не найдены');
+            audio.removeAttribute('src');
+            audio.load();
+            return;
+        }
+
+        tracks.forEach((track, i) => {
+            const trackEl = document.createElement('button');
+            trackEl.type = 'button';
+            trackEl.className = `track-item ${i === 0 ? 'active' : ''}`;
+            trackEl.dataset.index = i;
+
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-music';
+            icon.setAttribute('aria-hidden', 'true');
+
+            const label = document.createElement('span');
+            label.textContent = track.displayName;
+
+            trackEl.append(icon, label);
+            trackEl.addEventListener('click', () => selectTrack(i, isPlaying));
+            playlistContainer.appendChild(trackEl);
+        });
+    }
+
+    function selectTrack(index, shouldPlay = false) {
+        if (!currentTracks[index]) return;
+        currentTrackIndex = index;
+        document.querySelectorAll('.track-item').forEach((track, i) => {
+            track.classList.toggle('active', i === index);
+        });
+        loadTrack(currentTracks[index].src, currentTracks[index].displayName);
+        if (shouldPlay) playAudio();
+    }
+
+    function moveTrack(delta, shouldPlay = isPlaying) {
+        const nextIndex = currentTrackIndex + delta;
+        if (nextIndex >= 0 && nextIndex < currentTracks.length) {
+            selectTrack(nextIndex, shouldPlay);
+        }
+    }
+
+    function selectDj(item, index, shouldPlay = false) {
+        djItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        currentDjIndex = index;
+        currentTracks = getTracksForDj(item, index);
+        renderPlaylist(currentTracks);
+        selectTrack(0, shouldPlay);
+    }
+
     djItems.forEach((item, index) => {
-        item.addEventListener('click', async (e) => {
+        item.addEventListener('click', (e) => {
             if (e.target.classList.contains('dj-photo')) return;
-
-            djItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-            currentDjIndex = index;
-
-            const djName = item.dataset.dj;
-            const djFolder = `dj${index + 1}`;
-
-            // Show loading state
-            playlistContainer.innerHTML = '<div class="track-item" style="justify-content:center; color:#888;"><i class="fas fa-spinner fa-spin" style="margin-right:8px"></i>Сканирование треков...</div>';
-
-            // Scan for tracks
-            const tracks = await scanDjTracks(djFolder);
-
-            // Fallback: use predefined tracks if auto-scan fails or folder doesn't exist
-            if (tracks.length === 0) {
-                const fallbackTracks = JSON.parse(item.dataset.tracks || '[]');
-                tracks.push(...fallbackTracks.map((t, i) => ({
-                    src: t.src,
-                    name: t.name,
-                    displayName: t.name
-                })));
-            }
-
-            currentTracks = tracks;
-
-            playlistContainer.innerHTML = '';
-            tracks.forEach((track, i) => {
-                const trackEl = document.createElement('div');
-                trackEl.className = `track-item ${i === 0 ? 'active' : ''}`;
-                trackEl.dataset.src = track.src;
-                trackEl.dataset.name = track.displayName;
-                trackEl.innerHTML = `<span><i class="fas fa-music" style="margin-right:8px"></i>${track.displayName}</span>`;
-                trackEl.addEventListener('click', () => {
-                    document.querySelectorAll('.track-item').forEach(t => t.classList.remove('active'));
-                    trackEl.classList.add('active');
-                    currentTrackIndex = i;
-                    loadTrack(track.src, track.displayName);
-                    if (isPlaying) {
-                        playAudio();
-                    }
-                });
-                playlistContainer.appendChild(trackEl);
-            });
-
-            if (tracks.length > 0) {
-                currentTrackIndex = 0;
-                loadTrack(tracks[0].src, tracks[0].displayName);
-            } else {
-                playlistContainer.innerHTML = '<div class="track-item" style="justify-content:center; color:#888;">Треки не найдены</div>';
-            }
+            selectDj(item, index, isPlaying);
         });
     });
 
-    document.querySelectorAll('.track-item').forEach((track, index) => {
-        track.addEventListener('click', () => {
-            document.querySelectorAll('.track-item').forEach(t => t.classList.remove('active'));
-            track.classList.add('active');
-            currentTrackIndex = index;
-            loadTrack(track.dataset.src, track.dataset.name);
-            if (isPlaying) {
-                playAudio();
-            }
-        });
+    playlistContainer.innerHTML = '<div class="track-item empty">Загрузка треков...</div>';
+    loadMusicLibrary().then(() => {
+        const activeDj = document.querySelector('.dj-item.active') || djItems[0];
+        if (activeDj) selectDj(activeDj, Array.from(djItems).indexOf(activeDj), false);
     });
 
     // Waveform Visualization
@@ -2733,11 +2784,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     // KITCHEN SUBCATEGORY MODAL
     // =========================================
-    const kitchenModal = document.getElementById("kitchenModal");
-    const closeKitchenModal = document.getElementById("closeKitchenModal");
-    const kitchenModalTitle = document.getElementById("kitchenModalTitle");
-    const kitchenModalList = document.getElementById("kitchenModalList");
-
     // Menu data for each subcategory
     const kitchenMenuData = {
         soups: [
@@ -2799,6 +2845,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const kitchenModalList = document.getElementById("kitchenModalList");
 
     if (kitchenModal && closeKitchenModal && kitchenModalTitle && kitchenModalList) {
+
         // Open kitchen modal when clicking on a kitchen category card
         document.querySelectorAll(".kitchen-cat-card").forEach(card => {
             card.addEventListener("click", () => {
@@ -2809,35 +2856,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!items) return;
 
                 kitchenModalTitle.textContent = title;
-                kitchenModalList.innerHTML = "";
+                kitchenModalList.replaceChildren();
 
                 items.forEach(item => {
                     const itemEl = document.createElement("div");
                     itemEl.className = "kitchen-modal-item";
-                    itemEl.innerHTML = `
-                        <div class="kitchen-modal-item-info">
-                            <div class="kitchen-modal-item-name">${item.name}</div>
-                            <div class="kitchen-modal-item-desc">${item.desc}</div>
-                        </div>
-                        <div class="kitchen-modal-item-price">${item.price}</div>
-                    `;
+                    const infoEl = document.createElement("div");
+                    infoEl.className = "kitchen-modal-item-info";
+                    const nameEl = document.createElement("div");
+                    nameEl.className = "kitchen-modal-item-name";
+                    nameEl.textContent = item.name;
+                    const descEl = document.createElement("div");
+                    descEl.className = "kitchen-modal-item-desc";
+                    descEl.textContent = item.desc;
+                    const priceEl = document.createElement("div");
+                    priceEl.className = "kitchen-modal-item-price";
+                    priceEl.textContent = item.price;
+                    infoEl.append(nameEl, descEl);
+                    itemEl.append(infoEl, priceEl);
                     kitchenModalList.appendChild(itemEl);
                 });
 
                 kitchenModal.classList.add("active");
-                document.body.style.overflow = "hidden";
+                window.hhbarLockPageScroll?.();
             });
         });
 
         closeKitchenModal.addEventListener("click", () => {
             kitchenModal.classList.remove("active");
-            document.body.style.overflow = "auto";
+            window.hhbarUnlockPageScroll?.();
         });
 
         kitchenModal.addEventListener("click", (e) => {
             if (e.target === kitchenModal) {
                 kitchenModal.classList.remove("active");
-                document.body.style.overflow = "auto";
+                window.hhbarUnlockPageScroll?.();
+            }
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                kitchenModal.classList.remove("active");
+                window.hhbarUnlockPageScroll?.();
             }
         });
     }

@@ -9,13 +9,8 @@ const STATIC_ASSETS = [
   '/offline.html',
   '/img/logo-main.png',
   '/img/hhbar-hero-bg.jpg',
-  '/manifest.json',
-  '/src/scripts/music_data.json'
+  '/manifest.json'
 ];
-
-function isStaticAssetPath(pathname) {
-  return STATIC_ASSETS.includes(pathname);
-}
 
 // Install
 self.addEventListener('install', (event) => {
@@ -60,17 +55,14 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Static assets — cache first
-  if (isStaticAssetPath(url.pathname)) {
+  if (STATIC_ASSETS.some(path => url.pathname === path || url.pathname.endsWith(path))) {
     event.respondWith(
       caches.match(request).then(cached => 
         cached || fetch(request).then(resp => {
           const copy = resp.clone();
           caches.open(STATIC_CACHE).then(cache => cache.put(request, copy));
           return resp;
-        }).catch(() => {
-          if (request.destination === 'document') return caches.match('/offline.html');
-          return new Response('', { status: 503, statusText: 'Service Unavailable' });
-        })
+        }).catch(() => caches.match('/index.html'))
       )
     );
     return;
