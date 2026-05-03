@@ -503,7 +503,8 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 }
 .modal-gallery-slide {
     display: none; width: 100%; height: 600px;
-    background-size: cover; background-position: center;
+    background-size: contain; background-position: center; background-repeat: no-repeat;
+    background-color: #030306;
 }
 .modal-gallery-slide.active { display: block; animation: fadeIn 0.5s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
