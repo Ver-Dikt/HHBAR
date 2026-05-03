@@ -412,18 +412,18 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     position: relative; width: 100%; height: 520px; transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
 }
-.event-card-3d:hover { 
-    transform: rotateY(10deg) rotateX(5deg) translateZ(20px);
-    filter: drop-shadow(0 0 30px var(--primary));
-}
 .event-card-3d.flipped { transform: rotateY(180deg); }
 .card-face {
     position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 .card-front {
-    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%), var(--bg-img);
-    background-size: cover; background-position: center;
+    background-image: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%), var(--bg-img);
+    background-size: 100% 100%, contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #050508;
     display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
     border: 1px solid rgba(0, 243, 255, 0.2);
 }
@@ -432,6 +432,8 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
     border: 1px solid var(--primary);
 }
+
+.event-card-3d:hover { filter: drop-shadow(0 0 24px rgba(0, 243, 255, 0.55)); }
 .event-date {
     position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg, var(--secondary), #ff0066);
     color: var(--darker); padding: 8px 15px; border-radius: 10px; font-weight: 800;
@@ -440,9 +442,14 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 }
 
 /* GALLERY */
-.gallery-masonry { column-count: 3; column-gap: 20px; }
+.gallery-masonry {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
 .gallery-item {
-    position: relative; margin-bottom: 20px; break-inside: avoid;
+    position: relative;
+    aspect-ratio: 4 / 5;
     border-radius: 15px; overflow: hidden; cursor: pointer;
     box-shadow: var(--shadow); transition: var(--transition);
 }
@@ -450,7 +457,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     transform: scale(1.03); 
     box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
 }
-.gallery-item img { width: 100%; height: auto; transition: transform 0.5s; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
 .gallery-item:hover img { transform: scale(1.1); }
 .gallery-item .gallery-caption {
     position: absolute; 
@@ -462,7 +469,8 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     -webkit-backdrop-filter: blur(10px);
     padding: 12px 18px;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 700;
+    text-align: center;
     color: var(--light);
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
     transform: translateY(0);
@@ -1054,11 +1062,11 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 .mobile-nav {
     display: none; position: fixed; bottom: 0; left: 0; width: 100%;
     background: rgba(10, 10, 10, 0.98); border-top: 1px solid #333;
-    justify-content: space-around; padding: 15px 0; z-index: 1000;
+    justify-content: space-around; padding: 12px 0; z-index: 1000;
     backdrop-filter: blur(20px);
 }
-.mobile-nav a { color: #888; font-size: 0.8rem; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.mobile-nav a i { font-size: 1.4rem; margin-bottom: 5px; }
+.mobile-nav a { color: #888; font-size: 0.72rem; text-align: center; display: flex; flex: 1 1 0; flex-direction: column; align-items: center; min-width: 0; }
+.mobile-nav a i { font-size: 1.22rem; margin-bottom: 5px; }
 .mobile-nav a.active { color: var(--primary); }
 
 /* RESPONSIVE */
@@ -1066,7 +1074,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     .music-container { flex-direction: column; height: auto; }
     .dj-list, .player-section { width: 100%; }
     .dj-list { max-height: 350px; margin-bottom: 20px; }
-    .gallery-masonry { column-count: 2; }
+    .gallery-masonry { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .modal-gallery-slide { height: 400px; }
 }
 
@@ -1111,7 +1119,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     .hero p { font-size: 1rem; }
     section { padding: 60px 0; }
     footer { margin-bottom: 70px; }
-    .gallery-masonry { column-count: 1; }
+    .gallery-masonry { grid-template-columns: 1fr; }
     .modal-gallery-slide { height: 300px; }
     body { padding-bottom: 70px; }
 
@@ -1187,12 +1195,33 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         aspect-ratio: 4 / 5;
         height: auto;
     }
-    .event-card-3d:hover {
-        transform: none;
+    .event-card-3d.flipped {
+        transform: rotateY(180deg);
+    }
+    .card-face {
+        border-radius: 16px;
+    }
+    .card-back {
+        justify-content: flex-start;
+        padding: 24px 18px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .card-back h3 {
+        font-size: 1.35rem;
+        margin-bottom: 12px;
+    }
+    .card-back p {
+        font-size: 0.94rem;
+        line-height: 1.45;
+        margin-bottom: 10px;
+    }
+    .card-back .btn {
+        flex: 0 0 auto;
+        margin-top: 12px !important;
     }
     .card-front {
-        background-size: contain;
-        background-repeat: no-repeat;
+        background-size: 100% 100%, contain;
         background-color: #050508;
         background-position: center;
     }
@@ -1538,10 +1567,10 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Главная</a></li>
                 <li><a href="#features">О нас</a></li>
-                <li><a href="#menu">Меню</a></li>
                 <li><a href="#events">Мероприятия</a></li>
                 <li><a href="#gallery">Галерея</a></li>
                 <li><a href="#videos">Видео</a></li>
+                <li><a href="#menu">Меню</a></li>
                 <li><a href="#music">Музыка</a></li>
                 <li><a href="#contact">Контакты</a></li>
                 <li><a href="booking.html" class="btn magnetic-btn" style="padding: 8px 20px; font-size: 0.9rem; margin-left: 10px;">Забронировать</a></li>
@@ -1551,7 +1580,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 </header>
 
 <!-- HERO -->
-<video class="page-video-bg" autoplay muted loop playsinline poster="img/hhbar-hero-bg.jpg">
+<video class="page-video-bg" autoplay muted loop playsinline>
     <source src="Video/hero-video.mp4" type="video/mp4">
 </video>
 <div class="page-video-overlay"></div>
@@ -1752,7 +1781,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 <!-- EVENTS - NO CAPTIONS ON FRONT -->
 <section id="events">
-    <video class="events-video-bg" autoplay muted loop playsinline poster="img/events/ev-1.jpg">
+    <video class="events-video-bg" autoplay muted loop playsinline>
         <source src="Video/hero-video.mp4" type="video/mp4">
     </video>
     <div class="events-overlay"></div>
@@ -1807,29 +1836,29 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
             <p>Атмосфера наших вечеринок</p>
         </div>
         <div class="gallery-masonry">
-            <div class="gallery-item reveal" data-gallery-index="0" data-caption="Вечеринка COORD 2008">
-                <img src="img/gallery/g1/1.jpg" alt="Вечеринка COORD 2008" loading="lazy">
-                <div class="gallery-caption">Вечеринка COORD 2008</div>
+            <div class="gallery-item reveal" data-gallery-index="0" data-caption="7 лет HHBAR">
+                <img src="img/gallery/g1/1.jpg" alt="7 лет HHBAR" loading="lazy">
+                <div class="gallery-caption">7 лет HHBAR</div>
             </div>
-            <div class="gallery-item reveal" data-gallery-index="1" data-caption="DJ Set G-POL">
-                <img src="img/gallery/g2/1.jpg" alt="DJ Set G-POL" loading="lazy">
-                <div class="gallery-caption">DJ Set G-POL</div>
+            <div class="gallery-item reveal" data-gallery-index="1" data-caption="COORD 2008">
+                <img src="img/gallery/g2/1.jpg" alt="COORD 2008" loading="lazy">
+                <div class="gallery-caption">COORD 2008</div>
             </div>
-            <div class="gallery-item reveal" data-gallery-index="2" data-caption="Halloween Special">
-                <img src="img/gallery/g3/1.jpg" alt="Halloween Special" loading="lazy">
-                <div class="gallery-caption">Halloween Special</div>
+            <div class="gallery-item reveal" data-gallery-index="2" data-caption="NATASHA WAX & SONY VIBE">
+                <img src="img/gallery/g3/1.jpg" alt="NATASHA WAX & SONY VIBE" loading="lazy">
+                <div class="gallery-caption">NATASHA WAX & SONY VIBE</div>
             </div>
-            <div class="gallery-item reveal" data-gallery-index="3" data-caption="7 Лет HHBAR">
-                <img src="img/gallery/g4/1.jpg" alt="7 Лет HHBAR" loading="lazy">
-                <div class="gallery-caption">7 Лет HHBAR</div>
+            <div class="gallery-item reveal" data-gallery-index="3" data-caption="ISENTIE">
+                <img src="img/gallery/g4/1.jpg" alt="ISENTIE" loading="lazy">
+                <div class="gallery-caption">ISENTIE</div>
             </div>
-            <div class="gallery-item reveal" data-gallery-index="4" data-caption="-30 Бал Снежной Королевы">
-                <img src="img/gallery/g5/1.jpg" alt="-30 Бал Снежной Королевы" loading="lazy">
-                <div class="gallery-caption">-30 Бал Снежной Королевы</div>
+            <div class="gallery-item reveal" data-gallery-index="4" data-caption="AIWASKA">
+                <img src="img/gallery/g5/1.jpg" alt="AIWASKA" loading="lazy">
+                <div class="gallery-caption">AIWASKA</div>
             </div>
-            <div class="gallery-item reveal" data-gallery-index="5" data-caption="Live Set AIWASKA">
-                <img src="img/gallery/g6/1.jpg" alt="Live Set AIWASKA" loading="lazy">
-                <div class="gallery-caption">Live Set AIWASKA</div>
+            <div class="gallery-item reveal" data-gallery-index="5" data-caption="Jou Nielsen">
+                <img src="img/gallery/g6/1.jpg" alt="Jou Nielsen" loading="lazy">
+                <div class="gallery-caption">Jou Nielsen</div>
             </div>
         </div>
     </div>
@@ -1863,13 +1892,13 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         <div class="videos-grid">
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239486&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239487&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет COORD 2008 11.04.26</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239487&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239486&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет G-POL 14.02.26</div>
             </div>
@@ -2068,8 +2097,9 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 <!-- MOBILE NAV -->
 <nav class="mobile-nav">
     <a href="#home" class="active"><i class="fas fa-home"></i><span>Главная</span></a>
-    <a href="#menu"><i class="fas fa-utensils"></i><span>Меню</span></a>
     <a href="#events"><i class="fas fa-calendar"></i><span>Афиша</span></a>
+    <a href="#videos"><i class="fas fa-video"></i><span>Видео</span></a>
+    <a href="#menu"><i class="fas fa-utensils"></i><span>Меню</span></a>
     <a href="#music"><i class="fas fa-music"></i><span>Музыка</span></a>
     <a href="#contact"><i class="fas fa-map-marker-alt"></i><span>Контакты</span></a>
 </nav>
@@ -2081,6 +2111,13 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    const menuSection = document.getElementById('menu');
+    const menuModalRoot = document.getElementById('menuModal');
+    const videosSection = document.getElementById('videos');
+    if (menuSection && menuModalRoot && videosSection) {
+        videosSection.after(menuSection, menuModalRoot);
+    }
+
     const lockPageScroll = () => document.body.classList.add('modal-open');
     const unlockPageScroll = () => document.body.classList.remove('modal-open');
     window.hhbarLockPageScroll = lockPageScroll;
