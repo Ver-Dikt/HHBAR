@@ -32,7 +32,7 @@ getDjFolders().forEach(folder => {
         .filter(entry => entry.isFile() && path.extname(entry.name).toLowerCase() === '.mp3')
         .sort((a, b) => a.name.localeCompare(b.name, 'ru', { numeric: true }))
         .map(entry => ({
-            src: `audio/${folder}/${entry.name}`.replace(/\\/g, '/'),
+            src: `audio/${folder}/${encodeURIComponent(entry.name)}`,
             displayName: cleanTrackName(entry.name),
             fileName: entry.name
         }));

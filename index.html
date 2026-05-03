@@ -2687,7 +2687,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadMusicLibrary() {
         try {
-            const response = await fetch('src/scripts/music_data.json', { cache: 'no-store' });
+            const response = await fetch('src/scripts/music_data.json?v=20260503-2', { cache: 'no-store' });
             if (!response.ok) throw new Error(`music_data.json ${response.status}`);
             musicLibrary = await response.json();
         } catch (e) {

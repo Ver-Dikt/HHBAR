@@ -16,11 +16,61 @@
       "fileName": "Erich-LH_-Noise-Generation-Reflection_Ver-Dikt-_-Andy-Dav-Remix_-__SKY-TOP__.mp3"
     }
   ],
-  "dj2": [],
+  "dj2": [
+    {
+      "src": "audio/dj2/HUNTER%20(RU)%20-%20Elvaho%20(Original%20Mix).mp3",
+      "displayName": "HUNTER (RU) Elvaho (Original Mix)",
+      "fileName": "HUNTER (RU) - Elvaho (Original Mix).mp3"
+    },
+    {
+      "src": "audio/dj2/HUNTER%20(RU)%20-%20Every%20Tear%20(Original%20Mix).mp3",
+      "displayName": "HUNTER (RU) Every Tear (Original Mix)",
+      "fileName": "HUNTER (RU) - Every Tear (Original Mix).mp3"
+    },
+    {
+      "src": "audio/dj2/HUNTER%20(RU)%20-%20Everybody%20Listen%20(Original%20Mix).mp3",
+      "displayName": "HUNTER (RU) Everybody Listen (Original Mix)",
+      "fileName": "HUNTER (RU) - Everybody Listen (Original Mix).mp3"
+    },
+    {
+      "src": "audio/dj2/HUNTER%20(RU)%20-%20Muchacho%20(Original%20Mix).mp3",
+      "displayName": "HUNTER (RU) Muchacho (Original Mix)",
+      "fileName": "HUNTER (RU) - Muchacho (Original Mix).mp3"
+    },
+    {
+      "src": "audio/dj2/HUNTER%20(RU)%20-%20No%20Need%20To%20Play%20(Original%20Mix).mp3",
+      "displayName": "HUNTER (RU) No Need To Play (Original Mix)",
+      "fileName": "HUNTER (RU) - No Need To Play (Original Mix).mp3"
+    },
+    {
+      "src": "audio/dj2/HUNTER%20(RU)%20-%20Shadows%20(Original%20Mix).mp3",
+      "displayName": "HUNTER (RU) Shadows (Original Mix)",
+      "fileName": "HUNTER (RU) - Shadows (Original Mix).mp3"
+    },
+    {
+      "src": "audio/dj2/HUNTER%20(RU)%20-%20Tembala%20(Original%20Mix).mp3",
+      "displayName": "HUNTER (RU) Tembala (Original Mix)",
+      "fileName": "HUNTER (RU) - Tembala (Original Mix).mp3"
+    }
+  ],
   "dj3": [],
   "dj4": [],
-  "dj5": [],
+  "dj5": [
+    {
+      "src": "audio/dj5/AHO%20-%20DEEP%20NIGHT%20VOL%23%2018.mp3",
+      "displayName": "AHO DEEP NIGHT VOL# 18",
+      "fileName": "AHO - DEEP NIGHT VOL# 18.mp3"
+    }
+  ],
   "dj6": [],
   "dj7": [],
-  "dj8": []
+  "dj8": [
+    {
+      "src": "audio/dj8/GLOBUS%20HHBAR%20.mp3",
+      "displayName": "GLOBUS HHBAR",
+      "fileName": "GLOBUS HHBAR .mp3"
+    }
+  ],
+  "dj9": [],
+  "dj10": []
 }
