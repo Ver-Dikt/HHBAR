@@ -361,16 +361,23 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 /* Menu Modal */
 .menu-modal {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: center;
+    background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: flex-start;
     opacity: 0; transition: opacity 0.3s ease;
+    padding: clamp(24px, 6svh, 56px) 20px 20px;
+    box-sizing: border-box;
 }
 .menu-modal.active { display: flex; opacity: 1; }
 .menu-modal-content {
     background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
     border: 1px solid var(--primary); border-radius: 20px;
     padding: 40px; max-width: 500px; width: 90%;
+    max-height: calc(100svh - clamp(44px, 8svh, 76px));
+    overflow: hidden;
+    overscroll-behavior: contain;
     box-shadow: 0 0 60px rgba(0, 243, 255, 0.2);
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .menu-modal-img {
     width: 100%; height: 300px; border-radius: 15px;
@@ -381,13 +388,46 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     margin-bottom: 20px;
     border: 2px solid var(--primary);
 }
+.menu-modal-img.fill-width {
+    height: min(68svh, 620px);
+    background-size: contain;
+}
+.menu-modal-img.fit-napitki {
+    aspect-ratio: 1728 / 1314;
+    height: auto;
+    background-size: contain;
+}
 .menu-modal-img.no-image {
     display: flex; align-items: center; justify-content: center;
     background: var(--gray); font-size: 4rem; color: var(--primary);
 }
 .menu-modal-name { font-size: 1.8rem; color: var(--primary); margin-bottom: 10px; }
-.menu-modal-price { color: var(--secondary); font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
-.menu-modal-desc { color: #ccc; line-height: 1.6; white-space: pre-line; }
+.menu-modal-meta {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.menu-modal-price { color: var(--secondary); font-size: 1.5rem; font-weight: 700; margin: 0; }
+.menu-modal-price:empty { display: none; }
+.menu-modal-volume {
+    color: #a9f8ff;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.menu-modal-volume:empty { display: none; }
+.menu-modal-desc {
+    color: #ccc;
+    line-height: 1.6;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 6px;
+    white-space: pre-line;
+}
 .menu-modal-lines { display: grid; gap: 10px; margin-top: 6px; }
 .menu-modal-line {
     display: grid;
@@ -888,6 +928,14 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     border-bottom: 0;
 }
 .dj-social-link:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0, 243, 255, 0.45); }
+.dj-modal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.dj-social-link.hidden {
+    display: none;
+}
 
 /* CONTACT & MAP */
 .contact-wrapper { display: flex; flex-wrap: wrap; gap: 50px; }
@@ -1233,6 +1281,9 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         background-color: #050508;
         background-position: center;
     }
+    .menu-modal {
+        padding: 18px 14px 14px;
+    }
     .menu-modal-content,
     .kitchen-modal-content {
         width: calc(100% - 28px);
@@ -1242,6 +1293,12 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     }
     .menu-modal-img {
         height: 220px;
+    }
+    .menu-modal-img.fill-width {
+        height: min(58svh, 500px);
+    }
+    .menu-modal-img.fit-napitki {
+        height: auto;
     }
     .modal-gallery-container {
         width: calc(100% - 24px);
@@ -1432,15 +1489,6 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 /* Kitchen Category Cards */
 .kitchen-cat-card {
     cursor: pointer;
-    min-height: 220px;
-}
-.kitchen-cat-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-.kitchen-cat-card p {
-    font-size: 0.95rem;
-    opacity: 0.9;
 }
 
 /* Kitchen Modal */
@@ -1653,22 +1701,22 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
         <div class="menu-grid" id="menuGrid">
             <!-- КУХНЯ -->
-            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="soups" data-name="Супы" data-img="img/kitchen/k1/1.jpg" style="--bg-img: url('img/kitchen/k1/1.jpg');">
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="soups" data-name="Супы" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
                 <span class="menu-subcat">5 позиций</span>
                 <h3>Супы</h3>
                 <p>Крем-супы и Том-ям. Граммовка: 350-500г.</p>
             </div>
-            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="salads" data-name="Салаты" data-img="img/kitchen/k2/1.jpg" style="--bg-img: url('img/kitchen/k2/1.jpg');">
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="salads" data-name="Салаты" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
                 <span class="menu-subcat">10 позиций</span>
                 <h3>Салаты</h3>
                 <p>Баварский, Цезарь, с тунцом, с лососем и другие. Граммовка: 250-350г.</p>
             </div>
-            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="pizzas" data-name="Пиццы" data-img="img/kitchen/k3/1.jpg" style="--bg-img: url('img/kitchen/k3/1.jpg');">
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="pizzas" data-name="Пиццы" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
                 <span class="menu-subcat">4 позиции</span>
                 <h3>Пиццы</h3>
                 <p>С креветками, мясная, сырная, с копченой грудкой.</p>
             </div>
-            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="hot" data-name="Горячее" data-img="img/kitchen/k4/1.jpg" style="--bg-img: url('img/kitchen/k4/1.jpg');">
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="hot" data-name="Горячее" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
                 <span class="menu-subcat">9 позиций</span>
                 <h3>Горячее</h3>
                 <p>Стейки, паста, рыба на гриле. Граммовка: 300-450г.</p>
@@ -1680,95 +1728,83 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
             </div>
 
             <!-- ЛИМОНАДЫ -->
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Strawberry / Lime / Peach" data-price="490₽" data-desc="Кордиал клубника-лайм, биттер грейпфрут, мусс персик, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
-                <h3>Strawberry / Lime / Peach <span>490₽</span></h3>
-                <p>Кордиал клубника-лайм, биттер грейпфрут, мусс персик, содовая. 300 мл.</p>
-            </div>
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Basil / Feijoa / Pear" data-price="490₽" data-desc="Кордиал базилик-фейхоа-груша, пряный сироп, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
-                <h3>Basil / Feijoa / Pear <span>490₽</span></h3>
-                <p>Кордиал базилик-фейхоа-груша, пряный сироп, содовая. 300 мл.</p>
-            </div>
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Sea Buckthorn / Almonds" data-price="490₽" data-desc="Пюре облепиха, сироп миндаль, сок лимона, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
-                <h3>Sea Buckthorn / Almonds <span>490₽</span></h3>
-                <p>Пюре облепиха, сироп миндаль, сок лимона, содовая. 300 мл.</p>
-            </div>
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Pear / Aloe Honey" data-price="490₽" data-desc="Пюре груша, мед алоэ, сок лимона, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
-                <h3>Pear / Aloe Honey <span>490₽</span></h3>
-                <p>Пюре груша, мед алоэ, сок лимона, содовая. 300 мл.</p>
-            </div>
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Raspberry / Passion Fruit" data-price="490₽" data-desc="Пюре малина, пюре маракуйя, сок лимона, малиновый сироп, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
-                <h3>Raspberry / Passion Fruit <span>490₽</span></h3>
-                <p>Пюре малина, пюре маракуйя, сок лимона, малиновый сироп, содовая. 300 мл.</p>
-            </div>
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Mango / Passion Fruit" data-price="490₽" data-desc="Пюре манго, пюре маракуйя, сок лимона, сироп маракуйя, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
-                <h3>Mango / Passion Fruit <span>490₽</span></h3>
-                <p>Пюре манго, пюре маракуйя, сок лимона, сироп маракуйя, содовая. 300 мл.</p>
-            </div>
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Kiwi / Mint" data-price="490₽" data-desc="Киви, мята, сироп киви, сок лимона, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Kiwi / Mint" data-price="490₽" data-desc="Киви, мята, сироп киви, сок лимона, содовая. 300 мл." data-img="img/kitchen/lemonade/001.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/001.jpg');">
                 <h3>Kiwi / Mint <span>490₽</span></h3>
                 <p>Киви, мята, сироп киви, сок лимона, содовая. 300 мл.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Classical" data-price="490₽" data-desc="Апельсин, лимон, лайм, мята, сок лимона, сахарный сироп, содовая. 300 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
-                <h3>Classical <span>490₽</span></h3>
-                <p>Апельсин, лимон, лайм, мята, сок лимона, сахарный сироп, содовая. 300 мл.</p>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Mango / Passion Fruit" data-price="490₽" data-desc="Пюре манго, пюре маракуйя, сок лимона, сироп маракуйя, содовая. 300 мл." data-img="img/kitchen/lemonade/002.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/002.jpg');">
+                <h3>Mango / Passion Fruit <span>490₽</span></h3>
+                <p>Пюре манго, пюре маракуйя, сок лимона, сироп маракуйя, содовая. 300 мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Raspberry / Passion Fruit" data-price="490₽" data-desc="Пюре малина, пюре маракуйя, сок лимона, малиновый сироп, содовая. 300 мл." data-img="img/kitchen/lemonade/003.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/003.jpg');">
+                <h3>Raspberry / Passion Fruit <span>490₽</span></h3>
+                <p>Пюре малина, пюре маракуйя, сок лимона, малиновый сироп, содовая. 300 мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Sea Buckthorn / Almonds" data-price="490₽" data-desc="Пюре облепиха, сироп миндаль, сок лимона, содовая. 300 мл." data-img="img/kitchen/lemonade/004.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/004.jpg');">
+                <h3>Sea Buckthorn / Almonds <span>490₽</span></h3>
+                <p>Пюре облепиха, сироп миндаль, сок лимона, содовая. 300 мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Strawberry / Lime / Peach" data-price="490₽" data-desc="Кордиал клубника-лайм, биттер грейпфрут, мусс персик, содовая. 300 мл." data-img="img/kitchen/lemonade/005.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/005.jpg');">
+                <h3>Strawberry / Lime / Peach <span>490₽</span></h3>
+                <p>Кордиал клубника-лайм, биттер грейпфрут, мусс персик, содовая. 300 мл.</p>
             </div>
 
             <!-- НАПИТКИ -->
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай черный" data-price="590₽" data-desc="Ассам Мокалбари — крупнолистовой индийский чай с плотным солодовым вкусом.&#10;Черный с чабрецом — ассам и чабрец с ярким пряным послевкусием.&#10;Эрл Грей — классический купаж с бергамотом.&#10;Гун Тин Пуэр — выдержанный пуэр с насыщенным древесным профилем.&#10;Да Хун Пао — китайский улун с теплым, бархатным вкусом.&#10;Объем чайника: 900 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай черный" data-price="590₽" data-desc="Ассам Мокалбари — крупнолистовой индийский чай с плотным солодовым вкусом.&#10;Черный с чабрецом — ассам и чабрец с ярким пряным послевкусием.&#10;Эрл Грей — классический купаж с бергамотом.&#10;Гун Тин Пуэр — выдержанный пуэр с насыщенным древесным профилем.&#10;Да Хун Пао — китайский улун с теплым, бархатным вкусом.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/1.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/1.jpg');">
                 <h3>Чай черный <span>590₽</span></h3>
                 <p>5 позиций. Объем 900мл.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай зеленый" data-price="590₽" data-desc="Хуа Чжу Ча (Жасмин) — нежный зеленый чай с цветочным ароматом жасмина.&#10;Те Гуаньинь — мягкий улун со сладковатым фруктовым оттенком.&#10;Шу Сян Лой (Сенча) — травянистый вкус с легкой ореховой нотой.&#10;Най Сян Цзинь Соань — молочный улун со сливочным ароматом.&#10;Японская липа — деликатный купаж с цветами липы и цитрусом.&#10;Объем чайника: 900 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай зеленый" data-price="590₽" data-desc="Хуа Чжу Ча (Жасмин) — нежный зеленый чай с цветочным ароматом жасмина.&#10;Те Гуаньинь — мягкий улун со сладковатым фруктовым оттенком.&#10;Шу Сян Лой (Сенча) — травянистый вкус с легкой ореховой нотой.&#10;Най Сян Цзинь Соань — молочный улун со сливочным ароматом.&#10;Японская липа — деликатный купаж с цветами липы и цитрусом.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/2.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/2.jpg');">
                 <h3>Чай зеленый <span>590₽</span></h3>
                 <p>5 позиций. Объем 900мл.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай фруктовый" data-price="590₽" data-desc="Таежный — насыщенный ягодно-травяной купаж.&#10;Дикая вишня — выразительный вишневый аромат с легкой кислинкой.&#10;Пуэр Амаретто — глубокий чайный вкус с миндальным акцентом.&#10;Ройбос ванильный — мягкий ройбос с карамельно-ванильным профилем.&#10;Каркаде — яркий цветочный чай с приятной кислинкой.&#10;Манго-маракуйя — тропический купаж с фруктовой сладостью.&#10;Улун клубника со сливками — нежный десертный вкус.&#10;Объем чайника: 900 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай фруктовый" data-price="590₽" data-desc="Таежный — насыщенный ягодно-травяной купаж.&#10;Дикая вишня — выразительный вишневый аромат с легкой кислинкой.&#10;Пуэр Амаретто — глубокий чайный вкус с миндальным акцентом.&#10;Ройбос ванильный — мягкий ройбос с карамельно-ванильным профилем.&#10;Каркаде — яркий цветочный чай с приятной кислинкой.&#10;Манго-маракуйя — тропический купаж с фруктовой сладостью.&#10;Улун клубника со сливками — нежный десертный вкус.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/3.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/3.jpg');">
                 <h3>Чай фруктовый <span>590₽</span></h3>
                 <p>7 позиций. Объем 900мл.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чайные сборы" data-price="590₽" data-desc="Ягодный пунш — ягодный микс с мягкими пряными нотами.&#10;Чайный глинтвейн — пряный согревающий вкус с цитрусом.&#10;Облепиха-манго — яркий витаминный купаж.&#10;Малина-имбирь-чабрец — выразительный травяно-ягодный профиль.&#10;Черная смородина пуэр — плотный вкус с глубокой ягодной нотой.&#10;Объем чайника: 900 мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чайные сборы" data-price="590₽" data-desc="Ягодный пунш — ягодный микс с мягкими пряными нотами.&#10;Чайный глинтвейн — пряный согревающий вкус с цитрусом.&#10;Облепиха-манго — яркий витаминный купаж.&#10;Малина-имбирь-чабрец — выразительный травяно-ягодный профиль.&#10;Черная смородина пуэр — плотный вкус с глубокой ягодной нотой.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/4.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/4.jpg');">
                 <h3>Чайные сборы <span>590₽</span></h3>
                 <p>5 позиций. Объем 900мл.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Глинтвейны" data-price="490₽" data-desc="Красный алкогольный&#10;Белый алкогольный&#10;Красный безалкогольный&#10;Белый безалкогольный&#10;Объем: 240мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Глинтвейны" data-price="490₽" data-desc="Красный алкогольный&#10;Белый алкогольный&#10;Красный безалкогольный&#10;Белый безалкогольный&#10;Объем: 240мл." data-img="img/kitchen/Napitki/5.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/5.jpg');">
                 <h3>Глинтвейны <span>490₽</span></h3>
                 <p>4 позиции. Объем 240мл.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Кофе" data-price="от 60₽" data-desc="Эспрессо — 250₽ • 30мл&#10;Американо — 250₽ • 180мл&#10;Капучино — 350₽ • 240мл&#10;Флэт Уайт — 350₽ • 240мл&#10;Раф — 350₽ • 240мл&#10;Латте — 350₽ • 240мл&#10;Какао — 390₽ • 240мл&#10;Горячий шоколад — 390₽ • 240мл&#10;Сироп в ассортименте — 60₽ • 30мл" data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Кофе" data-price="от 60₽" data-desc="Эспрессо — 250₽ • 30мл&#10;Американо — 250₽ • 180мл&#10;Капучино — 350₽ • 240мл&#10;Флэт Уайт — 350₽ • 240мл&#10;Раф — 350₽ • 240мл&#10;Латте — 350₽ • 240мл&#10;Какао — 390₽ • 240мл&#10;Горячий шоколад — 390₽ • 240мл&#10;Сироп в ассортименте — 60₽ • 30мл" data-img="img/kitchen/Napitki/6.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/6.jpg');">
                 <h3>Кофе <span>от 60₽</span></h3>
                 <p>9 позиций. Объемы в описании.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Свежевыжатые соки" data-price="350₽" data-desc="Апельсин&#10;Грейпфрут&#10;Яблоко&#10;Морковь&#10;Сельдерей&#10;Объем: 250мл." data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Свежевыжатые соки" data-price="350₽" data-desc="Апельсин&#10;Грейпфрут&#10;Яблоко&#10;Морковь&#10;Сельдерей&#10;Объем: 250мл." data-img="img/kitchen/Napitki/7.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/7.jpg');">
                 <h3>Свежевыжатые соки <span>350₽</span></h3>
                 <p>5 позиций. Объем 250мл.</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Безалкогольные напитки" data-price="от 350₽" data-desc="Сок в ассортименте — 350₽ • 250мл&#10;Cola / Cola Zero / Tonic — 350₽ • 260мл&#10;Red Bull / Red Bull Zero / Red Bull Peach — 350₽ • 250мл&#10;Даусуз с газом / без газа — 350₽ • 275мл&#10;Даусуз с газом / без газа — 690₽ • 850мл&#10;Рычал-Су — 350₽ • 500мл" data-img="img/hhbar-hero-bg.jpg" style="display:none; --bg-img: url('img/hhbar-hero-bg.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Безалкогольные напитки" data-price="от 350₽" data-desc="Сок в ассортименте — 350₽ • 250мл&#10;Cola / Cola Zero / Tonic — 350₽ • 260мл&#10;Red Bull / Red Bull Zero / Red Bull Peach — 350₽ • 250мл&#10;Даусуз с газом / без газа — 350₽ • 275мл&#10;Даусуз с газом / без газа — 690₽ • 850мл&#10;Рычал-Су — 350₽ • 500мл" data-img="img/kitchen/Napitki/8.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/8.jpg');">
                 <h3>Безалкогольные напитки <span>от 350₽</span></h3>
                 <p>Соки, газировка, энергетики и вода.</p>
             </div>
 
             <!-- КАЛЬЯНЫ -->
-            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB NAVI" data-price="1500₽" data-desc="Хотите перенестись в бескрайний космос? Хотите увидеть звезды? И побывать на бесчисленных планетах нашей галактики? Тогда это выбор для вас, дорогие космонавты" data-img="img/kitchen/k4/1.jpg" style="display:none; --bg-img: url('img/kitchen/k4/1.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB NAVI" data-price="1500₽" data-desc="Хотите перенестись в бескрайний космос? Хотите увидеть звезды? И побывать на бесчисленных планетах нашей галактики? Тогда это выбор для вас, дорогие космонавты" data-img="img/kitchen/Hookah/1.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/1.jpg');">
                 <h3>XHOOB NAVI <span>1500₽</span></h3>
                 <p>Хотите перенестись в бескрайний космос?</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB FLEX" data-price="1500₽" data-desc="Идеальный выбор для тех, кто не знает, что хочет покурить, но желает сделать это пафосно, гламурно и стильно. При этом по приятной цене." data-img="img/kitchen/k4/2.jpg" style="display:none; --bg-img: url('img/kitchen/k4/2.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB FLEX" data-price="1500₽" data-desc="Идеальный выбор для тех, кто не знает, что хочет покурить, но желает сделать это пафосно, гламурно и стильно. При этом по приятной цене." data-img="img/kitchen/Hookah/2.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/2.jpg');">
                 <h3>XHOOB FLEX <span>1500₽</span></h3>
                 <p>Идеальный выбор для тех, кто не знает, что хочет покурить</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB GO" data-price="1200₽" data-desc="Данная модель является одной из ведущих в мире кальянов. Сделан из высококачественных материалов просто, но со вкусом. Подойдёт как любителям, так и профессионалам своего дела" data-img="img/kitchen/k4/3.jpg" style="display:none; --bg-img: url('img/kitchen/k4/3.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB GO" data-price="1200₽" data-desc="Данная модель является одной из ведущих в мире кальянов. Сделан из высококачественных материалов просто, но со вкусом. Подойдёт как любителям, так и профессионалам своего дела" data-img="img/kitchen/Hookah/3.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/3.jpg');">
                 <h3>XHOOB GO <span>1200₽</span></h3>
                 <p>Данная модель является одной из ведущих в мире кальянов</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB CYBER" data-price="1200₽" data-desc="Такой же классический кальян, но в компактном варианте. Отлично подойдёт для отдыха за барной стойкой вашего любимого бара." data-img="img/kitchen/k4/4.jpg" style="display:none; --bg-img: url('img/kitchen/k4/4.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB CYBER" data-price="1200₽" data-desc="Такой же классический кальян, но в компактном варианте. Отлично подойдёт для отдыха за барной стойкой вашего любимого бара." data-img="img/kitchen/Hookah/4.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/4.jpg');">
                 <h3>XHOOB CYBER <span>1200₽</span></h3>
                 <p>Такой же классический кальян, но в компактном варианте</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="КАЛЬЯН НА ФРУКТАХ" data-price="2000₽" data-desc="Идеальный вкус для тех, кто любит быть не таким, как все. Это невероятно освежающий способ насладиться табаком. Удивительный аромат и вкус кальяна подарит вам незабываемые моменты. (Апельсин, гранат, грейпфрут)" data-img="img/kitchen/k4/5.jpg" style="display:none; --bg-img: url('img/kitchen/k4/5.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="КАЛЬЯН НА ФРУКТАХ" data-price="2000₽" data-desc="Идеальный вкус для тех, кто любит быть не таким, как все. Это невероятно освежающий способ насладиться табаком. Удивительный аромат и вкус кальяна подарит вам незабываемые моменты. (Апельсин, гранат, грейпфрут)" data-img="img/kitchen/Hookah/5.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/5.jpg');">
                 <h3>КАЛЬЯН НА ФРУКТАХ <span>2000₽</span></h3>
                 <p>Идеальный вкус для тех, кто любит быть не таким, как все</p>
             </div>
-            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="ЭЛЕКТРОННЫЙ КАЛЬЯН" data-price="—" data-desc="Современный альтернативный формат. Чистый вкус, никакого дыма, только пар и насыщенный аромат." data-img="img/kitchen/k4/5.jpg" style="display:none; --bg-img: url('img/kitchen/k4/5.jpg');">
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="ЭЛЕКТРОННЫЙ КАЛЬЯН" data-price="—" data-desc="Современный альтернативный формат. Чистый вкус, никакого дыма, только пар и насыщенный аромат." data-img="img/kitchen/Hookah/6.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/6.jpg');">
                 <h3>ЭЛЕКТРОННЫЙ КАЛЬЯН <span>—</span></h3>
                 <p>Современный альтернативный формат</p>
             </div>
@@ -1782,7 +1818,10 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         <span class="close-menu-modal" id="closeMenuModal" aria-label="Закрыть">&times;</span>
         <div class="menu-modal-img" id="menuModalImg"></div>
         <h3 class="menu-modal-name" id="menuModalName"></h3>
-        <p class="menu-modal-price" id="menuModalPrice"></p>
+        <div class="menu-modal-meta">
+            <p class="menu-modal-price" id="menuModalPrice"></p>
+            <span class="menu-modal-volume" id="menuModalVolume"></span>
+        </div>
         <p class="menu-modal-desc" id="menuModalDesc"></p>
     </div>
 </div>
@@ -1930,9 +1969,9 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239487&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239470&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
                 </div>
-                <div class="video-title">Видео отчет COORD 2008 11.04.26</div>
+                <div class="video-title">Видео отчет BASSMATIC SHOWCASE 20.12.25</div>
             </div>
         </div>
     </div>
@@ -1947,23 +1986,23 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         </div>
         <div class="music-container reveal">
             <div class="dj-list">
-                <div class="dj-item active" data-dj="Ver-Dikt & Andy Dav" data-tracks='[{"name":"Ver-Dikt & Andy Dav - Track 01","src":"audio/dj1/01.mp3"},{"name":"Ver-Dikt & Andy Dav - Track 02","src":"audio/dj1/02.mp3"}]' data-photo="img/Dj/dj-1.jpg" data-social="https://vk.com/verdiktandydav">
+                <div class="dj-item active" data-dj="Ver-Dikt & Andy Dav" data-tracks='[{"name":"Ver-Dikt & Andy Dav - Track 01","src":"audio/dj1/01.mp3"},{"name":"Ver-Dikt & Andy Dav - Track 02","src":"audio/dj1/02.mp3"}]' data-photo="img/Dj/dj-1.jpg" data-social="https://vk.com/verdiktandydav" data-telegram="https://t.me/verdiktandydav">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-1.jpg');" data-dj="Ver-Dikt & Andy Dav" role="img" aria-label="Фото Ver-Dikt & Andy Dav"></div>
                     <div class="dj-name">Ver-Dikt & Andy Dav</div>
                 </div>
-                <div class="dj-item" data-dj="Hunter(RU)" data-tracks='[{"name":"Hunter(RU) - Track 01","src":"audio/dj2/01.mp3"},{"name":"Hunter(RU) - Track 02","src":"audio/dj2/02.mp3"}]' data-photo="img/Dj/dj-2.jpg" data-social="https://vk.com/hunter_ru">
+                <div class="dj-item" data-dj="Hunter(RU)" data-tracks='[{"name":"Hunter(RU) - Track 01","src":"audio/dj2/01.mp3"},{"name":"Hunter(RU) - Track 02","src":"audio/dj2/02.mp3"}]' data-photo="img/Dj/dj-2.jpg" data-social="https://vk.com/black_hunter_77" data-telegram="https://t.me/hunterrumusic">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-2.jpg');" data-dj="Hunter(RU)" role="img" aria-label="Фото Hunter(RU)"></div>
                     <div class="dj-name">Hunter(RU)</div>
                 </div>
-                <div class="dj-item" data-dj="Dany`S" data-tracks='[{"name":"Dany`S - Track 01","src":"audio/dj3/01.mp3"},{"name":"Dany`S - Track 02","src":"audio/dj3/02.mp3"}]' data-photo="img/Dj/dj-3.jpg" data-social="https://vk.com/danys_music">
+                <div class="dj-item" data-dj="Dany`S" data-tracks='[{"name":"Dany`S - Track 01","src":"audio/dj3/01.mp3"},{"name":"Dany`S - Track 02","src":"audio/dj3/02.mp3"}]' data-photo="img/Dj/dj-3.jpg" data-social="https://vk.com/danys_51" data-telegram="https://t.me/+Nzcre9bW2nUyYmNi">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-3.jpg');" data-dj="Dany`S" role="img" aria-label="Фото Dany`S"></div>
                     <div class="dj-name">Dany`S</div>
                 </div>
-                <div class="dj-item" data-dj="Darsa" data-tracks='[{"name":"Darsa - Track 01","src":"audio/dj4/01.mp3"},{"name":"Darsa - Track 02","src":"audio/dj4/02.mp3"}]' data-photo="img/Dj/dj-4.jpg" data-social="https://vk.com/darsa_dj">
+                <div class="dj-item" data-dj="Darsa" data-tracks='[{"name":"Darsa - Track 01","src":"audio/dj4/01.mp3"},{"name":"Darsa - Track 02","src":"audio/dj4/02.mp3"}]' data-photo="img/Dj/dj-4.jpg" data-social="https://vk.com/djdarsa">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-4.jpg');" data-dj="Darsa" role="img" aria-label="Фото Darsa"></div>
                     <div class="dj-name">Darsa</div>
                 </div>
-                <div class="dj-item" data-dj="AHO" data-tracks='[{"name":"AHO - Track 01","src":"audio/dj5/01.mp3"},{"name":"AHO - Track 02","src":"audio/dj5/02.mp3"}]' data-photo="img/Dj/dj-5.jpg" data-social="https://vk.com/aho_music">
+                <div class="dj-item" data-dj="AHO" data-tracks='[{"name":"AHO - Track 01","src":"audio/dj5/01.mp3"},{"name":"AHO - Track 02","src":"audio/dj5/02.mp3"}]' data-photo="img/Dj/dj-5.jpg" data-social="https://vk.com/club40667338" data-telegram="https://t.me/ahosound">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-5.jpg');" data-dj="AHO" role="img" aria-label="Фото AHO"></div>
                     <div class="dj-name">AHO</div>
                 </div>
@@ -1971,20 +2010,20 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-6.jpg');" data-dj="Teit" role="img" aria-label="Фото Teit"></div>
                     <div class="dj-name">Teit</div>
                 </div>
-                <div class="dj-item" data-dj="Nikto" data-tracks='[{"name":"Nikto - Track 01","src":"audio/dj7/01.mp3"},{"name":"Nikto - Track 02","src":"audio/dj7/02.mp3"}]' data-photo="img/Dj/dj-7.jpg" data-social="https://vk.com/nikto_dj">
+                <div class="dj-item" data-dj="Nikto" data-tracks='[{"name":"Nikto - Track 01","src":"audio/dj7/01.mp3"},{"name":"Nikto - Track 02","src":"audio/dj7/02.mp3"}]' data-photo="img/Dj/dj-7.jpg" data-social="https://vk.com/niktomas">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-7.jpg');" data-dj="Nikto" role="img" aria-label="Фото Nikto"></div>
                     <div class="dj-name">Nikto</div>
                 </div>
-                <div class="dj-item" data-dj="Globus" data-tracks='[{"name":"Globus - Track 01","src":"audio/dj8/01.mp3"},{"name":"Globus - Track 02","src":"audio/dj8/02.mp3"}]' data-photo="img/Dj/dj-8.jpg" data-social="https://vk.com/globus_dj">
+                <div class="dj-item" data-dj="Globus" data-tracks='[{"name":"Globus - Track 01","src":"audio/dj8/01.mp3"},{"name":"Globus - Track 02","src":"audio/dj8/02.mp3"}]' data-photo="img/Dj/dj-8.jpg" data-social="https://vk.ru/dj_globus" data-telegram="https://t.me/DJ_GLOBUS_RU">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-8.jpg');" data-dj="Globus" role="img" aria-label="Фото Globus"></div>
                     <div class="dj-name">Globus</div>
                 </div>
-                <div class="dj-item" data-dj="Paul P" data-tracks='[{"name":"Paul P - Track 01","src":"audio/dj1/01.mp3"},{"name":"Paul P - Track 02","src":"audio/dj1/02.mp3"}]' data-photo="img/Dj/dj-1.jpg" data-social="https://vk.com/paulp_music">
-                    <div class="dj-photo" style="background-image: url('img/Dj/dj-1.jpg');" data-dj="Paul P" role="img" aria-label="Фото Paul P"></div>
+                <div class="dj-item" data-dj="Paul P" data-tracks='[]' data-photo="img/Dj/dj-9.jpg" data-social="https://vk.com/megapashke">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-9.jpg');" data-dj="Paul P" role="img" aria-label="Фото Paul P"></div>
                     <div class="dj-name">Paul P</div>
                 </div>
-                <div class="dj-item" data-dj="Dshef" data-tracks='[{"name":"Dshef - Track 01","src":"audio/dj2/01.mp3"},{"name":"Dshef - Track 02","src":"audio/dj2/02.mp3"}]' data-photo="img/Dj/dj-2.jpg" data-social="https://vk.com/dshef_music">
-                    <div class="dj-photo" style="background-image: url('img/Dj/dj-2.jpg');" data-dj="Dshef" role="img" aria-label="Фото Dshef"></div>
+                <div class="dj-item" data-dj="Dshef" data-tracks='[]' data-photo="img/Dj/dj-10.jpg" data-social="https://vk.com/alastorrrr">
+                    <div class="dj-photo" style="background-image: url('img/Dj/dj-10.jpg');" data-dj="Dshef" role="img" aria-label="Фото Dshef"></div>
                     <div class="dj-name">Dshef</div>
                 </div>
             </div>
@@ -2044,10 +2083,16 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
             <div class="dj-modal-kicker"><i class="fas fa-headphones-alt"></i><span>HHBAR artist</span></div>
             <div class="dj-modal-name" id="djModalName">Ver-Dikt & Andy Dav</div>
             <p class="dj-modal-note">Сеты, настроение и актуальные анонсы артиста. Откройте профиль, чтобы следить за новыми выступлениями.</p>
-            <a href="#" class="dj-social-link" id="djSocialLink" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-vk"></i>
-                <span>Профиль артиста</span>
-            </a>
+            <div class="dj-modal-links">
+                <a href="https://vk.com/hhbar" class="dj-social-link" id="djSocialLink" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-vk"></i>
+                    <span>VK</span>
+                </a>
+                <a href="https://t.me/hhbar" class="dj-social-link hidden" id="djTelegramLink" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>Telegram</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -2351,10 +2396,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuModal = document.getElementById('menuModal');
     const closeMenuModal = document.getElementById('closeMenuModal');
     const menuModalDesc = document.getElementById('menuModalDesc');
+    const menuModalVolume = document.getElementById('menuModalVolume');
+
+    const getCommonVolume = (raw, category) => {
+        if (!(category === 'drinks' || category === 'cocktails')) return '';
+        const lines = raw.split('\n').map(line => line.trim()).filter(Boolean);
+        const volumeLine = lines.find(line => /^Объем(?:\s+чайника)?:\s*\d+\s*мл\.?$/i.test(line));
+        if (volumeLine) return volumeLine.replace(/^Объем(?:\s+чайника)?:\s*/i, '').replace(/\.$/, '');
+        if (category !== 'cocktails') return '';
+        const trailing = raw.match(/(?:^|[\s.])(\d+\s*мл)\.?$/i);
+        return trailing ? trailing[1] : '';
+    };
+
+    const stripCommonVolume = (raw, volume) => {
+        if (!volume) return raw;
+        const escaped = volume.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\\ /g, '\\s*');
+        return raw
+            .split('\n')
+            .map(line => line.trim())
+            .filter(line => !new RegExp(`^Объем(?:\\s+чайника)?:\\s*${escaped}\\.?$`, 'i').test(line))
+            .join('\n')
+            .replace(new RegExp(`(?:\\s*\\.\\s*|\\s+)${escaped}\\.?$`, 'i'), '')
+            .trim();
+    };
 
     const renderModalDescription = (item) => {
         const raw = item.dataset.desc || '';
-        const lines = raw
+        const volume = getCommonVolume(raw, item.dataset.category);
+        const displayRaw = stripCommonVolume(raw, volume);
+        menuModalVolume.textContent = volume;
+
+        const lines = displayRaw
             .split('\n')
             .map(line => line.trim())
             .filter(Boolean);
@@ -2384,7 +2456,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             menuModalDesc.replaceChildren(linesWrap);
         } else {
-            menuModalDesc.textContent = raw;
+            menuModalDesc.textContent = displayRaw;
         }
     };
 
@@ -2395,6 +2467,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgUrl = item.dataset.img;
             const hasRealImage = imgUrl && !(imgUrl.includes('hhbar-hero-bg.jpg') && (item.dataset.category === 'drinks' || item.dataset.category === 'cocktails'));
             const modalImg = document.getElementById('menuModalImg');
+            modalImg.classList.toggle('fill-width', Boolean(imgUrl && imgUrl.includes('img/kitchen/lemonade/')));
+            modalImg.classList.toggle('fit-napitki', Boolean(imgUrl && imgUrl.includes('img/kitchen/Napitki/')));
             if (hasRealImage) {
                 modalImg.style.backgroundImage = `url('${imgUrl}')`;
                 modalImg.classList.remove('no-image');
@@ -2405,7 +2479,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalImg.innerHTML = '<i class="fas fa-utensils"></i>';
             }
             document.getElementById('menuModalName').textContent = item.dataset.name;
-            document.getElementById('menuModalPrice').textContent = item.dataset.price;
+            const modalPrice = document.getElementById('menuModalPrice');
+            const price = item.dataset.price || '';
+            modalPrice.textContent = price.trim().toLowerCase().startsWith('от') ? '' : price;
             renderModalDescription(item);
             menuModal.classList.add('active');
             lockPageScroll();
@@ -2486,6 +2562,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const djModalPhoto = document.getElementById('djModalPhoto');
     const djModalName = document.getElementById('djModalName');
     const djSocialLink = document.getElementById('djSocialLink');
+    const djTelegramLink = document.getElementById('djTelegramLink');
     const djPhotos = document.querySelectorAll('.dj-photo');
     const formatDjName = (name) => name.replace(/\(([^)]+)\)/g, '\u00A0($1)');
 
@@ -2496,10 +2573,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const djName = djItem.dataset.dj;
             const djPhoto = djItem.dataset.photo;
             const djSocial = djItem.dataset.social;
+            const djTelegram = djItem.dataset.telegram;
 
             djModalName.textContent = formatDjName(djName);
             djModalPhoto.style.backgroundImage = `url('${djPhoto}')`;
             djSocialLink.href = djSocial;
+            if (djTelegram) {
+                djTelegramLink.href = djTelegram;
+                djTelegramLink.classList.remove('hidden');
+            } else {
+                djTelegramLink.href = 'https://t.me/hhbar';
+                djTelegramLink.classList.add('hidden');
+            }
 
             djModal.classList.add('active');
             lockPageScroll();
@@ -2507,6 +2592,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     djSocialLink.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    djTelegramLink.addEventListener('click', (e) => {
         e.stopPropagation();
     });
 
@@ -2887,8 +2975,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     document.querySelectorAll("a[href^=\"#\"]").forEach(anchor => {
         anchor.addEventListener("click", function(e) {
+            const href = this.getAttribute("href");
+            if (!href || href === "#" || !href.startsWith("#")) return;
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute("href"));
+            const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({ behavior: "smooth", block: "start" });
             }
