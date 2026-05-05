@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v6';
-const DYNAMIC_CACHE = 'dynamic-v6';
+const STATIC_CACHE = 'static-v7';
+const DYNAMIC_CACHE = 'dynamic-v7';
 const OFFLINE_PAGE = '/offline.html';
 
 const STATIC_ASSETS = [

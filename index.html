@@ -1991,7 +1991,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
         </div>
         <div class="music-container reveal">
             <div class="dj-list">
-                <div class="dj-item active" data-dj="Ver-Dikt & Andy Dav" data-tracks='[{"name":"Ver-Dikt & Andy Dav - Track 01","src":"audio/dj1/01.mp3"},{"name":"Ver-Dikt & Andy Dav - Track 02","src":"audio/dj1/02.mp3"}]' data-photo="img/Dj/dj-1.jpg" data-social="https://vk.com/verdiktandydav" data-telegram="https://t.me/verdiktandydav">
+                <div class="dj-item active" data-dj="Ver-Dikt & Andy Dav" data-tracks='[{"name":"Erich LH, Noise Generation - Reflection(Ver-Dikt & Andy Dav Remix) &apos;&apos;SKY TOP&apos;&apos;","src":"audio/dj1/Erich%20LH%2C%20Noise%20Generation%20-%20Reflection(Ver-Dikt%20%26%20Andy%20Dav%20Remix)%20&apos;&apos;SKY%20TOP&apos;&apos;.mp3"},{"name":"Margaryan,Ver-Dikt & Andy Dav - Proof (Original Mix) &apos;&apos;ULTIMA&apos;&apos;","src":"audio/dj1/Margaryan%2CVer-Dikt%20%26%20Andy%20Dav%20-%20Proof%20(Original%20Mix)%20&apos;&apos;ULTIMA&apos;&apos;.mp3"}]' data-photo="img/Dj/dj-1.jpg" data-social="https://vk.com/verdiktandydav" data-telegram="https://t.me/verdiktandydav">
                     <div class="dj-photo" style="background-image: url('img/Dj/dj-1.jpg');" data-dj="Ver-Dikt & Andy Dav" role="img" aria-label="Фото Ver-Dikt & Andy Dav"></div>
                     <div class="dj-name">Ver-Dikt & Andy Dav</div>
                 </div>
@@ -2067,11 +2067,11 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                 </div>
 
                 <div class="playlist">
-                    <div class="track-item active" data-src="audio/dj1/01.mp3" data-name="Ver-Dikt & Andy Dav - Track 01">
-                        <span><i class="fas fa-music" style="margin-right:8px"></i>Ver-Dikt & Andy Dav - Track 01</span>
+                    <div class="track-item active" data-src="audio/dj1/Erich%20LH%2C%20Noise%20Generation%20-%20Reflection(Ver-Dikt%20%26%20Andy%20Dav%20Remix)%20''SKY%20TOP''.mp3" data-name="Erich LH, Noise Generation - Reflection(Ver-Dikt & Andy Dav Remix) ''SKY TOP''">
+                        <span><i class="fas fa-music" style="margin-right:8px"></i>Erich LH, Noise Generation - Reflection(Ver-Dikt & Andy Dav Remix) ''SKY TOP''</span>
                     </div>
-                    <div class="track-item" data-src="audio/dj1/02.mp3" data-name="Ver-Dikt & Andy Dav - Track 02">
-                        <span><i class="fas fa-music" style="margin-right:8px"></i>Ver-Dikt & Andy Dav - Track 02</span>
+                    <div class="track-item" data-src="audio/dj1/Margaryan%2CVer-Dikt%20%26%20Andy%20Dav%20-%20Proof%20(Original%20Mix)%20''ULTIMA''.mp3" data-name="Margaryan,Ver-Dikt & Andy Dav - Proof (Original Mix) ''ULTIMA''">
+                        <span><i class="fas fa-music" style="margin-right:8px"></i>Margaryan,Ver-Dikt & Andy Dav - Proof (Original Mix) ''ULTIMA''</span>
                     </div>
                 </div>
             </div>
@@ -2789,7 +2789,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadMusicLibrary() {
         try {
-            const response = await fetch('src/scripts/music_data.json?v=20260503-2', { cache: 'no-store' });
+            const response = await fetch('src/scripts/music_data.json?v=20260505-1', { cache: 'no-store' });
             if (!response.ok) throw new Error(`music_data.json ${response.status}`);
             musicLibrary = await response.json();
         } catch (e) {

@@ -1,19 +1,109 @@
 {
   "dj1": [
     {
-      "src": "audio/dj1/01.mp3",
-      "displayName": "01",
-      "fileName": "01.mp3"
+      "src": "audio/dj1/Erich%20LH%2C%20Noise%20Generation%20-%20Reflection(Ver-Dikt%20%26%20Andy%20Dav%20Remix)%20''SKY%20TOP''.mp3",
+      "displayName": "Erich LH, Noise Generation Reflection(Ver Dikt & Andy Dav Remix) ''SKY TOP''",
+      "fileName": "Erich LH, Noise Generation - Reflection(Ver-Dikt & Andy Dav Remix) ''SKY TOP''.mp3"
     },
     {
-      "src": "audio/dj1/02.mp3",
-      "displayName": "02",
-      "fileName": "02.mp3"
+      "src": "audio/dj1/Margaryan%2CVer-Dikt%20%26%20Andy%20Dav%20-%20Proof%20(Original%20Mix)%20''ULTIMA''.mp3",
+      "displayName": "Margaryan,Ver Dikt & Andy Dav Proof (Original Mix) ''ULTIMA''",
+      "fileName": "Margaryan,Ver-Dikt & Andy Dav - Proof (Original Mix) ''ULTIMA''.mp3"
     },
     {
-      "src": "audio/dj1/Erich-LH_-Noise-Generation-Reflection_Ver-Dikt-_-Andy-Dav-Remix_-__SKY-TOP__.mp3",
-      "displayName": "Erich LH Noise Generation Reflection Ver Dikt Andy Dav Remix SKY TOP",
-      "fileName": "Erich-LH_-Noise-Generation-Reflection_Ver-Dikt-_-Andy-Dav-Remix_-__SKY-TOP__.mp3"
+      "src": "audio/dj1/Tryger%20-%20Fall%20Into%20(Ver-Dikt%20%26%20Andy%20Dav%20Remix)%20''SKY%20TOP''.mp3",
+      "displayName": "Tryger Fall Into (Ver Dikt & Andy Dav Remix) ''SKY TOP''",
+      "fileName": "Tryger - Fall Into (Ver-Dikt & Andy Dav Remix) ''SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Cruel%20World%20(Original%20Mix)%20''HOUSE''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Cruel World (Original Mix) ''HOUSE''",
+      "fileName": "Ver-Dikt & Andy Dav - Cruel World (Original Mix) ''HOUSE''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Fleksta%20(Original%20Mix)%20''16%20OM''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Fleksta (Original Mix) ''16 OM''",
+      "fileName": "Ver-Dikt & Andy Dav - Fleksta (Original Mix) ''16 OM''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Haunted%20%20(Original%20Mix)%20''SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Haunted (Original Mix) ''SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - Haunted  (Original Mix) ''SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Hold%20You%20Close%20(Original%20Mix)%20''16%20OM''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Hold You Close (Original Mix) ''16 OM''",
+      "fileName": "Ver-Dikt & Andy Dav - Hold You Close (Original Mix) ''16 OM''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20I%20Need%20You%20(Original%20Mix)%20''SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav I Need You (Original Mix) ''SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - I Need You (Original Mix) ''SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20In%20The%20Dark%20(Instrumental%20Mix)%20'SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav In The Dark (Instrumental Mix) 'SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - In The Dark (Instrumental Mix) 'SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20In%20The%20Dark%20(Original%20Mix)%20'SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav In The Dark (Original Mix) 'SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - In The Dark (Original Mix) 'SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20It%60s%20All%20Right%20(Original%20Mix).mp3",
+      "displayName": "Ver Dikt & Andy Dav It`s All Right (Original Mix)",
+      "fileName": "Ver-Dikt & Andy Dav - It`s All Right (Original Mix).mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Lost%20Away%20(%20Original%20Mix)%20'SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Lost Away ( Original Mix) 'SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - Lost Away ( Original Mix) 'SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Lost%20Away%20(Instrumental%20Mix)%20''SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Lost Away (Instrumental Mix) ''SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - Lost Away (Instrumental Mix) ''SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20She%20Know%20That%20(Original%20Mix)%20''SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav She Know That (Original Mix) ''SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - She Know That (Original Mix) ''SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Time%20Is%20Frozen%20(Original%20Mix)%20''Cafe%20De%20Anatolia''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Time Is Frozen (Original Mix) ''Cafe De Anatolia''",
+      "fileName": "Ver-Dikt & Andy Dav - Time Is Frozen (Original Mix) ''Cafe De Anatolia''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Wanna%20Move%20(Original%20Mix)%20''16%20OM''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Wanna Move (Original Mix) ''16 OM''",
+      "fileName": "Ver-Dikt & Andy Dav - Wanna Move (Original Mix) ''16 OM''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-%20Whant%20You%20Dance%20(Original%20Mix)%20''SKY%20TOP''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Whant You Dance (Original Mix) ''SKY TOP''",
+      "fileName": "Ver-Dikt & Andy Dav - Whant You Dance (Original Mix) ''SKY TOP''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-Freedom%20(%20Original%20Mix%20)%20''HEADONISM''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Freedom ( Original Mix ) ''HEADONISM''",
+      "fileName": "Ver-Dikt & Andy Dav -Freedom ( Original Mix ) ''HEADONISM''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-Get%20(Original%20Mix)%20''16%20OM''.mp3",
+      "displayName": "Ver Dikt & Andy Dav Get (Original Mix) ''16 OM''",
+      "fileName": "Ver-Dikt & Andy Dav -Get (Original Mix) ''16 OM''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%20-I%20Can%60t%20Take%20It%20Anymore%20(REMIX)%20''ULTIMA''.mp3",
+      "displayName": "Ver Dikt & Andy Dav I Can`t Take It Anymore (REMIX) ''ULTIMA''",
+      "fileName": "Ver-Dikt & Andy Dav -I Can`t Take It Anymore (REMIX) ''ULTIMA''.mp3"
+    },
+    {
+      "src": "audio/dj1/Ver-Dikt%20%26%20Andy%20Dav%2CKniagna%20-%20Poko%20Poko%20(No%20laughter%20%20Mix)%20''ELEPHANT''.mp3",
+      "displayName": "Ver Dikt & Andy Dav,Kniagna Poko Poko (No laughter Mix) ''ELEPHANT''",
+      "fileName": "Ver-Dikt & Andy Dav,Kniagna - Poko Poko (No laughter  Mix) ''ELEPHANT''.mp3"
     }
   ],
   "dj2": [
