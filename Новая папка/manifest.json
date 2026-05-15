@@ -1,0 +1,19 @@
+{
+  "name": "HHBAR Electronic Music Bar",
+  "short_name": "HHBAR",
+  "description": "Техно бар в Мурманске. Электронная музыка, авторские коктейли, вечеринки.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00f3ff",
+  "orientation": "portrait-primary",
+  "categories": ["nightlife", "food", "entertainment"],
+  "icons": [
+    {
+      "src": "img/logo-main.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

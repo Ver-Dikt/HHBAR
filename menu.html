@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Меню — HHBAR Electronic Music Bar</title>
+<meta name="description" content="Меню HHBAR — кухня, коктейли, напитки, кальяны. Электронный бар Мурманск.">
+<link rel="canonical" href="https://hhbar.ru/menu.html">
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+    --primary: #00f3ff;
+    --secondary: #ff00ff;
+    --dark: #0a0a0a;
+    --darker: #050505;
+    --light: #ffffff;
+    --gray: #2a2a2a;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --transition: all 0.3s ease;
+    --glass-bg: rgba(10, 10, 10, 0.7);
+    --glass-border: rgba(0, 243, 255, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark);
+    color: var(--light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+body.modal-open { overflow: hidden; }
+h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+/* HEADER */
+header {
+    position: fixed; width: 100%; top: 0; z-index: 1000;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 15px 0;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    text-decoration: none;
+}
+.logo-main {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    line-height: 1;
+}
+.logo-sub {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--light);
+    opacity: 0.7;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.back-link {
+    color: var(--primary); font-weight: 500; display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 20px; border: 1px solid var(--primary);
+    font-size: 0.9rem;
+}
+.back-link:hover { background: rgba(0, 243, 255, 0.1); box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); }
+
+/* HERO */
+.menu-hero {
+    padding: 120px 0 40px; text-align: center;
+    background: linear-gradient(135deg, rgba(10,10,10,0.85), rgba(5,5,5,0.9)), url('img/hhbar-hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.menu-hero h1 {
+    font-size: 2.8rem; margin-bottom: 15px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.menu-hero p { color: #aaa; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* SECTIONS */
+section { padding: 60px 0; position: relative; z-index: 2; background-color: rgba(10, 10, 10, 0.82); }
+.section-title { text-align: center; margin-bottom: 50px; }
+.section-title h2 { font-size: 2.2rem; margin-bottom: 15px; position: relative; display: inline-block; }
+.section-title h2::after {
+    content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+.section-title p { color: #aaa; max-width: 700px; margin: 30px auto 0; }
+
+/* MENU */
+.menu-categories { 
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    gap: 12px; 
+    margin-bottom: 50px; 
+    max-width: 760px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.category-btn {
+    background: rgba(255, 255, 255, 0.1); border: none; color: var(--light);
+    padding: 10px 24px; border-radius: 30px; font-family: 'Montserrat', sans-serif;
+    font-weight: 500; cursor: pointer; transition: var(--transition);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+.category-btn.active, .category-btn:hover { background: var(--primary); color: var(--darker); }
+
+.menu-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); 
+    gap: 16px; 
+}
+.menu-grid.category-kitchen,
+.menu-grid.category-cocktails {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.menu-grid.category-drinks {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.menu-grid.category-hookah {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+/* Responsive overrides */
+@media (max-width: 1200px) {
+    .menu-grid.category-kitchen,
+    .menu-grid.category-cocktails {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .menu-grid.category-drinks {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .menu-grid.category-hookah {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+@media (max-width: 768px) {
+    .menu-grid, 
+    .menu-grid.category-kitchen,
+    .menu-grid.category-cocktails,
+    .menu-grid.category-drinks,
+    .menu-grid.category-hookah {
+        grid-template-columns: 1fr;
+    }
+}
+.menu-item {
+    background: var(--gray); border-radius: 12px; padding: 14px;
+    border-left: 4px solid var(--primary); position: relative; overflow: hidden;
+    min-height: 145px; display: flex; flex-direction: column; justify-content: flex-end;
+    transition: all 0.4s ease; transform-style: preserve-3d; perspective: 1000px;
+    cursor: pointer;
+}
+.menu-item::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background:
+        radial-gradient(circle at 18% 18%, rgba(0, 243, 255, 0.18), transparent 34%),
+        radial-gradient(circle at 82% 12%, rgba(255, 0, 255, 0.12), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0.01));
+    background-size: cover; background-position: center; opacity: 1; transition: var(--transition); z-index: 0;
+}
+.menu-item.error-image::before {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    opacity: 1;
+}
+.menu-item::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 70%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 1;
+}
+.menu-item h3, .menu-item p { position: relative; z-index: 1; }
+.menu-item:hover { 
+    transform: translateY(-5px) rotateX(5deg) rotateY(5deg); 
+    border-left-color: var(--secondary);
+    box-shadow: 0 20px 40px rgba(0, 243, 255, 0.2), 0 0 60px rgba(0, 243, 255, 0.1);
+}
+.menu-item:hover::before { opacity: 1; transform: scale(1.03); }
+.menu-item h3 { font-size: 1.08rem; margin-bottom: 6px; }
+.menu-item h3 span { color: var(--primary); font-weight: 700; display: none; }
+.menu-item p { color: #aaa; font-size: 0.84rem; }
+.kitchen-cat-card p,
+.menu-item[data-category="cocktails"] p {
+    display: none;
+}
+.menu-item[data-category="drinks"] {
+    min-height: 132px;
+    padding: 12px;
+}
+.menu-item[data-category="drinks"] h3 {
+    font-size: 1rem;
+}
+.menu-item[data-category="drinks"] h3 span {
+    font-size: 0.9rem;
+}
+.menu-item[data-category="drinks"] p {
+    font-size: 0.82rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Menu Subcategory Label */
+.menu-subcat {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--darker);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 2;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Kitchen Category Cards */
+.kitchen-cat-card {
+    cursor: pointer;
+}
+
+/* Menu Modal */
+.menu-modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: flex-start;
+    opacity: 0; transition: opacity 0.3s ease;
+    padding: clamp(24px, 6svh, 56px) 20px 20px;
+    box-sizing: border-box;
+}
+.menu-modal.active { display: flex; opacity: 1; }
+.menu-modal-content {
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    border: 1px solid var(--primary); border-radius: 20px;
+    padding: 40px; max-width: 500px; width: 90%;
+    max-height: calc(100svh - clamp(44px, 8svh, 76px));
+    overflow: hidden;
+    overscroll-behavior: contain;
+    box-shadow: 0 0 60px rgba(0, 243, 255, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.menu-modal-img {
+    width: 100%; height: 300px; border-radius: 15px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
+    margin-bottom: 20px;
+    border: 2px solid var(--primary);
+}
+.menu-modal-img.fill-width {
+    height: min(68svh, 620px);
+    background-size: contain;
+}
+.menu-modal-img.fit-napitki {
+    aspect-ratio: 1728 / 1314;
+    height: auto;
+    background-size: contain;
+}
+.menu-modal-img.no-image {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gray); font-size: 4rem; color: var(--primary);
+}
+.menu-modal-name { font-size: 1.8rem; color: var(--primary); margin-bottom: 10px; }
+.menu-modal-meta {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.menu-modal-price { color: var(--secondary); font-size: 1.5rem; font-weight: 700; margin: 0; }
+.menu-modal-price:empty { display: none; }
+.menu-modal-volume {
+    color: #a9f8ff;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.menu-modal-volume:empty { display: none; }
+.menu-modal-desc {
+    color: #ccc;
+    line-height: 1.6;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 6px;
+    white-space: pre-line;
+}
+.menu-modal-lines { display: grid; gap: 10px; margin-top: 6px; }
+.menu-modal-line {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 10px 12px;
+    border: 1px solid rgba(0, 243, 255, 0.15);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+}
+.menu-modal-line-title { color: var(--light); font-weight: 600; font-size: 0.98rem; }
+.menu-modal-line-desc { color: #b7b7b7; font-size: 0.9rem; line-height: 1.45; }
+.close-menu-modal {
+    position: absolute; top: 15px; right: 20px; color: #888;
+    font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+    background: none; border: none;
+}
+.close-menu-modal:hover { color: var(--primary); }
+
+/* Kitchen Modal */
+.kitchen-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.92);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+}
+.kitchen-modal.active {
+    display: flex;
+    opacity: 1;
+}
+.kitchen-modal-content {
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    border: 1px solid var(--primary);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 0 60px rgba(0, 243, 255, 0.2);
+    position: relative;
+}
+.close-kitchen-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 10;
+}
+.close-kitchen-modal:hover {
+    color: var(--primary);
+    transform: rotate(90deg);
+}
+.kitchen-modal-title {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+.kitchen-modal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.kitchen-modal-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0, 243, 255, 0.15);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.kitchen-modal-item:hover {
+    background: rgba(0, 243, 255, 0.08);
+    border-color: var(--primary);
+    transform: translateX(5px);
+}
+.kitchen-modal-item-info {
+    flex: 1;
+}
+.kitchen-modal-item-name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--light);
+    margin-bottom: 6px;
+}
+.kitchen-modal-item-desc {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.4;
+}
+.kitchen-modal-item-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+    margin-left: 15px;
+}
+
+/* Footer */
+footer { background: var(--darker); padding: 40px 0; text-align: center; color: #666; border-top: 1px solid #222; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .logo-main { font-size: 1.3rem; }
+    .logo-sub { font-size: 0.65rem; letter-spacing: 2px; }
+    .menu-hero h1 { font-size: 2rem; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-categories {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        max-width: 420px;
+    }
+    .category-btn {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        min-height: 44px;
+        white-space: normal;
+        line-height: 1.15;
+    }
+    .menu-modal {
+        padding: 18px 14px 14px;
+    }
+    .menu-modal-content {
+        width: calc(100% - 28px);
+        max-height: 88svh;
+        padding: 24px 18px;
+        border-radius: 16px;
+    }
+    .menu-modal-img {
+        height: 220px;
+    }
+    .menu-modal-img.fill-width {
+        height: min(58svh, 500px);
+    }
+    .kitchen-modal-content {
+        padding: 25px 20px;
+        max-height: 90vh;
+    }
+    .kitchen-modal-title {
+        font-size: 1.5rem;
+    }
+    .kitchen-modal-item {
+        padding: 14px 16px;
+    }
+    .kitchen-modal-item-name {
+        font-size: 1rem;
+    }
+    .kitchen-modal-item-price {
+        font-size: 1.1rem;
+    }
+}
+@media (max-width: 480px) {
+    .menu-hero { padding: 100px 0 30px; }
+    .menu-hero h1 { font-size: 1.6rem; }
+    .back-link { padding: 8px 10px; font-size: 0.86rem; }
+    .back-link span { display: none; }
+    .menu-categories {
+        grid-template-columns: 1fr 1fr;
+        max-width: 100%;
+    }
+    .category-btn {
+        font-size: 0.82rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">
+                <span class="logo-main">HHBAR</span>
+                <span class="logo-sub">Electronic Music Bar</span>
+            </a>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>Назад на сайт</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<section class="menu-hero">
+    <div class="container">
+        <h1>Наше меню</h1>
+        <p>Откройте для себя уникальные вкусы наших фирменных блюд и напитков</p>
+    </div>
+</section>
+
+<section id="menu">
+    <div class="container">
+        <div class="menu-categories">
+            <button class="category-btn active" data-cat="kitchen">Кухня</button>
+            <button class="category-btn" data-cat="cocktails">Лимонады</button>
+            <button class="category-btn" data-cat="drinks">Напитки</button>
+            <button class="category-btn" data-cat="hookah">Кальяны</button>
+        </div>
+
+        <div class="menu-grid" id="menuGrid">
+            <!-- КУХНЯ -->
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="soups" data-name="Супы" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
+                <span class="menu-subcat">5 позиций</span>
+                <h3>Супы</h3>
+                <p>Крем-супы и Том-ям. Граммовка: 350-500г.</p>
+            </div>
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="salads" data-name="Салаты" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
+                <span class="menu-subcat">10 позиций</span>
+                <h3>Салаты</h3>
+                <p>Баварский, Цезарь, с тунцом, с лососем и другие. Граммовка: 250-350г.</p>
+            </div>
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="pizzas" data-name="Пиццы" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
+                <span class="menu-subcat">4 позиции</span>
+                <h3>Пиццы</h3>
+                <p>С креветками, мясная, сырная, с копченой грудкой.</p>
+            </div>
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="hot" data-name="Горячее" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
+                <span class="menu-subcat">9 позиций</span>
+                <h3>Горячее</h3>
+                <p>Стейки, паста, рыба на гриле. Граммовка: 300-450г.</p>
+            </div>
+            <div class="menu-item reveal tilt-card kitchen-cat-card" data-category="kitchen" data-subcat="snacks" data-name="Закуски" data-img="img/kitchen/menu-block 3.png" style="--bg-img: url('img/kitchen/menu-block 3.png');">
+                <span class="menu-subcat">13 позиций</span>
+                <h3>Закуски</h3>
+                <p>Брускетты, тартар, севиче, фри, крылышки. Граммовка: 100-320г.</p>
+            </div>
+
+            <!-- ЛИМОНАДЫ -->
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Kiwi / Mint" data-price="490₽" data-desc="Киви, мята, сироп киви, сок лимона, содовая. 300 мл." data-img="img/kitchen/lemonade/001.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/001.jpg');">
+                <h3>Kiwi / Mint <span>490₽</span></h3>
+                <p>Киви, мята, сироп киви, сок лимона, содовая. 300 мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Mango / Passion Fruit" data-price="490₽" data-desc="Пюре манго, пюре маракуйя, сок лимона, сироп маракуйя, содовая. 300 мл." data-img="img/kitchen/lemonade/002.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/002.jpg');">
+                <h3>Mango / Passion Fruit <span>490₽</span></h3>
+                <p>Пюре манго, пюре маракуйя, сок лимона, сироп маракуйя, содовая. 300 мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Raspberry / Passion Fruit" data-price="490₽" data-desc="Пюре малина, пюре маракуйя, сок лимона, малиновый сироп, содовая. 300 мл." data-img="img/kitchen/lemonade/003.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/003.jpg');">
+                <h3>Raspberry / Passion Fruit <span>490₽</span></h3>
+                <p>Пюре малина, пюре маракуйя, сок лимона, малиновый сироп, содовая. 300 мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Sea Buckthorn / Almonds" data-price="490₽" data-desc="Пюре облепиха, сироп миндаль, сок лимона, содовая. 300 мл." data-img="img/kitchen/lemonade/004.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/004.jpg');">
+                <h3>Sea Buckthorn / Almonds <span>490₽</span></h3>
+                <p>Пюре облепиха, сироп миндаль, сок лимона, содовая. 300 мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="cocktails" data-name="Strawberry / Lime / Peach" data-price="490₽" data-desc="Кордиал клубника-лайм, биттер грейпфрут, мусс персик, содовая. 300 мл." data-img="img/kitchen/lemonade/005.jpg" style="display:none; --bg-img: url('img/kitchen/lemonade/005.jpg');">
+                <h3>Strawberry / Lime / Peach <span>490₽</span></h3>
+                <p>Кордиал клубника-лайм, биттер грейпфрут, мусс персик, содовая. 300 мл.</p>
+            </div>
+
+            <!-- НАПИТКИ -->
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай черный" data-price="590₽" data-desc="Ассам Мокалбари — крупнолистовой индийский чай с плотным солодовым вкусом.&#10;Черный с чабрецом — ассам и чабрец с ярким пряным послевкусием.&#10;Эрл Грей — классический купаж с бергамотом.&#10;Гун Тин Пуэр — выдержанный пуэр с насыщенным древесным профилем.&#10;Да Хун Пао — китайский улун с теплым, бархатным вкусом.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/1.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/1.jpg');">
+                <h3>Чай черный <span>590₽</span></h3>
+                <p>5 позиций. Объем 900мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай зеленый" data-price="590₽" data-desc="Хуа Чжу Ча (Жасмин) — нежный зеленый чай с цветочным ароматом жасмина.&#10;Те Гуаньинь — мягкий улун со сладковатым фруктовым оттенком.&#10;Шу Сян Лой (Сенча) — травянистый вкус с легкой ореховой нотой.&#10;Най Сян Цзинь Соань — молочный улун со сливочным ароматом.&#10;Японская липа — деликатный купаж с цветами липы и цитрусом.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/2.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/2.jpg');">
+                <h3>Чай зеленый <span>590₽</span></h3>
+                <p>5 позиций. Объем 900мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чай фруктовый" data-price="590₽" data-desc="Таежный — насыщенный ягодно-травяной купаж.&#10;Дикая вишня — выразительный вишневый аромат с легкой кислинкой.&#10;Пуэр Амаретто — глубокий чайный вкус с миндальным акцентом.&#10;Ройбос ванильный — мягкий ройбос с карамельно-ванильным профилем.&#10;Каркаде — яркий цветочный чай с приятной кислинкой.&#10;Манго-маракуйя — тропический купаж с фруктовой сладостью.&#10;Улун клубника со сливками — нежный десертный вкус.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/3.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/3.jpg');">
+                <h3>Чай фруктовый <span>590₽</span></h3>
+                <p>7 позиций. Объем 900мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Чайные сборы" data-price="590₽" data-desc="Ягодный пунш — ягодный микс с мягкими пряными нотами.&#10;Чайный глинтвейн — пряный согревающий вкус с цитрусом.&#10;Облепиха-манго — яркий витаминный купаж.&#10;Малина-имбирь-чабрец — выразительный травяно-ягодный профиль.&#10;Черная смородина пуэр — плотный вкус с глубокой ягодной нотой.&#10;Объем чайника: 900 мл." data-img="img/kitchen/Napitki/4.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/4.jpg');">
+                <h3>Чайные сборы <span>590₽</span></h3>
+                <p>5 позиций. Объем 900мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Глинтвейны" data-price="490₽" data-desc="Красный алкогольный&#10;Белый алкогольный&#10;Красный безалкогольный&#10;Белый безалкогольный&#10;Объем: 240мл." data-img="img/kitchen/Napitki/5.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/5.jpg');">
+                <h3>Глинтвейны <span>490₽</span></h3>
+                <p>4 позиции. Объем 240мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Кофе" data-price="от 60₽" data-desc="Эспрессо — 250₽ • 30мл&#10;Американо — 250₽ • 180мл&#10;Капучино — 350₽ • 240мл&#10;Флэт Уайт — 350₽ • 240мл&#10;Раф — 350₽ • 240мл&#10;Латте — 350₽ • 240мл&#10;Какао — 390₽ • 240мл&#10;Горячий шоколад — 390₽ • 240мл&#10;Сироп в ассортименте — 60₽ • 30мл" data-img="img/kitchen/Napitki/6.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/6.jpg');">
+                <h3>Кофе <span>от 60₽</span></h3>
+                <p>9 позиций. Объемы в описании.</p>
+            </div>
+
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Свежевыжатые соки" data-price="350₽" data-desc="Апельсин&#10;Грейпфрут&#10;Яблоко&#10;Морковь&#10;Сельдерей&#10;Объем: 250мл." data-img="img/kitchen/Napitki/7.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/7.jpg');">
+                <h3>Свежевыжатые соки <span>350₽</span></h3>
+                <p>5 позиций. Объем 250мл.</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="drinks" data-name="Безалкогольные напитки" data-price="от 350₽" data-desc="Сок в ассортименте — 350₽ • 250мл&#10;Cola / Cola Zero / Tonic — 350₽ • 260мл&#10;Red Bull / Red Bull Zero / Red Bull Peach — 350₽ • 250мл&#10;Даусуз с газом / без газа — 350₽ • 275мл&#10;Даусуз с газом / без газа — 690₽ • 850мл&#10;Рычал-Су — 350₽ • 500мл" data-img="img/kitchen/Napitki/8.jpg" style="display:none; --bg-img: url('img/kitchen/Napitki/8.jpg');">
+                <h3>Безалкогольные напитки <span>от 350₽</span></h3>
+                <p>Соки, газировка, энергетики и вода.</p>
+            </div>
+
+            <!-- КАЛЬЯНЫ -->
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB NAVI" data-price="1500₽" data-desc="Хотите перенестись в бескрайний космос? Хотите увидеть звезды? И побывать на бесчисленных планетах нашей галактики? Тогда это выбор для вас, дорогие космонавты" data-img="img/kitchen/Hookah/1.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/1.jpg');">
+                <h3>XHOOB NAVI <span>1500₽</span></h3>
+                <p>Хотите перенестись в бескрайний космос?</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB FLEX" data-price="1500₽" data-desc="Идеальный выбор для тех, кто не знает, что хочет покурить, но желает сделать это пафосно, гламурно и стильно. При этом по приятной цене." data-img="img/kitchen/Hookah/2.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/2.jpg');">
+                <h3>XHOOB FLEX <span>1500₽</span></h3>
+                <p>Идеальный выбор для тех, кто не знает, что хочет покурить</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB GO" data-price="1200₽" data-desc="Данная модель является одной из ведущих в мире кальянов. Сделан из высококачественных материалов просто, но со вкусом. Подойдёт как любителям, так и профессионалам своего дела" data-img="img/kitchen/Hookah/3.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/3.jpg');">
+                <h3>XHOOB GO <span>1200₽</span></h3>
+                <p>Данная модель является одной из ведущих в мире кальянов</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="XHOOB CYBER" data-price="1200₽" data-desc="Такой же классический кальян, но в компактном варианте. Отлично подойдёт для отдыха за барной стойкой вашего любимого бара." data-img="img/kitchen/Hookah/4.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/4.jpg');">
+                <h3>XHOOB CYBER <span>1200₽</span></h3>
+                <p>Такой же классический кальян, но в компактном варианте</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="КАЛЬЯН НА ФРУКТАХ" data-price="2000₽" data-desc="Идеальный вкус для тех, кто любит быть не таким, как все. Это невероятно освежающий способ насладиться табаком. Удивительный аромат и вкус кальяна подарит вам незабываемые моменты. (Апельсин, гранат, грейпфрут)" data-img="img/kitchen/Hookah/5.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/5.jpg');">
+                <h3>КАЛЬЯН НА ФРУКТАХ <span>2000₽</span></h3>
+                <p>Идеальный вкус для тех, кто любит быть не таким, как все</p>
+            </div>
+            <div class="menu-item reveal tilt-card" data-category="hookah" data-name="ЭЛЕКТРОННЫЙ КАЛЬЯН" data-price="—" data-desc="Современный альтернативный формат. Чистый вкус, никакого дыма, только пар и насыщенный аромат." data-img="img/kitchen/Hookah/6.jpg" style="display:none; --bg-img: url('img/kitchen/Hookah/6.jpg');">
+                <h3>ЭЛЕКТРОННЫЙ КАЛЬЯН <span>—</span></h3>
+                <p>Современный альтернативный формат</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Menu Modal -->
+<div class="menu-modal" id="menuModal" role="dialog" aria-modal="true" aria-label="Детали блюда">
+    <div class="menu-modal-content">
+        <button class="close-menu-modal" id="closeMenuModal" aria-label="Закрыть">&times;</button>
+        <div class="menu-modal-img" id="menuModalImg"></div>
+        <h3 class="menu-modal-name" id="menuModalName"></h3>
+        <div class="menu-modal-meta">
+            <p class="menu-modal-price" id="menuModalPrice"></p>
+            <span class="menu-modal-volume" id="menuModalVolume"></span>
+        </div>
+        <p class="menu-modal-desc" id="menuModalDesc"></p>
+    </div>
+</div>
+
+<!-- Kitchen Subcategory Modal -->
+<div class="kitchen-modal" id="kitchenModal" role="dialog" aria-modal="true" aria-label="Меню категории">
+    <div class="kitchen-modal-content">
+        <button class="close-kitchen-modal" id="closeKitchenModal" aria-label="Закрыть">&#215;</button>
+        <h3 class="kitchen-modal-title" id="kitchenModalTitle"></h3>
+        <div class="kitchen-modal-list" id="kitchenModalList"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&#169; 2026 HHBAR Electronic Music Bar. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const lockPageScroll = () => document.body.classList.add('modal-open');
+    const unlockPageScroll = () => document.body.classList.remove('modal-open');
+    window.hhbarLockPageScroll = lockPageScroll;
+    window.hhbarUnlockPageScroll = unlockPageScroll;
+
+    // =========================================
+    // MENU FILTER
+    // =========================================
+    const catBtns = document.querySelectorAll('.category-btn');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const menuGrid = document.getElementById('menuGrid');
+
+    function setMenuGridCategory(cat) {
+        if (!menuGrid) return;
+        menuGrid.className = `menu-grid category-${cat}`;
+    }
+
+    const activeCategory = document.querySelector('.category-btn.active')?.dataset.cat || 'kitchen';
+    setMenuGridCategory(activeCategory);
+
+    catBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            catBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const cat = btn.dataset.cat;
+            setMenuGridCategory(cat);
+            menuItems.forEach(item => {
+                if (item.dataset.category === cat) {
+                    item.style.display = 'flex';
+                    setTimeout(() => item.style.opacity = '1', 10);
+                } else {
+                    item.style.display = 'none';
+                    item.style.opacity = '0';
+                }
+            });
+        });
+    });
+
+    // =========================================
+    // MENU 3D TILT
+    // =========================================
+    document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+
+        const imgUrl = card.dataset.img;
+        if (imgUrl) {
+            const testImg = new Image();
+            testImg.onerror = () => {
+                card.classList.add('error-image');
+            };
+            testImg.src = imgUrl;
+        }
+    });
+
+    // =========================================
+    // MENU MODAL
+    // =========================================
+    const menuModal = document.getElementById('menuModal');
+    const closeMenuModal = document.getElementById('closeMenuModal');
+    const menuModalDesc = document.getElementById('menuModalDesc');
+    const menuModalVolume = document.getElementById('menuModalVolume');
+
+    const getCommonVolume = (raw, category) => {
+        if (!(category === 'drinks' || category === 'cocktails')) return '';
+        const lines = raw.split('\n').map(line => line.trim()).filter(Boolean);
+        const volumeLine = lines.find(line => /^Объем(?:\s+чайника)?:\s*\d+\s*мл\.?$/i.test(line));
+        if (volumeLine) return volumeLine.replace(/^Объем(?:\s+чайника)?:\s*/i, '').replace(/\.$/, '');
+        if (category !== 'cocktails') return '';
+        const trailing = raw.match(/(?:^|[\s.])(\d+\s*мл)\.?$/i);
+        return trailing ? trailing[1] : '';
+    };
+
+    const stripCommonVolume = (raw, volume) => {
+        if (!volume) return raw;
+        const escaped = volume.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\\ /g, '\\s*');
+        return raw
+            .split('\n')
+            .map(line => line.trim())
+            .filter(line => !new RegExp(`^Объем(?:\\s+чайника)?:\\s*${escaped}\.?$`, 'i').test(line))
+            .join('\n')
+            .replace(new RegExp(`(?:\\s*\.\\s*|\\s+)${escaped}\.?$`, 'i'), '')
+            .trim();
+    };
+
+    const renderModalDescription = (item) => {
+        const raw = item.dataset.desc || '';
+        const volume = getCommonVolume(raw, item.dataset.category);
+        const displayRaw = stripCommonVolume(raw, volume);
+        menuModalVolume.textContent = volume;
+
+        const lines = displayRaw
+            .split('\n')
+            .map(line => line.trim())
+            .filter(Boolean);
+
+        if ((item.dataset.category === 'drinks' || item.dataset.category === 'cocktails') && lines.length > 1) {
+            const linesWrap = document.createElement('div');
+            linesWrap.className = 'menu-modal-lines';
+
+            lines.forEach(line => {
+                const parts = line.split(/\s[—-]\s(.+)/);
+                const lineEl = document.createElement('div');
+                lineEl.className = 'menu-modal-line';
+                const titleEl = document.createElement('div');
+                titleEl.className = 'menu-modal-line-title';
+                titleEl.textContent = parts[0] || line;
+                lineEl.appendChild(titleEl);
+
+                if (parts.length >= 3) {
+                    const descEl = document.createElement('div');
+                    descEl.className = 'menu-modal-line-desc';
+                    descEl.textContent = parts[1];
+                    lineEl.appendChild(descEl);
+                }
+
+                linesWrap.appendChild(lineEl);
+            });
+
+            menuModalDesc.replaceChildren(linesWrap);
+        } else {
+            menuModalDesc.textContent = displayRaw;
+        }
+    };
+
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (item.classList.contains('kitchen-cat-card')) return;
+
+            const imgUrl = item.dataset.img;
+            const hasRealImage = imgUrl && !(imgUrl.includes('hhbar-hero-bg.jpg') && (item.dataset.category === 'drinks' || item.dataset.category === 'cocktails'));
+            const modalImg = document.getElementById('menuModalImg');
+            modalImg.classList.toggle('fill-width', Boolean(imgUrl && imgUrl.includes('img/kitchen/lemonade/')));
+            modalImg.classList.toggle('fit-napitki', Boolean(imgUrl && imgUrl.includes('img/kitchen/Napitki/')));
+            if (hasRealImage) {
+                modalImg.style.backgroundImage = `url('${imgUrl}')`;
+                modalImg.classList.remove('no-image');
+                modalImg.innerHTML = '';
+            } else {
+                modalImg.style.backgroundImage = 'none';
+                modalImg.classList.add('no-image');
+                modalImg.innerHTML = '<i class="fas fa-utensils"></i>';
+            }
+            document.getElementById('menuModalName').textContent = item.dataset.name;
+            const modalPrice = document.getElementById('menuModalPrice');
+            const price = item.dataset.price || '';
+            modalPrice.textContent = price.trim().toLowerCase().startsWith('от') ? '' : price;
+            renderModalDescription(item);
+            menuModal.classList.add('active');
+            lockPageScroll();
+        });
+    });
+    closeMenuModal.addEventListener('click', () => {
+        menuModal.classList.remove('active');
+        unlockPageScroll();
+    });
+    menuModal.addEventListener('click', (e) => {
+        if(e.target === menuModal) {
+            menuModal.classList.remove('active');
+            unlockPageScroll();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            menuModal.classList.remove('active');
+            unlockPageScroll();
+        }
+    });
+
+    // =========================================
+    // KITCHEN SUBCATEGORY MODAL
+    // =========================================
+    const kitchenMenuData = {
+        soups: [
+            { name: "Крем-суп тыквенный с крабом", price: "890₽", desc: "Нежный тыквенный овощной крем-суп с мясом камчатского краба и сливками" },
+            { name: "Любимый суп шефа", price: "490₽", desc: "Куриный бульон с лапшой, копченой грудкой и половинкой яйца. Подается с жареным беконом, соусом дзадзики, сухариками, томатами черри зеленым луком и жареным хлебом" },
+            { name: "Том-ям", price: "710₽", desc: "Тайский суп в авторской интерпретации с грибами шиитаке и луком порей" },
+            { name: "Крем-суп с гребешком", price: "740₽", desc: "Нежно-сливочный крем-суп с жареным гребешком и трюфельным маслом" },
+            { name: "Крем-суп из курицы и шпината", price: "590₽", desc: "Легкий сливочный овощной крем-суп со шпинатом и куриной грудкой из собственной коптильни" }
+        ],
+        salads: [
+            { name: "Баварский салат", price: "510₽", desc: "Овощной микс-салат с жареными баварскими колбасками и картофелем бейби на чесночном масле и травах" },
+            { name: "Салат с жареным сыром и беконом", price: "590₽", desc: "Овощной микс-салат с жареными беконом, сыром моцареллой и медово-горчичной заправкой" },
+            { name: "Боул с курицей и киноа", price: "680₽", desc: "Боул с киноа, копченой куриной грудкой, ананасом, авокадо и овощами в сочетании с азиатским соусом" },
+            { name: "Цезарь с курицей", price: "560₽", desc: "Куриная грудка из собственной коптильни, салат айсберг, помидоры черри, крутоны и насыщенный соус Цезарь под чипсами из пармезана" },
+            { name: "Салат с говяжьей вырезкой", price: "630₽", desc: "Овощной микс-салат с говяжьим ростбисом, яйцом пашот и ореховой заправкой" },
+            { name: "Салат с жареным авокадо и лососем", price: "820₽", desc: "Овощной микс-салат с жареным авокадо, лососем авторского посола и пряной заправкой на основе кинзы и соусов азиатской кухни" },
+            { name: "Салат с креветками и авокадо", price: "640₽", desc: "Легкий овощной салат из тигровых креветок, спелого авокадо и китайской капусты с фирменным соусом и икрой масаго" },
+            { name: "Салат с лососем и грушей", price: "640₽", desc: "Овощной микс-салат с лососем авторского посола, винной грушей и цитрусовой дрессинг-заправкой" },
+            { name: "Салат с тунцом", price: "650₽", desc: "Овощной микс-салат с нежным тунцом средней прожарки и цитрусовой дрессинг-заправкой" },
+            { name: "Цезарь с креветкой", price: "640₽", desc: "Нежные тигровые креветки и свежие листья айсберга, заправленные сливочным соусом Цезарь с хрустящими крутонами и чипсами из пармезана" }
+        ],
+        pizzas: [
+            { name: "Пицца с тигровыми креветками", price: "880₽", desc: "Пицца с тигровыми креветками" },
+            { name: "Мясная", price: "860₽", desc: "Мясная пицца" },
+            { name: "Сырная", price: "740₽", desc: "Сырная пицца" },
+            { name: "С копченой грудкой", price: "790₽", desc: "Пицца с копченой грудкой" }
+        ],
+        hot: [
+            { name: "Скерт стейк", price: "1350₽", desc: "Сочный стейк из диафрагмы с явно выраженными волокнами и насыщенным ароматом говядины. Гарнир и соус на выбор. Прожарка Medium" },
+            { name: "Блейд стейк", price: "1350₽", desc: "Говяжий стейк из лопаточного отруба с ярко выраженной жилой, разделяющей мясо на две части. Гарнир и соус на выбор. Прожарка Medium" },
+            { name: "Стейк свинина", price: "890₽", desc: "Большой и сочный кусок свиной шеи, приготовленный на гриле с горчичным соусом, подается с гарниром из меню на выбор" },
+            { name: "Стейк лосось", price: "990₽", desc: "Свежий лосось, приготовленный на гриле, подается с розовым картофельным пюре и соусом терияки" },
+            { name: "Стейк из тунца", price: "1170₽", desc: "Стейк из тунца средней прожарки, обжаренный в маринаде на сливочном масле. Подается с пюре из зеленого горошка" },
+            { name: "Бифштекс с яйцом пашот", price: "880₽", desc: "Бифштекс из говяжьей вырезки, приготовленный на гриле, подается с пюре из сельдерея и поджаренной чиабаттой" },
+            { name: "Карбонара", price: "560₽", desc: "Классическая паста карбонара" },
+            { name: "Паста с курицей и перечным соусом", price: "550₽", desc: "Паста с курицей и перечным соусом" },
+            { name: "Путтанеска", price: "590₽", desc: "Паста путтанеска" }
+        ],
+        snacks: [
+            { name: "Сет брускетт Северный", price: "920₽", desc: "Сет из 4 брускетт: с олениной су-вид и облепиховым соусом, с тартаром из лосося, с гребешком, с тартаром из огурцов и вяленых томатов" },
+            { name: "Сет брускетт Винный", price: "920₽", desc: "Сет из 4 брускетт: с тартаром из говяжьей вырезки, с тигровыми креветками, с сыром бри, с авокадо и клубничным муссом" },
+            { name: "Сет брускетт Классический", price: "920₽", desc: "Сет из 4 брускетт: с ростбифом, с лососем, с креветками, с моцареллой и оливковым дрессингом" },
+            { name: "Тартар из говяжьей вырезки", price: "780₽", desc: "Нежная говяжья вырезка с трюфельным сыром, кинзой, красным луком, соусом ворчестер, горчицей и чиабаттой" },
+            { name: "Севиче из Мурманской трески", price: "490₽", desc: "Треска авторского посола с картофелем, черным жареным хлебом и соевым соусом" },
+            { name: "Закуска из гребешка и лосося", price: "950₽", desc: "Гребешок и лосось авторского посола с чиабаттой, сливочно-трюфельным сыром и клубничным муссом" },
+            { name: "Пивной сет", price: "1490₽", desc: "Крылья BBQ, Фиш Чипс, креветки темпура, кольца кальмара, жареный сыр, картофель фри и три соуса" },
+            { name: "Фиш Чипс", price: "420₽", desc: "Северная треска в хрустящем пивном кляре" },
+            { name: "Жареные крылышки BBQ", price: "360₽", desc: "Куриные крылья в фирменном соусе BBQ" },
+            { name: "Креветки темпура", price: "450₽", desc: "Хрустящие тигровые креветки в пивном кляре" },
+            { name: "Кольца кальмара", price: "350₽", desc: "Кольца кальмара в хрустящем кляре" },
+            { name: "Луковые кольца", price: "275₽", desc: "Луковые кольца в хрустящем кляре" },
+            { name: "Куриные стрипсы", price: "320₽", desc: "Хрустящие куриные стрипсы в кляре" }
+        ]
+    };
+
+    const getKitchenModalParts = () => ({
+        modal: document.getElementById("kitchenModal"),
+        close: document.getElementById("closeKitchenModal"),
+        title: document.getElementById("kitchenModalTitle"),
+        list: document.getElementById("kitchenModalList")
+    });
+
+    const closeKitchenMenu = () => {
+        const { modal } = getKitchenModalParts();
+        modal?.classList.remove("active");
+        unlockPageScroll();
+    };
+
+    document.addEventListener("click", (e) => {
+        const card = e.target.closest(".kitchen-cat-card");
+        if (!card) return;
+
+        const { modal, title, list } = getKitchenModalParts();
+        const items = kitchenMenuData[card.dataset.subcat];
+        if (!modal || !title || !list || !items) return;
+
+        title.textContent = card.dataset.name;
+        list.replaceChildren();
+
+        items.forEach(item => {
+            const itemEl = document.createElement("div");
+            itemEl.className = "kitchen-modal-item";
+            const infoEl = document.createElement("div");
+            infoEl.className = "kitchen-modal-item-info";
+            const nameEl = document.createElement("div");
+            nameEl.className = "kitchen-modal-item-name";
+            nameEl.textContent = item.name;
+            const descEl = document.createElement("div");
+            descEl.className = "kitchen-modal-item-desc";
+            descEl.textContent = item.desc;
+            const priceEl = document.createElement("div");
+            priceEl.className = "kitchen-modal-item-price";
+            priceEl.textContent = item.price;
+            infoEl.append(nameEl, descEl);
+            itemEl.append(infoEl, priceEl);
+            list.appendChild(itemEl);
+        });
+
+        modal.classList.add("active");
+        lockPageScroll();
+    });
+
+    document.addEventListener("click", (e) => {
+        const { modal, close } = getKitchenModalParts();
+        if (!modal) return;
+        if (e.target === modal || e.target === close) closeKitchenMenu();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeKitchenMenu();
+    });
+});
+</script>
+
+</body>
+</html>
