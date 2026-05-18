@@ -284,43 +284,43 @@
                 </div>
 
                 <!-- ========== BOTTOM CENTER/RIGHT BLOCK ========== -->
-                <!-- Table 16 (10 С‡РµР») - tall vertical, left of bottom row -->
-                <div class="table" data-table="16" data-capacity="10" style="top: 502px; left: 502px; width: 70px; height: 129px;">
-                    <span class="table-number">16</span>
+                <!-- Table 15 (10 С‡РµР») - tall vertical, left of bottom row -->
+                <div class="table" data-table="15" data-capacity="10" style="top: 502px; left: 502px; width: 70px; height: 129px;">
+                    <span class="table-number">15</span>
                     <span class="table-capacity">10 чел</span>
                 </div>
 
-                <!-- VIP (10 С‡РµР») - vertical, next to 16 -->
+                <!-- VIP (10 С‡РµР») - vertical, next to 15 -->
                 <div class="table table-vip" data-table="VIP" data-capacity="10" style="top: 535px; left: 420px; width: 70px; height: 100px;">
                     <span class="table-number">VIP</span>
                     <span class="table-capacity">10 чел</span>
                 </div>
 
-                <!-- Table 17 (5 С‡РµР») -->
-                <div class="table" data-table="17" data-capacity="5" style="top: 510px; left: 585px; width: 70px; height: 70px;">
-                    <span class="table-number">17</span>
+                <!-- Table 16 (5 С‡РµР») -->
+                <div class="table" data-table="16" data-capacity="5" style="top: 510px; left: 585px; width: 70px; height: 70px;">
+                    <span class="table-number">16</span>
                     <span class="table-capacity">5 чел</span>
                 </div>
 
+                <!-- Table 17 (3 С‡РµР») -->
+                <div class="table" data-table="17" data-capacity="3" style="top: 523px; left: 674px; width: 60px; height: 55px;">
+                    <span class="table-number">17</span>
+                    <span class="table-capacity">3 чел</span>
+                </div>
+
                 <!-- Table 18 (3 С‡РµР») -->
-                <div class="table" data-table="18" data-capacity="3" style="top: 523px; left: 674px; width: 60px; height: 55px;">
+                <div class="table" data-table="18" data-capacity="3" style="top: 521px; left: 750px; width: 60px; height: 55px;">
                     <span class="table-number">18</span>
                     <span class="table-capacity">3 чел</span>
                 </div>
 
-                <!-- Table 19 (3 С‡РµР») -->
-                <div class="table" data-table="19" data-capacity="3" style="top: 521px; left: 750px; width: 60px; height: 55px;">
+                <!-- Table 19 (10 С‡РµР») - large, right side -->
+                <div class="table" data-table="19" data-capacity="10" style="top: 483px; left: 827px; width: 90px; height: 90px;">
                     <span class="table-number">19</span>
-                    <span class="table-capacity">3 чел</span>
-                </div>
-
-                <!-- Table 20 (10 С‡РµР») - large, right side -->
-                <div class="table" data-table="20" data-capacity="10" style="top: 483px; left: 827px; width: 90px; height: 90px;">
-                    <span class="table-number">20</span>
                     <span class="table-capacity">10 чел</span>
                 </div>
 
-                <!-- Striped zone at bottom under 17-19 -->
+                <!-- Striped zone at bottom under 16-19 -->
                 <div class="striped-zone" style="bottom: 220px; left: 584px; width: 344px; height: 40px; top: 593px;"></div>
 
             </div>
@@ -408,9 +408,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getTableImagePath(num) {
+        const renumberedTableImages = {
+            '15': '16',
+            '16': '17',
+            '17': '18',
+            '18': '19',
+            '19': '20'
+        };
+        const imageNum = renumberedTableImages[num] || num;
+
         return num.toLowerCase() === 'vip'
             ? 'img/tables/table-vip.jpg'
-            : `img/tables/table-${num}.jpg`;
+            : `img/tables/table-${imageNum}.jpg`;
     }
 
     function showTableModal(num, cap) {
