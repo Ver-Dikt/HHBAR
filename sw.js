@@ -1,13 +1,24 @@
-const STATIC_CACHE = 'static-v7';
-const DYNAMIC_CACHE = 'dynamic-v7';
+const STATIC_CACHE = 'static-v8';
+const DYNAMIC_CACHE = 'dynamic-v8';
 const OFFLINE_PAGE = '/offline.html';
 
 const STATIC_ASSETS = [
   '/',
   '/index.html',
+  '/src/styles/index.css',
+  '/src/scripts/index.js',
+  '/src/scripts/analytics.js',
+  '/src/data/events.json',
   '/booking.html',
+  '/menu.html',
+  '/rent.html',
+  '/cookies.html',
   '/offline.html',
+  '/favicon.ico',
+  '/favicon.svg',
   '/img/logo-main.png',
+  '/img/icons/icon-192.png',
+  '/img/icons/icon-512.png',
   '/img/hhbar-hero-bg.jpg',
   '/manifest.json'
 ];
