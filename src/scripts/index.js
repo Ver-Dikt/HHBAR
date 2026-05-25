@@ -188,36 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================
-    // NAV MORE DROPDOWN
-    // =========================================
-    const navMore = document.getElementById('navMore');
-    const navMoreBtn = document.getElementById('navMoreBtn');
-    const navMoreMenu = document.getElementById('navMoreMenu');
-
-    const setNavMoreOpen = (open) => {
-        if (!navMore || !navMoreBtn) return;
-        navMore.classList.toggle('open', open);
-        navMoreBtn.setAttribute('aria-expanded', open);
-    };
-
-    navMoreBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setNavMoreOpen(!navMore.classList.contains('open'));
-    });
-
-    navMoreMenu?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => setNavMoreOpen(false));
-    });
-
-    document.addEventListener('click', (e) => {
-        if (navMore && !navMore.contains(e.target)) setNavMoreOpen(false);
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') setNavMoreOpen(false);
-    });
-
-    // =========================================
     // MOBILE MENU
     // =========================================
     const menuBtn = document.getElementById('mobileMenuBtn');
@@ -228,14 +198,13 @@ document.addEventListener('DOMContentLoaded', () => {
         menuBtn.setAttribute('aria-expanded', open);
         menuBtn.setAttribute('aria-label', open ? 'Закрыть навигацию' : 'Открыть навигацию');
         menuBtn.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        if (!open) setNavMoreOpen(false);
     };
 
     menuBtn.addEventListener('click', () => {
         setMobileNavOpen(!navLinks.classList.contains('active'));
     });
 
-    document.querySelectorAll('.nav-links a, .nav-more-menu a, .mobile-nav a').forEach(link => {
+    document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
         link.addEventListener('click', () => {
             setMobileNavOpen(false);
             document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(l => l.classList.remove('active'));
