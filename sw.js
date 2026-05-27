@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v8';
-const DYNAMIC_CACHE = 'dynamic-v8';
+const STATIC_CACHE = 'static-v9';
+const DYNAMIC_CACHE = 'dynamic-v9';
 const OFFLINE_PAGE = '/offline.html';
 
 const STATIC_ASSETS = [
@@ -89,19 +89,16 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Images — stale while revalidate
+  // Images — network first, so updated posters/photos appear immediately.
   if (request.destination === 'image') {
     event.respondWith(
       caches.open(DYNAMIC_CACHE).then(cache => 
-        cache.match(request).then(cached => {
-          const network = fetch(request).then(resp => {
-            if (resp.status === 200) {
-              cache.put(request, resp.clone());
-            }
-            return resp;
-          }).catch(() => cached);
-          return cached || network;
-        })
+        fetch(request).then(resp => {
+          if (resp.status === 200) {
+            cache.put(request, resp.clone());
+          }
+          return resp;
+        }).catch(() => cache.match(request))
       )
     );
     return;
