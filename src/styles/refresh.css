@@ -8,13 +8,13 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 [hidden] { display: none !important; }
 header { background: rgba(11,15,18,.92); }
 .hero { min-height: 760px; height: 100svh; padding-top: 105px; isolation: isolate; }
-.hero-content { text-align: left; transform: none; }
-.hero .floating-logo { display: none; }
+.hero-content { text-align: center; transform: translateY(-15px); }
+.hero .floating-logo { display: flex; width: min(68vw, 590px); margin: 0 auto 24px; }
 .hero-eyebrow { font-size: .7rem; letter-spacing: .28em; color: var(--primary); margin-bottom: 24px; }
 .hero-headline { font-size: clamp(3.3rem, 7.8vw, 7.5rem); line-height: 1.04; letter-spacing: -.065em; max-width: 920px; margin: 0 0 28px; }
 .hero-headline span { color: var(--primary); }
-.hero #heroSubtitle { font-size: clamp(.95rem, 1.4vw, 1.2rem); max-width: 550px; color: #c8cdd4; margin-left: 0; }
-.hero-buttons { justify-content: flex-start; margin-top: 32px; }
+.hero #heroSubtitle { font-size: clamp(.95rem, 1.4vw, 1.2rem); max-width: 650px; color: #c8cdd4; margin-inline: auto; }
+.hero-buttons { justify-content: center; margin-top: 32px; }
 .btn { border-radius: 10px; box-shadow: none; background: var(--primary); color: #071716; min-height: 48px; }
 .btn-secondary, .btn-tertiary { background: rgba(15,23,27,.55); color: #eef4f4; border: 1px solid #60706e; }
 .hero-utilities { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 38px; font-size: .8rem; color: #b7c5c8; }
@@ -58,6 +58,21 @@ header { background: rgba(11,15,18,.92); }
 .offline-banner { position: fixed; top: 0; left: 0; right: 0; padding: 8px; background: #674e19; color: white; text-align: center; z-index: 100000; font-size: .8rem; }
 .cookie-reset { display: inline-flex; padding: 12px 16px; background: #182329; border: 1px solid #61727c; color: white; border-radius: 8px; margin-top: 20px; cursor: pointer; }
 .reveal, .reveal-left, .reveal-right, .reveal-text .word { opacity: 1; transform: none; }
+.music-container { max-width: 980px; margin-inline: auto; padding: 20px; gap: 18px; border-radius: 16px; background: #10171b; }
+.dj-list { width: 30%; max-height: 430px; }
+.dj-item { padding: 10px 12px; margin-bottom: 7px; border-radius: 10px; }
+.dj-photo { width: 44px; height: 44px; margin-right: 12px; border-width: 2px; }
+.dj-name { font-size: .92rem; }
+.player-section { width: 70%; }
+.waveform-container { height: 52px; margin-bottom: 12px; }
+.player-box { padding: 16px 18px; margin-bottom: 12px; border-radius: 12px; }
+.current-track-info { font-size: 1rem; margin-bottom: 10px; min-height: 1.4rem; }
+.volume-control { margin-bottom: 9px; }
+.controls { gap: 14px; margin-bottom: 10px; }
+.ctrl-btn { width: 38px; height: 38px; font-size: 1rem; }
+.ctrl-btn.play { width: 48px; height: 48px; font-size: 1.2rem; }
+.playlist { height: 165px; padding: 10px; border-radius: 10px; }
+.track-item { min-height: 38px; padding: 7px 10px; font-size: .82rem; }
 @view-transition { navigation: auto; }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 180ms; }
 @media(min-width: 1051px) { header .container { max-width: 1440px; width: 96%; } .nav-links { gap: 2px; margin-left: 110px; } }
@@ -65,12 +80,19 @@ header { background: rgba(11,15,18,.92); }
  .hero { min-height: 680px; padding: 100px 0 60px; }
  .hero-headline { font-size: clamp(3.1rem,12vw,5rem); }
  .hero-content { width: 94%; }
+ .hero .floating-logo { width: min(88vw, 380px); margin-bottom: 18px; }
  .orbital-scene { width: 85vw; top: 10%; right: -35%; opacity: .35; }
  .hero-buttons { gap: 10px; }
  .hero-buttons .btn { padding: 13px 18px; font-size: .85rem; }
  .hero-utilities { margin-top: 20px; gap: 16px; }
  .mobile-nav { padding-bottom: env(safe-area-inset-bottom,0px); }
  .booking-tools { margin: 16px 0; padding: 18px; }
+ .music-container { padding: 12px; }
+ .dj-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); width: 100%; max-height: none; gap: 6px; padding: 0; }
+ .dj-item { min-width: 0; margin: 0; padding: 7px; flex-direction: column; text-align: center; }
+ .dj-photo { width: 42px; height: 42px; margin: 0 0 5px; }
+ .dj-name { font-size: .68rem; overflow-wrap: anywhere; }
+ .player-section { width: 100%; }
 }
 html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 html[data-motion="off"] #particleCanvas { display: none; }

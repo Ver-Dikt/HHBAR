@@ -12,6 +12,10 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     await page.locator('#eventsGrid').waitFor();
     if(await page.locator('#eventsGrid .event-card-3d').count()) throw new Error('Past events visible as upcoming');
     if(await page.locator('#eventsArchive .event-card-3d').count()!==3) throw new Error('Archive not rendered');
+    await page.locator('.playlist button.track-item').first().waitFor();
+    await page.locator('#playBtn').click(); await page.waitForTimeout(600);
+    if (!await page.locator('#audioPlayer').evaluate(audio => audio.src.includes('/audio/') && !audio.paused)) throw new Error('Audio player failed');
+    await page.locator('#playBtn').click();
     await page.screenshot({path:path.join(root,`hhbar-${viewport.name}.png`),fullPage:true});
     if (await page.locator('body').evaluate(el => el.scrollWidth > el.clientWidth)) throw new Error(`Horizontal overflow on ${viewport.name}`);
     await page.goto('http://127.0.0.1:4173/menu.html'); await page.locator('#menuSearch').fill('кофе');
