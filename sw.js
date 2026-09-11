@@ -1,29 +1,29 @@
 const STATIC_CACHE = 'static-v11';
 const DYNAMIC_CACHE = 'dynamic-v11';
-const OFFLINE_PAGE = '/offline.html';
+const OFFLINE_PAGE = new URL('offline.html', self.registration.scope).href;
 
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/src/styles/index.css',
-  '/src/styles/refresh.css',
-  '/src/scripts/safe-data.js',
-  '/src/scripts/site.js',
-  '/src/scripts/index.js',
-  '/src/scripts/analytics.js',
-  '/src/data/events.json',
-  '/booking.html',
-  '/menu.html',
-  '/rent.html',
-  '/cookies.html',
-  '/offline.html',
-  '/favicon.ico',
-  '/favicon.svg',
-  '/img/logo-main.png',
-  '/img/icons/icon-192.png',
-  '/img/icons/icon-512.png',
-  '/img/hhbar-hero-bg.jpg',
-  '/manifest.json'
+  './',
+  'index.html',
+  'src/styles/index.css',
+  'src/styles/refresh.css',
+  'src/scripts/safe-data.js',
+  'src/scripts/site.js',
+  'src/scripts/index.js',
+  'src/scripts/analytics.js',
+  'src/data/events.json',
+  'booking.html',
+  'menu.html',
+  'rent.html',
+  'cookies.html',
+  'offline.html',
+  'favicon.ico',
+  'favicon.svg',
+  'img/logo-main.png',
+  'img/icons/icon-192.png',
+  'img/icons/icon-512.png',
+  'img/hhbar-hero-bg.jpg',
+  'manifest.json'
 ];
 
 // Install
@@ -69,13 +69,13 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Versioned application assets — network first, cache fallback.
-  if (STATIC_ASSETS.some(path => url.pathname === path || url.pathname.endsWith(path))) {
+  if (STATIC_ASSETS.some(path => path !== './' && url.pathname.endsWith('/' + path))) {
     event.respondWith(
       fetch(request).then(resp => {
           const copy = resp.clone();
           caches.open(STATIC_CACHE).then(cache => cache.put(request, copy));
           return resp;
-        }).catch(() => caches.match(request).then(cached => cached || caches.match('/offline.html')))
+        }).catch(() => caches.match(request).then(cached => cached || caches.match(OFFLINE_PAGE)))
     );
     return;
   }
