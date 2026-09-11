@@ -1,11 +1,14 @@
-const STATIC_CACHE = 'static-v9';
-const DYNAMIC_CACHE = 'dynamic-v9';
+const STATIC_CACHE = 'static-v10';
+const DYNAMIC_CACHE = 'dynamic-v10';
 const OFFLINE_PAGE = '/offline.html';
 
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/src/styles/index.css',
+  '/src/styles/refresh.css',
+  '/src/scripts/safe-data.js',
+  '/src/scripts/site.js',
   '/src/scripts/index.js',
   '/src/scripts/analytics.js',
   '/src/data/events.json',
@@ -104,7 +107,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Everything else — network first
+  // Everything else — network first. Never cache cross-origin responses.
+  if (url.origin !== self.location.origin) return;
   event.respondWith(
     fetch(request).then(resp => {
       if (request.method === 'GET' && resp.status === 200) {

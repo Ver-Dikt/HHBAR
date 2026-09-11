@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // MAGNETIC BUTTONS
     // =========================================
     function bindMagneticButton(btn) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if (btn.dataset.magneticReady) return;
         btn.dataset.magneticReady = 'true';
         btn.addEventListener('mousemove', (e) => {
@@ -181,10 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
     footerThemeToggle.addEventListener('click', () => {
         body.classList.toggle('magenta-mode');
         const isMagenta = body.classList.contains('magenta-mode');
-        footerThemeToggle.innerHTML = isMagenta 
-            ? '<i class="fas fa-sun"></i><span>Светлая тема</span>' 
-            : '<i class="fas fa-moon"></i><span>Тёмная тема</span>';
-        footerThemeToggle.setAttribute('aria-label', isMagenta ? 'Включить тёмную цветовую тему' : 'Включить светлую цветовую тему');
+        footerThemeToggle.textContent = isMagenta ? 'Акцент: пурпурный' : 'Акцент: бирюзовый';
+        footerThemeToggle.setAttribute('aria-label', 'Сменить цветовой акцент');
     });
 
     // =========================================
@@ -202,6 +201,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuBtn.addEventListener('click', () => {
         setMobileNavOpen(!navLinks.classList.contains('active'));
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            setMobileNavOpen(false);
+            menuBtn.focus();
+        }
     });
 
     document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
@@ -231,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const date = document.createElement('div');
         date.className = 'event-date';
-        date.textContent = event.date;
+        date.textContent = (event.archived ? 'Архив · ' : '') + event.date;
 
         const hint = document.createElement('p');
         hint.className = 'event-hint';
@@ -240,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const back = document.createElement('div');
         back.className = 'card-face card-back';
+        back.inert = true;
 
         const title = document.createElement('h3');
         title.textContent = event.title;
@@ -255,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         booking.href = event.bookingUrl || 'booking.html';
         booking.className = 'btn magnetic-btn book-trigger';
         booking.style.marginTop = '20px';
-        booking.textContent = 'Забронировать столик';
+        booking.textContent = event.archived ? 'Выбрать столик на другой вечер' : 'Забронировать столик';
         bindMagneticButton(booking);
         back.appendChild(booking);
 
@@ -281,9 +287,24 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('src/data/events.json', { cache: 'no-store' });
             if (!response.ok) throw new Error(`events.json ${response.status}`);
-            const events = await response.json();
-            eventsGrid.replaceChildren(...events.map(createEventCard));
-            eventsGrid.querySelectorAll('.event-card-3d').forEach(bindEventCard);
+            const data = await response.json();
+            if (!Array.isArray(data)) throw new Error('Invalid events');
+            const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+            const events = data.slice(0, 100).map(item => HHData.eventData(item, location.href, today)).filter(Boolean);
+            const upcoming = events.filter(event => !event.archived).sort((a, b) => a.datetime.localeCompare(b.datetime));
+            const archived = events.filter(event => event.archived).sort((a, b) => b.datetime.localeCompare(a.datetime));
+            eventsGrid.replaceChildren(...upcoming.map(createEventCard));
+            if (!upcoming.length) {
+                const note = document.createElement('p');
+                note.className = 'events-empty';
+                note.textContent = 'Новая афиша готовится. Анонсы вечеринок — в наших VK и Telegram.';
+                const link = document.createElement('a');
+                link.href = 'https://vk.com/hhbar'; link.textContent = ' Открыть VK →';
+                note.append(link); eventsGrid.append(note);
+            }
+            const archive = document.getElementById('eventsArchive');
+            archive?.replaceChildren(...archived.map(createEventCard));
+            document.querySelectorAll('.event-card-3d').forEach(bindEventCard);
         } catch (error) {
             const fallback = document.createElement('p');
             fallback.className = 'events-empty';
@@ -295,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleEventCard = (card) => {
         const flipped = card.classList.toggle('flipped');
         card.setAttribute('aria-expanded', flipped);
+        card.querySelector('.card-back').inert = !flipped;
     };
 
     loadEvents();
@@ -488,7 +510,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function playAudio() {
-        initAudioContext();
         if (!audio.src) {
             if (currentTracks.length) {
                 selectTrack(0, false);
@@ -497,6 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!audio.src) return;
 
         try {
+            initAudioContext();
             await audio.play();
             isPlaying = true;
             playBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -567,6 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     audio.addEventListener('error', (e) => {
+        pauseAudio();
         showToast('Ошибка загрузки аудиофайла', true);
         setTrackTitle('Ошибка загрузки');
     });
@@ -597,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function normalizeTrack(track) {
         const displayName = track.displayName || track.name || track.fileName || 'Без названия';
-        return { src: track.src, displayName };
+        return { src: HHData.localAsset(track.src, 'audio/', location.href), displayName };
     }
 
     async function loadMusicLibrary() {
@@ -612,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getFallbackTracks(item) {
         try {
-            return JSON.parse(item.dataset.tracks || '[]').map(normalizeTrack);
+            return [];
         } catch (e) {
             return [];
         }
@@ -621,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function getTracksForDj(item, index) {
         const key = item.dataset.folder || `dj${index + 1}`;
         if (musicLibrary && Object.prototype.hasOwnProperty.call(musicLibrary, key)) {
-            return musicLibrary[key].map(normalizeTrack);
+            return Array.isArray(musicLibrary[key]) ? musicLibrary[key].filter(t => t && typeof t.src === 'string').map(normalizeTrack).filter(t => t.src) : [];
         }
         return musicLibrary ? [] : getFallbackTracks(item);
     }
@@ -679,6 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function selectDj(item, index, shouldPlay = false) {
+        pauseAudio();
         djItems.forEach(i => i.classList.remove('active'));
         item.classList.add('active');
         currentDjIndex = index;
@@ -706,6 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastTimestamp = 0;
     const DRAW_INTERVAL = 1000 / 30;
     let isWaveformActive = false;
+    let waveformFrame;
 
     function resizeWfCanvas() {
         wfCanvas.width = wfCanvas.offsetWidth;
@@ -715,10 +740,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resizeWfCanvas);
 
     function drawWaveform() {
+        if (document.hidden || !isWaveformActive || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const now = performance.now();
         if (now - lastTimestamp >= DRAW_INTERVAL) {
             if (!analyser || !isWaveformActive) {
-                requestAnimationFrame(drawWaveform);
+                waveformFrame = requestAnimationFrame(drawWaveform);
                 return;
             }
 
@@ -743,12 +769,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             lastTimestamp = now;
         }
-        requestAnimationFrame(drawWaveform);
+        waveformFrame = requestAnimationFrame(drawWaveform);
     }
     drawWaveform();
 
     // Pause waveform when not playing
-    audio.addEventListener('play', () => { isWaveformActive = true; });
+    audio.addEventListener('play', () => { isWaveformActive = true; cancelAnimationFrame(waveformFrame); drawWaveform(); });
+    document.addEventListener('visibilitychange', () => { cancelAnimationFrame(waveformFrame); if (!document.hidden) drawWaveform(); });
+    if ('mediaSession' in navigator) {
+        for (const [action, handler] of Object.entries({ play: playAudio, pause: pauseAudio, previoustrack: () => moveTrack(-1), nexttrack: () => moveTrack(1) })) {
+            try { navigator.mediaSession.setActionHandler(action, handler); } catch {}
+        }
+        audio.addEventListener('play', () => {
+            if ('MediaMetadata' in window) navigator.mediaSession.metadata = new MediaMetadata({ title: currentTracks[currentTrackIndex]?.displayName || 'HHBAR', artist: djItems[currentDjIndex]?.dataset.dj || 'HHBAR' });
+        });
+    }
     audio.addEventListener('pause', () => { isWaveformActive = false; });
     audio.addEventListener('ended', () => { isWaveformActive = false; });// TOAST NOTIFICATION
     // =========================================

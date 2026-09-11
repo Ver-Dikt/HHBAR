@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <link rel="stylesheet" href="src/styles/index.css">
+<link rel="stylesheet" href="src/styles/refresh.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BarOrPub","name":"HHBAR Electronic Music Bar","url":"https://hhbar.ru/","image":"https://hhbar.ru/img/hhbar-hero-bg.jpg","telephone":"+7 8152 70-70-57","address":{"@type":"PostalAddress","addressLocality":"Мурманск","addressCountry":"RU"},"servesCuisine":["Bar","European"],"priceRange":"₽₽","sameAs":["https://vk.com/hhbar","https://t.me/hhbar_murmansk"]}</script>
 </head>
 <body>
@@ -46,6 +47,7 @@
     <div class="container">
         <nav>
             <a href="#home" class="logo" aria-label="HHBAR — на главную">
+                <span class="logo-main">HHBAR</span>
             </a>
             <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Открыть навигацию" aria-expanded="false" aria-controls="navLinks"><i class="fas fa-bars"></i></button>
             <ul class="nav-links" id="navLinks">
@@ -65,7 +67,7 @@
 </header>
 
 <!-- HERO -->
-<video class="page-video-bg" autoplay muted loop playsinline>
+<video class="page-video-bg" muted loop playsinline preload="none" poster="img/hhbar-hero-bg.jpg" aria-hidden="true">
     <source src="Video/hero-video.mp4" type="video/mp4">
 </video>
 <div class="page-video-overlay"></div>
@@ -74,17 +76,21 @@
 
 <section id="home" class="hero">
     <div class="hero-overlay"></div>
+    <div class="orbital-scene" aria-hidden="true"><div class="orbital-core"><i></i><i></i><i></i><i></i><i></i></div></div>
 
     <div class="container hero-content">
+        <p class="hero-eyebrow">МУРМАНСК / КОЛЬСКИЙ, 44</p>
         <div class="floating-logo">
             <img src="img/logo-main.png" alt="HHBAR Logo" style="width:100%; filter: drop-shadow(0 0 20px rgba(0,243,255,0.5));">
         </div>
+        <h1 class="hero-headline">Твоя ночь.<br><span>Твоя частота.</span></h1>
         <p class="reveal-text" id="heroSubtitle">DJ-сеты, вечеринки, авторские напитки и кухня</p>
         <div class="hero-buttons">
             <a href="booking.html" class="btn magnetic-btn">Забронировать столик</a>
             <a href="menu.html" class="btn btn-secondary magnetic-btn">Меню</a>
             <a href="#events" class="btn btn-tertiary magnetic-btn">Мероприятия</a>
         </div>
+        <div class="hero-utilities"><a href="#music">Слушать резидентов ↗</a><button type="button" id="motionToggle" aria-pressed="false">Анимация: включена</button></div>
     </div>
 </section>
 
@@ -126,6 +132,7 @@
         <div class="events-grid-3d" id="eventsGrid" aria-live="polite">
             <p class="events-empty">Загружаем афишу...</p>
         </div>
+        <details class="events-archive"><summary>Прошедшие вечеринки</summary><div class="events-grid-3d" id="eventsArchive"></div></details>
     </div>
 </section>
 
@@ -193,37 +200,37 @@
         <div class="videos-grid">
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe title="VK видео HHBAR 1" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239486&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe title="VK видео HHBAR 1" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-src="https://vk.com/video_ext.php?oid=-30291448&amp;id=456239486&amp;hd=2" sandbox="allow-scripts allow-same-origin allow-presentation" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет G-POL 14.02.26</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe title="VK видео HHBAR 2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239472&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe title="VK видео HHBAR 2" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-src="https://vk.com/video_ext.php?oid=-30291448&amp;id=456239472&amp;hd=2" sandbox="allow-scripts allow-same-origin allow-presentation" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет ISENTIE 24.01.26</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe title="VK видео HHBAR 3" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239471&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe title="VK видео HHBAR 3" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-src="https://vk.com/video_ext.php?oid=-30291448&amp;id=456239471&amp;hd=2" sandbox="allow-scripts allow-same-origin allow-presentation" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет AIWASKA 07.01.2026</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe title="VK видео HHBAR 4" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239454&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe title="VK видео HHBAR 4" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-src="https://vk.com/video_ext.php?oid=-30291448&amp;id=456239454&amp;hd=2" sandbox="allow-scripts allow-same-origin allow-presentation" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет HHBAR Нам 7 Лет 29.11.25</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe title="VK видео HHBAR 5" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239450&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe title="VK видео HHBAR 5" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-src="https://vk.com/video_ext.php?oid=-30291448&amp;id=456239450&amp;hd=2" sandbox="allow-scripts allow-same-origin allow-presentation" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет -30, Бал Снежной Королевы 01.11.25</div>
             </div>
             <div class="video-card reveal">
                 <div class="video-container">
-                    <iframe title="VK видео HHBAR 6" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://vk.com/video_ext.php?oid=-30291448&id=456239470&hd=2" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>
+                    <iframe title="VK видео HHBAR 6" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-src="https://vk.com/video_ext.php?oid=-30291448&amp;id=456239470&amp;hd=2" sandbox="allow-scripts allow-same-origin allow-presentation" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Видео отчет BASSMATIC SHOWCASE 20.12.25</div>
             </div>
@@ -368,7 +375,7 @@
             <div class="map-container reveal-right">
                 <div class="map-embed">
                     <iframe
-                        src="https://yandex.ru/map-widget/v1/?ll=33.102358%2C68.943852&z=17&pt=33.102358%2C68.943852%2Cpm2rdm&text=HHBAR%2C%20%D0%9A%D0%BE%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%2044"
+                        data-src="https://yandex.ru/map-widget/v1/?ll=33.102358%2C68.943852&amp;z=17&amp;pt=33.102358%2C68.943852%2Cpm2rdm&amp;text=HHBAR%2C%20%D0%9A%D0%BE%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%2044"
                         title="HHBAR на Яндекс.Картах"
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"
@@ -424,7 +431,9 @@
 
 <audio id="audioPlayer"></audio>
 
+<script src="src/scripts/safe-data.js" defer></script>
 <script src="src/scripts/analytics.js" defer></script>
 <script src="src/scripts/index.js" defer></script>
+<script src="src/scripts/site.js" defer></script>
 </body>
 </html>
