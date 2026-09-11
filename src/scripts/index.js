@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const date = document.createElement('div');
         date.className = 'event-date';
-        date.textContent = (event.archived ? 'Архив · ' : '') + event.date;
+        date.textContent = event.date;
 
         const hint = document.createElement('p');
         hint.className = 'event-hint';
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         booking.href = event.bookingUrl || 'booking.html';
         booking.className = 'btn magnetic-btn book-trigger';
         booking.style.marginTop = '20px';
-        booking.textContent = event.archived ? 'Выбрать столик на другой вечер' : 'Забронировать столик';
+        booking.textContent = 'Забронировать столик';
         bindMagneticButton(booking);
         back.appendChild(booking);
 
@@ -291,20 +291,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!Array.isArray(data)) throw new Error('Invalid events');
             const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
             const events = data.slice(0, 100).map(item => HHData.eventData(item, location.href, today)).filter(Boolean);
-            const upcoming = events.filter(event => !event.archived).sort((a, b) => a.datetime.localeCompare(b.datetime));
-            const archived = events.filter(event => event.archived).sort((a, b) => b.datetime.localeCompare(a.datetime));
-            eventsGrid.replaceChildren(...upcoming.map(createEventCard));
-            if (!upcoming.length) {
-                const note = document.createElement('p');
-                note.className = 'events-empty';
-                note.textContent = 'Новая афиша готовится. Анонсы вечеринок — в наших VK и Telegram.';
-                const link = document.createElement('a');
-                link.href = 'https://vk.com/hhbar'; link.textContent = ' Открыть VK →';
-                note.append(link); eventsGrid.append(note);
-            }
-            const archive = document.getElementById('eventsArchive');
-            archive?.replaceChildren(...archived.map(createEventCard));
-            document.querySelectorAll('.event-card-3d').forEach(bindEventCard);
+            eventsGrid.replaceChildren(...events.map(createEventCard));
+            eventsGrid.querySelectorAll('.event-card-3d').forEach(bindEventCard);
         } catch (error) {
             const fallback = document.createElement('p');
             fallback.className = 'events-empty';

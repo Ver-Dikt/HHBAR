@@ -10,8 +10,7 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     const page=await browser.newPage({viewport}); const errors=[]; page.on('pageerror',e=>errors.push(e.message));
     await page.goto('http://127.0.0.1:4173/index.html');
     await page.locator('#eventsGrid').waitFor();
-    if(await page.locator('#eventsGrid .event-card-3d').count()) throw new Error('Past events visible as upcoming');
-    if(await page.locator('#eventsArchive .event-card-3d').count()!==3) throw new Error('Archive not rendered');
+    if(await page.locator('#eventsGrid .event-card-3d').count()!==3) throw new Error('Event cards not rendered');
     await page.locator('.playlist button.track-item').first().waitFor();
     await page.locator('#playBtn').click(); await page.waitForTimeout(600);
     if (!await page.locator('#audioPlayer').evaluate(audio => audio.src.includes('/audio/') && !audio.paused)) throw new Error('Audio player failed');
