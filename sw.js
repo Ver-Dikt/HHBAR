@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v10';
-const DYNAMIC_CACHE = 'dynamic-v10';
+const STATIC_CACHE = 'static-v11';
+const DYNAMIC_CACHE = 'dynamic-v11';
 const OFFLINE_PAGE = '/offline.html';
 
 const STATIC_ASSETS = [
@@ -68,16 +68,14 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets — cache first
+  // Versioned application assets — network first, cache fallback.
   if (STATIC_ASSETS.some(path => url.pathname === path || url.pathname.endsWith(path))) {
     event.respondWith(
-      caches.match(request).then(cached => 
-        cached || fetch(request).then(resp => {
+      fetch(request).then(resp => {
           const copy = resp.clone();
           caches.open(STATIC_CACHE).then(cache => cache.put(request, copy));
           return resp;
-        }).catch(() => caches.match('/index.html'))
-      )
+        }).catch(() => caches.match(request).then(cached => cached || caches.match('/offline.html')))
     );
     return;
   }

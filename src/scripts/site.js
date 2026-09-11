@@ -40,5 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
   function onlineState() { banner.hidden = navigator.onLine; }
   document.body.append(banner); onlineState();
   addEventListener('online',onlineState); addEventListener('offline',onlineState);
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  if ('serviceWorker' in navigator) {
+    if (location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
+      Promise.all([
+        navigator.serviceWorker.getRegistrations().then(items => Promise.all(items.map(item => item.unregister()))),
+        'caches' in window ? caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key)))) : Promise.resolve()
+      ]).then(() => {
+        if (!sessionStorage.getItem('hhbarPreviewCacheReset')) {
+          sessionStorage.setItem('hhbarPreviewCacheReset', '1');
+          location.reload();
+        }
+      }).catch(() => {});
+    } else {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  }
 });

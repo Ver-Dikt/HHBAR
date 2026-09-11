@@ -852,15 +852,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     });
 
-    // =========================================
-    // SERVICE WORKER
-    // =========================================
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js")
-            .then(() => {})
-            .catch(() => {});
-    }
-
     // Initialize AudioContext on first interaction
     document.body.addEventListener("click", () => {
         if (audioContext && audioContext.state === "suspended") {
