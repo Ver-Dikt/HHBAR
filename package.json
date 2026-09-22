@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
+    "build:data": "node tools/build-browser-data.cjs",
     "dev": "node tools/serve.cjs",
     "test": "node --test tests/security.test.cjs",
     "test:browser": "node tests/browser.cjs",

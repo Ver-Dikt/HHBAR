@@ -1,6 +1,7 @@
 const { chromium } = require('playwright');
 const { spawn } = require('node:child_process');
 const path = require('node:path');
+const { pathToFileURL } = require('node:url');
 const root = path.resolve(__dirname,'..');
 const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignore'});
 (async()=>{
@@ -23,5 +24,12 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     if(await page.locator('.table[data-capacity="2"]:visible').count()) throw new Error('Table filter failed');
     if(errors.length) throw new Error(errors.join('; '));
   }
+  const localPage=await browser.newPage({viewport:{width:1440,height:900}}); const localErrors=[]; localPage.on('pageerror',e=>localErrors.push(e.message));
+  await localPage.goto(pathToFileURL(path.join(root,'index.html')).href,{waitUntil:'domcontentloaded'});
+  await localPage.locator('#eventsGrid .event-card-3d').first().waitFor();
+  if(await localPage.locator('#eventsGrid .event-card-3d').count()!==3) throw new Error('Local-file events failed');
+  await localPage.locator('.playlist button.track-item').first().waitFor();
+  if(await localPage.locator('.playlist button.track-item').count()<3) throw new Error('Local-file music library failed');
+  if(localErrors.length) throw new Error(`Local-file errors: ${localErrors.join('; ')}`);
   await browser.close(); server.kill(); console.log('Browser checks passed; screenshots created.');
 })().catch(error=>{server.kill();console.error(error);process.exit(1);});

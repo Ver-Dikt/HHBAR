@@ -1,0 +1,43 @@
+/* Generated from src/data/events.json. Run npm run build:data after editing JSON. */
+window.HHBAR_EVENTS = [
+  {
+    "title": "День рождения АРЧИ",
+    "date": "29 МАЯ",
+    "datetime": "2026-05-29",
+    "image": "img/events/ev-1.jpg",
+    "ariaLabel": "День рождения АРЧИ, 29 мая",
+    "description": [
+      "Раздадим стиля и празднуем вместе день рождения АРЧИ, или как в простонародье - Перекуп.",
+      "Все, что любит наш братишка: хип-хоп и не только.",
+      "Стартуем в 21:00.",
+      "VER-DIKT & ANDY DAV / SONNY GEE / AHO / NIKTO / PAUL P",
+      "Бронь столов: 70-70-57. Кольский, 44."
+    ],
+    "bookingUrl": "booking.html"
+  },
+  {
+    "title": "HUNTER(RU)",
+    "date": "2 МАЯ",
+    "datetime": "2026-05-02",
+    "image": "img/events/ev-2.jpg",
+    "ariaLabel": "HUNTER(RU), 2 мая",
+    "description": [
+      "Празднуем день рождения нашего резидента.",
+      "Это будет не просто вечеринка, а ночь открытых знакомств благодаря браслетам, которые вы выберете на входе."
+    ],
+    "bookingUrl": "booking.html"
+  },
+  {
+    "title": "MODBIT",
+    "date": "16 МАЯ",
+    "datetime": "2026-05-16",
+    "image": "img/events/ev-3.jpg",
+    "ariaLabel": "MODBIT, 16 мая",
+    "description": [
+      "MODBIT - электронный дуэт, работающий в жанрах Indie Dance, House и Tech House. Проект известен своим эмоциональным звучанием, клубной энергетикой и фокусом на авторскую музыку.",
+      "На счету MODBIT более 27 оригинальных треков, не считая ремиксов, а также множество попаданий в Beatport Top 100 Indie Dance.",
+      "Дуэт уверенно закрепился на международной электронной сцене, выпуская музыку на Headonism, Phisica, Ritual, Bunny Tiger, Techno and Chill, Siona Records, Maneki Neko и других лейблах."
+    ],
+    "bookingUrl": "booking.html"
+  }
+];

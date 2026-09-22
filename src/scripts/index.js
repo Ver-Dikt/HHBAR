@@ -285,9 +285,12 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadEvents() {
         if (!eventsGrid) return;
         try {
-            const response = await fetch('src/data/events.json', { cache: 'no-store' });
-            if (!response.ok) throw new Error(`events.json ${response.status}`);
-            const data = await response.json();
+            let data = window.HHBAR_EVENTS;
+            if (!Array.isArray(data)) {
+                const response = await fetch('src/data/events.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error(`events.json ${response.status}`);
+                data = await response.json();
+            }
             if (!Array.isArray(data)) throw new Error('Invalid events');
             const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
             const events = data.slice(0, 100).map(item => HHData.eventData(item, location.href, today)).filter(Boolean);
@@ -613,6 +616,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadMusicLibrary() {
         try {
+            if (window.HHBAR_MUSIC && typeof window.HHBAR_MUSIC === 'object') {
+                musicLibrary = window.HHBAR_MUSIC;
+                return;
+            }
             const response = await fetch('src/scripts/music_data.json?v=20260505-1', { cache: 'no-store' });
             if (!response.ok) throw new Error(`music_data.json ${response.status}`);
             musicLibrary = await response.json();

@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v11';
-const DYNAMIC_CACHE = 'dynamic-v11';
+const STATIC_CACHE = 'static-v12';
+const DYNAMIC_CACHE = 'dynamic-v12';
 const OFFLINE_PAGE = new URL('offline.html', self.registration.scope).href;
 
 const STATIC_ASSETS = [
@@ -8,6 +8,8 @@ const STATIC_ASSETS = [
   'src/styles/index.css',
   'src/styles/refresh.css',
   'src/scripts/safe-data.js',
+  'src/data/events-data.js',
+  'src/scripts/music-data.js',
   'src/scripts/site.js',
   'src/scripts/index.js',
   'src/scripts/analytics.js',
