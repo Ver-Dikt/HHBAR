@@ -32,11 +32,15 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     await page.waitForFunction(() => window.__restoplaceOpens === 1);
     if(await page.evaluate(() => window.__restoplaceItem) !== '830819') throw new Error('Specific RestoPlace table was not forwarded');
     if(await page.evaluate(() => window.__restoplaceCount) !== '10') throw new Error('RestoPlace guest count was not forwarded');
+    await page.locator('#guestCount').selectOption('3');
+    await page.locator('.table[data-table="14"]').click();
+    await page.waitForFunction(() => window.__restoplaceOpens === 2);
+    if(await page.evaluate(() => window.__restoplaceItem) !== '830817') throw new Error('Table 14 was not forwarded to live RestoPlace availability');
     if(await page.evaluate(() => location.search) !== '') throw new Error('Temporary booking query was not restored');
-    if(!await page.locator('.table[data-table="16"]').evaluate(el => el.classList.contains('selected'))) throw new Error('Selected table state failed');
+    if(!await page.locator('.table[data-table="14"]').evaluate(el => el.classList.contains('selected'))) throw new Error('Selected table state failed');
     if(!await page.locator('#selectedTableActions').evaluate(el => el.classList.contains('active'))) throw new Error('Booking action did not appear');
     await page.locator('#selectedTableActions [data-restoplace-booking]').click();
-    await page.waitForFunction(() => window.__restoplaceOpens === 2);
+    await page.waitForFunction(() => window.__restoplaceOpens === 3);
     if(await page.locator('body').evaluate(el => el.scrollWidth > el.clientWidth)) throw new Error(`Booking overflow on ${viewport.name}`);
     await page.screenshot({path:path.join(root,`hhbar-booking-${viewport.name}.png`),fullPage:true});
     if(errors.length) throw new Error(errors.join('; '));

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const tables = document.querySelectorAll('.table:not(.occupied)');
+    const tables = document.querySelectorAll('.table[data-table]');
     const hallScheme = document.querySelector('.hall-scheme');
     const hallContainer = document.getElementById('hallContainer');
     const selectedTableActions = document.getElementById('selectedTableActions');
