@@ -80,10 +80,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const cap = table.dataset.capacity;
             if (selectedTableTitle && selectedTableText) {
                 selectedTableTitle.textContent = num === 'VIP' ? 'VIP столик' : `Столик ${num}`;
-                selectedTableText.textContent = `Фото столика, вместимость до ${cap} человек и быстрый звонок для брони открыты в карточке.`;
+                selectedTableText.textContent = `Столик до ${cap} человек. Проверьте свободное время и завершите бронь в RestoPlace.`;
             }
-            openTablePreview(table);
+            selectedTableActions?.classList.add('active');
+            window.HHRestoplace?.open({ tableNumber: num, guestCount: Number(guestCount?.value) || Number(cap) });
         });
+    });
+
+    document.querySelectorAll('[data-restoplace-booking]').forEach(button => {
+        button.addEventListener('click', event => {
+            const selected = document.querySelector('.table.selected');
+            if (!selected || !window.HHRestoplace?.config.widgetUrl) return;
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            window.HHRestoplace.open({
+                tableNumber: selected.dataset.table,
+                guestCount: Number(guestCount?.value) || Number(selected.dataset.capacity)
+            });
+        }, true);
+    });
+
+    document.addEventListener('hhbar:booking-error', () => {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = 'Не удалось загрузить онлайн-бронирование. Позвоните: +7 (8152) 70-70-57';
+        toast.classList.add('active');
+        window.setTimeout(() => toast.classList.remove('active'), 5000);
     });
 
     closePreview.addEventListener('click', closeTablePreview);

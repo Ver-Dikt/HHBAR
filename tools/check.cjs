@@ -7,7 +7,7 @@ for (const page of pages) {
   const html = fs.readFileSync(path.join(root,page),'utf8');
   for (const match of html.matchAll(/(?:href|src)="([^"#]+)"/g)) {
     const target = decodeURIComponent(match[1].split('?')[0]);
-    if (/^(https?:|tel:|mailto:|data:)/.test(target)) continue;
+    if (/^(https?:|\/\/|tel:|mailto:|data:)/.test(target)) continue;
     if (!fs.existsSync(path.resolve(root,target))) failures.push(`${page}: missing ${target}`);
   }
   if (/<script>(?![\s\S]*application\/ld\+json)/.test(html)) failures.push(`${page}: inline script`);
