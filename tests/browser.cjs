@@ -28,6 +28,12 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
   await localPage.goto(pathToFileURL(path.join(root,'index.html')).href,{waitUntil:'domcontentloaded'});
   await localPage.locator('#eventsGrid .event-card-3d').first().waitFor();
   if(await localPage.locator('#eventsGrid .event-card-3d').count()!==3) throw new Error('Local-file events failed');
+  await localPage.waitForFunction(() => [...document.querySelectorAll('.card-front')].every(card => {
+    const match = getComputedStyle(card).backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+    if (!match) return false;
+    const image = new Image(); image.src = match[1];
+    return image.complete && image.naturalWidth > 0;
+  }));
   await localPage.locator('.playlist button.track-item').first().waitFor();
   if(await localPage.locator('.playlist button.track-item').count()<3) throw new Error('Local-file music library failed');
   if(localErrors.length) throw new Error(`Local-file errors: ${localErrors.join('; ')}`);

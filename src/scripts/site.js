@@ -4,15 +4,34 @@ document.addEventListener('DOMContentLoaded', () => {
   let motion = !reduced.matches && !navigator.connection?.saveData;
   const video = document.querySelector('.page-video-bg');
   const toggle = document.getElementById('motionToggle');
+  let videoReady = false;
+  function loadBackgroundVideo() {
+    if (!video || videoReady || !motion || document.hidden) return;
+    const source = video.querySelector('source[data-src]');
+    if (!source) { videoReady = true; return; }
+    source.src = source.dataset.src;
+    source.removeAttribute('data-src');
+    video.load();
+    videoReady = true;
+    video.play().catch(() => {});
+  }
   function updateMotion() {
     document.documentElement.dataset.motion = motion ? 'on' : 'off';
     if (toggle) { toggle.textContent = motion ? 'Анимация: включена' : 'Анимация: выключена'; toggle.setAttribute('aria-pressed', String(!motion)); }
-    if (video) { if (motion && !document.hidden) video.play().catch(() => {}); else video.pause(); }
+    if (video) {
+      if (motion && !document.hidden && videoReady) video.play().catch(() => {});
+      else video.pause();
+    }
   }
   toggle?.addEventListener('click', () => { motion = !motion; updateMotion(); });
   reduced.addEventListener('change', () => { motion = !reduced.matches; updateMotion(); });
   document.addEventListener('visibilitychange', updateMotion);
   updateMotion();
+  // Do not let the decorative 26 MB background compete with posters and core UI.
+  addEventListener('load', () => {
+    if ('requestIdleCallback' in window) requestIdleCallback(loadBackgroundVideo, { timeout: 6000 });
+    else setTimeout(loadBackgroundVideo, 3500);
+  }, { once: true });
   document.querySelectorAll('.feature-card').forEach(card => {
     card.addEventListener('pointermove', e => {
       if (!motion || e.pointerType !== 'mouse') return;
