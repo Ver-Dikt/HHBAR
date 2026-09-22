@@ -7,6 +7,14 @@ test('localAsset accepts only intended same-origin directories', () => {
   assert.match(data.localAsset('img/events/ev-1.jpg','img/events/'), /^https:\/\/hhbar\.ru\/img\/events\//);
   for (const attack of ['https://evil.example/x.jpg','//evil.example/x.jpg','img/events/../../sw.js','javascript:alert(1)','img/events/x.jpg?q=1']) assert.equal(data.localAsset(attack,'img/events/'),null);
 });
+
+test('localAsset supports direct file opening from a Cyrillic directory', () => {
+  const base = 'file:///G:/AI/%D0%A1%D0%B0%D0%B9%D1%82%D1%8B/%D0%A1%D0%90%D0%99%D0%A2%20HHBAR/index.html';
+  assert.equal(
+    data.localAsset('img/events/ev-1.jpg', 'img/events/', base),
+    'file:///G:/AI/%D0%A1%D0%B0%D0%B9%D1%82%D1%8B/%D0%A1%D0%90%D0%99%D0%A2%20HHBAR/img/events/ev-1.jpg'
+  );
+});
 test('eventData validates, bounds and archives editable event content', () => {
   const event = data.eventData({ title:'Test',datetime:'2026-05-02',image:'img/events/ev-1.jpg',description:['a'] },'https://hhbar.ru/index.html','2026-09-11');
   assert.equal(event.archived,true); assert.equal(event.bookingUrl,'booking.html');

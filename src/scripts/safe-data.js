@@ -7,7 +7,8 @@
       const directory = new URL('.', base);
       const url = new URL(value, directory);
       const decoded = decodeURIComponent(url.pathname);
-      if (url.origin !== directory.origin || !decoded.startsWith(directory.pathname + prefix) || decoded.includes('..') || url.search || url.hash) return null;
+      const decodedDirectory = decodeURIComponent(directory.pathname);
+      if (url.origin !== directory.origin || !decoded.startsWith(decodedDirectory + prefix) || decoded.includes('..') || url.search || url.hash) return null;
       return url.href;
     } catch { return null; }
   }
