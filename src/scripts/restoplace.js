@@ -2,14 +2,15 @@
     'use strict';
 
     // Official table deep links use: https://YOUR-VENUE.restoplace.ws/?open_item=TABLE_ID
-    // Fill widgetUrl and the matching IDs from RestoPlace's table editor when available.
+    // Fill widgetUrl with the public *.restoplace.ws link from the RestoPlace cabinet.
     const config = Object.freeze({
         widgetUrl: '',
         tableIds: Object.freeze({
-            '1': '', '2': '', '3': '', '4': '', '5': '',
-            '6': '', '7': '', '8': '', '9': '', '10': '',
-            '11': '', '12': '', '13': '', '16': '', '17': '',
-            '18': '', '19': '', '20': '', 'VIP': ''
+            '1': '830804', '2': '830805', '3': '830806', '4': '830807', '5': '830808',
+            '6': '830809', '7': '830810', '8': '830811', '9': '830812', '10': '830813',
+            '11': '830814', '12': '830815', '13': '830816', '14': '830817', '15': '830818',
+            '16': '830819', '17': '830820', '18': '830821', '19': '830822', '20': '830823',
+            'VIP': '830890'
         })
     });
 

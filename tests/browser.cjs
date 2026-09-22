@@ -25,6 +25,8 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
       body: `document.addEventListener('click',event=>{if(event.target.closest('.restoplace-click-open'))window.__restoplaceOpens=(window.__restoplaceOpens||0)+1;});`
     }));
     await page.goto('http://127.0.0.1:4173/booking.html'); await page.locator('#guestCount').selectOption('10');
+    const tableIds = await page.evaluate(() => window.HHRestoplace?.config.tableIds);
+    if(tableIds?.['1'] !== '830804' || tableIds?.['20'] !== '830823' || tableIds?.VIP !== '830890') throw new Error('RestoPlace table mapping failed');
     if(await page.locator('.table[data-capacity="2"]:visible').count()) throw new Error('Table filter failed');
     await page.locator('.table[data-table="16"]').click();
     await page.waitForFunction(() => window.__restoplaceOpens === 1);
