@@ -22,7 +22,7 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     if(!await page.locator('.menu-search-result').count()) throw new Error('Menu search failed');
     await page.route('**/widget.js?*', route => route.fulfill({
       contentType: 'application/javascript',
-      body: `document.addEventListener('click',event=>{if(event.target.closest('.restoplace-click-open'))window.__restoplaceOpens=(window.__restoplaceOpens||0)+1;});`
+      body: `document.addEventListener('click',event=>{if(event.target.closest('.restoplace-click-open')){window.__restoplaceOpens=(window.__restoplaceOpens||0)+1;window.__restoplaceItem=new URLSearchParams(location.search).get('open_item');window.__restoplaceCount=new URLSearchParams(location.search).get('count');}});`
     }));
     await page.goto('http://127.0.0.1:4173/booking.html'); await page.locator('#guestCount').selectOption('10');
     const tableIds = await page.evaluate(() => window.HHRestoplace?.config.tableIds);
@@ -30,6 +30,9 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     if(await page.locator('.table[data-capacity="2"]:visible').count()) throw new Error('Table filter failed');
     await page.locator('.table[data-table="16"]').click();
     await page.waitForFunction(() => window.__restoplaceOpens === 1);
+    if(await page.evaluate(() => window.__restoplaceItem) !== '830819') throw new Error('Specific RestoPlace table was not forwarded');
+    if(await page.evaluate(() => window.__restoplaceCount) !== '10') throw new Error('RestoPlace guest count was not forwarded');
+    if(await page.evaluate(() => location.search) !== '') throw new Error('Temporary booking query was not restored');
     if(!await page.locator('.table[data-table="16"]').evaluate(el => el.classList.contains('selected'))) throw new Error('Selected table state failed');
     if(!await page.locator('#selectedTableActions').evaluate(el => el.classList.contains('active'))) throw new Error('Booking action did not appear');
     await page.locator('#selectedTableActions [data-restoplace-booking]').click();

@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-restoplace-booking]').forEach(button => {
         button.addEventListener('click', event => {
             const selected = document.querySelector('.table.selected');
-            if (!selected || !window.HHRestoplace?.config.widgetUrl) return;
+            if (!selected) return;
             event.preventDefault();
             event.stopImmediatePropagation();
             window.HHRestoplace.open({
