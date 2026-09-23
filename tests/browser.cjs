@@ -18,7 +18,11 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     await page.locator('#playBtn').click();
     await page.screenshot({path:path.join(root,`hhbar-${viewport.name}.png`),fullPage:true});
     if (await page.locator('body').evaluate(el => el.scrollWidth > el.clientWidth)) throw new Error(`Horizontal overflow on ${viewport.name}`);
-    await page.goto('http://127.0.0.1:4173/menu.html'); await page.locator('#menuSearch').fill('кофе');
+    await page.goto('http://127.0.0.1:4173/menu.html');
+    if (await page.evaluate(() => performance.getEntriesByType('resource').some(entry => entry.name.includes('/kitchen/lemonade/')))) throw new Error('Hidden menu photos loaded before their category');
+    await page.locator('.category-btn[data-cat="cocktails"]').click();
+    await page.waitForFunction(() => performance.getEntriesByType('resource').some(entry => entry.name.includes('/kitchen/lemonade/')));
+    await page.locator('#menuSearch').fill('кофе');
     if(!await page.locator('.menu-search-result').count()) throw new Error('Menu search failed');
     await page.route('**/widget.js?*', route => route.fulfill({
       contentType: 'application/javascript',

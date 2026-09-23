@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v15';
-const DYNAMIC_CACHE = 'dynamic-v15';
+const STATIC_CACHE = 'static-v16';
+const DYNAMIC_CACHE = 'dynamic-v16';
 const OFFLINE_PAGE = new URL('offline.html', self.registration.scope).href;
 
 const STATIC_ASSETS = [
@@ -53,6 +53,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
+  // Third-party widgets and embeds own their caching and must not fill our cache.
+  if (url.origin !== self.location.origin) return;
 
   // HTML pages — network first, fallback to cache
   if (request.mode === 'navigate' || request.destination === 'document') {
@@ -107,8 +109,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Everything else — network first. Never cache cross-origin responses.
-  if (url.origin !== self.location.origin) return;
+  // Everything else — network first.
   event.respondWith(
     fetch(request).then(resp => {
       if (request.method === 'GET' && resp.status === 200) {
