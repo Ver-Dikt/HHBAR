@@ -36,6 +36,9 @@ const expectedId = tableNumber === 'VIP' ? '830890' : String(830803 + Number(tab
   }
   if (tableIds.VIP !== '830890') throw new Error('Wrong local mapping for VIP');
   await page.locator(`.table[data-table="${tableNumber}"]`).click();
+  if (!await page.locator('#tablePreviewModal').evaluate(el => el.classList.contains('active'))) throw new Error('Table photo preview did not open');
+  if (await page.locator('iframe[src*="restoplace.ws"]').count()) throw new Error('RestoPlace opened before booking button');
+  await page.locator('#tablePreviewModal [data-restoplace-booking]').click();
   const iframe = page.locator('iframe[src*="restoplace.ws"]');
   try {
     await iframe.waitFor({ state: 'visible', timeout: 20000 });
