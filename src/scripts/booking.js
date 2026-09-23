@@ -17,9 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const tables = document.querySelectorAll('.table[data-table]');
     const hallScheme = document.querySelector('.hall-scheme');
     const hallContainer = document.getElementById('hallContainer');
-    const selectedTableActions = document.getElementById('selectedTableActions');
-    const selectedTableTitle = document.getElementById('selectedTableTitle');
-    const selectedTableText = document.getElementById('selectedTableText');
     const previewModal = document.getElementById('tablePreviewModal');
     const previewImage = document.getElementById('tablePreviewImage');
     const previewTitle = document.getElementById('tablePreviewTitle');
@@ -59,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             previewImage.onerror = null;
             previewImage.src = 'img/hhbar-hero-bg.jpg';
             previewImage.alt = 'Зал HHBAR';
+            previewText.textContent = `Столик до ${cap} человек. Фото именно этого столика пока нет — показан общий вид зала. Доступность проверьте в RestoPlace.`;
         };
 
         previewModal.classList.add('active');
@@ -66,16 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
         closePreview.focus({ preventScroll: true });
     }
 
-    function closeTablePreview() {
+    function closeTablePreview({ restoreFocus = true } = {}) {
         previewModal.classList.remove('active');
         document.body.style.overflow = '';
-        lastTableButton?.focus({ preventScroll: true });
+        if (restoreFocus) lastTableButton?.focus({ preventScroll: true });
     }
 
     resizeHallScheme();
     window.addEventListener('resize', resizeHallScheme);
 
-    if (selectedTableActions) selectedTableActions.classList.remove('active');
     guestCount?.addEventListener('change', () => {
         const requested = Number(guestCount.value);
         tables.forEach(table => { table.hidden = Boolean(requested && Number(table.dataset.capacity) < requested); });
@@ -91,14 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         table.addEventListener('click', () => {
             tables.forEach(t => t.classList.remove('selected'));
             table.classList.add('selected');
-            const num = table.dataset.table;
-            const cap = table.dataset.capacity;
-            if (selectedTableTitle && selectedTableText) {
-                selectedTableTitle.textContent = num === 'VIP' ? 'VIP столик' : `Столик ${num}`;
-                selectedTableText.textContent = `Столик до ${cap} человек. Проверьте свободное время и завершите бронь в RestoPlace.`;
-            }
-            selectedTableActions?.classList.add('active');
-            window.HHRestoplace?.open({ tableNumber: num, guestCount: Number(guestCount?.value) || Number(cap) });
+            openTablePreview(table);
         });
     });
 
@@ -108,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!selected) return;
             event.preventDefault();
             event.stopImmediatePropagation();
+            if (previewModal.classList.contains('active')) closeTablePreview({ restoreFocus: false });
             window.HHRestoplace.open({
                 tableNumber: selected.dataset.table,
                 guestCount: Number(guestCount?.value) || Number(selected.dataset.capacity)
