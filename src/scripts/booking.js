@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // External decoration must never delay the table and booking handlers.
+    for (const href of [
+        'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Inter:wght@400;500;600&display=swap',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+    ]) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        if (href.includes('font-awesome')) {
+            link.integrity = 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==';
+            link.crossOrigin = 'anonymous';
+            link.referrerPolicy = 'no-referrer';
+        }
+        document.head.append(link);
+    }
     const tables = document.querySelectorAll('.table[data-table]');
     const hallScheme = document.querySelector('.hall-scheme');
     const hallContainer = document.getElementById('hallContainer');
@@ -37,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastTableButton = table;
 
         previewTitle.textContent = title;
-        previewText.textContent = `За этот столик комфортно сядет до ${cap} человек. Посмотрите фото и позвоните, чтобы закрепить бронь.`;
+        previewText.textContent = `За этот столик комфортно сядет до ${cap} человек. Проверьте доступность и завершите бронь в RestoPlace.`;
         previewImage.src = getTablePhoto(num);
         previewImage.alt = `${title} в HHBAR`;
         previewImage.onerror = () => {
