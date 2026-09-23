@@ -92,6 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     // MENU 3D TILT
     // =========================================
+    const imageObserver = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+            if (!isIntersecting) return;
+            imageObserver.unobserve(target);
+            const imgUrl = target.dataset.img;
+            if (!imgUrl) return;
+            const testImg = new Image();
+            testImg.onerror = () => target.classList.add('error-image');
+            testImg.src = imgUrl;
+        });
+    }, { rootMargin: '300px' }) : null;
     document.querySelectorAll('.tilt-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -107,13 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
         });
 
-        const imgUrl = card.dataset.img;
-        if (imgUrl) {
-            const testImg = new Image();
-            testImg.onerror = () => {
-                card.classList.add('error-image');
-            };
-            testImg.src = imgUrl;
+        if (card.dataset.img) {
+            if (imageObserver) imageObserver.observe(card);
+            else if (card.getClientRects().length) {
+                const testImg = new Image();
+                testImg.onerror = () => card.classList.add('error-image');
+                testImg.src = card.dataset.img;
+            }
         }
     });
 
