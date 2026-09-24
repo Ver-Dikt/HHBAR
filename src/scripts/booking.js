@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getTablePhoto(num) {
-        if (num === 'VIP') return 'img/tables/table-20.jpg';
+        if (num === 'VIP') return 'img/tables/table-vip.jpg';
         return `img/tables/table-${num}.jpg`;
     }
 
