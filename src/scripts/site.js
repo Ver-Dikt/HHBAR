@@ -3,14 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let motion = !reduced.matches && !navigator.connection?.saveData;
   const video = document.querySelector('.page-video-bg');
+  const hero = document.getElementById('home');
   const toggle = document.getElementById('motionToggle');
   let videoReady = false;
+  const heroBounds = hero?.getBoundingClientRect();
+  let heroVisible = !heroBounds || (heroBounds.bottom > 0 && heroBounds.top < innerHeight);
   function loadBackgroundVideo() {
-    if (!video || videoReady || !motion || document.hidden) return;
-    const source = video.querySelector('source[data-src]');
-    if (!source) { videoReady = true; return; }
-    source.src = source.dataset.src;
-    source.removeAttribute('data-src');
+    if (!video || videoReady || !motion || document.hidden || !heroVisible) return;
+    const sources = video.querySelectorAll('source[data-src]');
+    if (!sources.length) { videoReady = true; return; }
+    sources.forEach(source => {
+      source.src = source.dataset.src;
+      source.removeAttribute('data-src');
+    });
+    video.preload = 'auto';
     video.load();
     videoReady = true;
     video.play().catch(() => {});
@@ -19,19 +25,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.dataset.motion = motion ? 'on' : 'off';
     if (toggle) { toggle.textContent = motion ? 'Анимация: включена' : 'Анимация: выключена'; toggle.setAttribute('aria-pressed', String(!motion)); }
     if (video) {
-      if (motion && !document.hidden && videoReady) video.play().catch(() => {});
+      if (motion && !document.hidden && heroVisible && videoReady) video.play().catch(() => {});
       else video.pause();
     }
   }
-  toggle?.addEventListener('click', () => { motion = !motion; updateMotion(); });
-  reduced.addEventListener('change', () => { motion = !reduced.matches; updateMotion(); });
-  document.addEventListener('visibilitychange', updateMotion);
+  toggle?.addEventListener('click', () => { motion = !motion; updateMotion(); if (motion) loadBackgroundVideo(); });
+  reduced.addEventListener('change', () => { motion = !reduced.matches; updateMotion(); if (motion) loadBackgroundVideo(); });
+  document.addEventListener('visibilitychange', () => { updateMotion(); if (!document.hidden) loadBackgroundVideo(); });
+  if (hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting;
+      updateMotion();
+      if (heroVisible) loadBackgroundVideo();
+    }).observe(hero);
+  }
   updateMotion();
-  // Do not let the decorative 26 MB background compete with posters and core UI.
-  addEventListener('load', () => {
-    if ('requestIdleCallback' in window) requestIdleCallback(loadBackgroundVideo, { timeout: 6000 });
-    else setTimeout(loadBackgroundVideo, 3500);
-  }, { once: true });
+  // Start the local, fast-start MP4 as soon as the page is interactive.
+  // The poster covers the first paint; reduced-motion and Save-Data users keep it static.
+  loadBackgroundVideo();
   document.querySelectorAll('.feature-card').forEach(card => {
     card.addEventListener('pointermove', e => {
       if (!motion || e.pointerType !== 'mouse') return;

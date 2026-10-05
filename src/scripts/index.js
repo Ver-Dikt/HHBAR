@@ -44,7 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // PARTICLE BACKGROUND
     // =========================================
     const pCanvas = document.getElementById('particleCanvas');
-    const particlesEnabled = window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const particlesEnabled = window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !navigator.connection?.saveData;
+    const particleHero = document.getElementById('home');
+    const particleHeroBounds = particleHero?.getBoundingClientRect();
+    let particlesVisible = !particleHeroBounds || (particleHeroBounds.bottom > 0 && particleHeroBounds.top < innerHeight);
     if (!particlesEnabled) pCanvas.hidden = true;
     const pCtx = pCanvas.getContext('2d');
     let particles = [];
@@ -94,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initParticles() {
         particles = [];
-        const count = particlesEnabled ? 80 : 0;
+        const count = particlesEnabled ? 48 : 0;
         for (let i = 0; i < count; i++) particles.push(new Particle());
     }
     initParticles();
@@ -118,12 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    let frameCount = 0;
-    function animateParticles() {
-        if (!particlesEnabled) return;
-        frameCount++;
-        const skipFrames = window.innerWidth < 768 ? 2 : 1;
-        if (frameCount % skipFrames === 0) {
+    let lastParticleFrame = 0;
+    function animateParticles(now = 0) {
+        if (!particlesEnabled || document.hidden || !particlesVisible) return;
+        if (now - lastParticleFrame >= 1000 / 30) {
+            lastParticleFrame = now;
             pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
             particles.forEach(p => { p.update(); p.draw(); });
             connectParticles();
@@ -131,8 +133,17 @@ document.addEventListener('DOMContentLoaded', () => {
         animationId = requestAnimationFrame(animateParticles);
     }
     animateParticles();
+    if (particleHero && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+            if (particlesVisible === entry.isIntersecting) return;
+            particlesVisible = entry.isIntersecting;
+            cancelAnimationFrame(animationId);
+            if (particlesVisible && !document.hidden) animationId = requestAnimationFrame(animateParticles);
+        }).observe(particleHero);
+    }
 
     document.addEventListener('mousemove', (e) => {
+        if (!particlesVisible) return;
         pMouse.x = e.clientX;
         pMouse.y = e.clientY;
     });
@@ -140,8 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
             cancelAnimationFrame(animationId);
-        } else {
-            animateParticles();
+        } else if (particlesEnabled && particlesVisible) {
+            animationId = requestAnimationFrame(animateParticles);
         }
     });
 
