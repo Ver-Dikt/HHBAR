@@ -7,6 +7,7 @@
     "dev": "node tools/serve.cjs",
     "test": "node --test tests/security.test.cjs",
     "test:browser": "node tests/browser.cjs",
+    "test:hero": "node tests/hero-performance.cjs",
     "test:restoplace": "node tests/restoplace-live.cjs",
     "check": "node tools/check.cjs"
   },

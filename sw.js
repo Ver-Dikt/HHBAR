@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v16';
-const DYNAMIC_CACHE = 'dynamic-v16';
+const STATIC_CACHE = 'static-v17';
+const DYNAMIC_CACHE = 'dynamic-v17';
 const OFFLINE_PAGE = new URL('offline.html', self.registration.scope).href;
 
 const STATIC_ASSETS = [
@@ -25,6 +25,7 @@ const STATIC_ASSETS = [
   'img/icons/icon-192.png',
   'img/icons/icon-512.png',
   'img/hhbar-hero-bg.jpg',
+  'img/hero-video-poster.jpg',
   'manifest.json'
 ];
 

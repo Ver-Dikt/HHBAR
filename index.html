@@ -23,6 +23,7 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/logo-main.png">
+<link rel="preload" as="image" href="img/hero-video-poster.jpg" fetchpriority="high">
 <link rel="manifest" href="manifest.json">
 <meta property="business:contact_data:locality" content="Мурманск">
 
@@ -32,7 +33,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <link rel="stylesheet" href="src/styles/index.css">
-<link rel="stylesheet" href="src/styles/refresh.css?v=20260911-1">
+<link rel="stylesheet" href="src/styles/refresh.css?v=20261005-1">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BarOrPub","name":"HHBAR Electronic Music Bar","url":"https://hhbar.ru/","image":"https://hhbar.ru/img/hhbar-hero-bg.jpg","telephone":"+7 8152 70-70-57","address":{"@type":"PostalAddress","addressLocality":"Мурманск","addressCountry":"RU"},"servesCuisine":["Bar","European"],"priceRange":"₽₽","sameAs":["https://vk.com/hhbar","https://t.me/hhbar_murmansk"]}</script>
 </head>
 <body>
@@ -66,7 +67,8 @@
 </header>
 
 <!-- HERO -->
-<video class="page-video-bg" muted loop playsinline preload="none" poster="img/hhbar-hero-bg.jpg" aria-hidden="true">
+<video class="page-video-bg" muted loop playsinline preload="none" poster="img/hero-video-poster.jpg" aria-hidden="true">
+    <source data-src="Video/hero-video-mobile.mp4" media="(max-width: 767px)" type="video/mp4">
     <source data-src="Video/hero-video.mp4" type="video/mp4">
 </video>
 <div class="page-video-overlay"></div>
@@ -75,11 +77,10 @@
 
 <section id="home" class="hero">
     <div class="hero-overlay"></div>
-    <div class="orbital-scene" aria-hidden="true"><div class="orbital-core"><i></i><i></i><i></i><i></i><i></i></div></div>
-
     <div class="container hero-content">
+        <h1 class="hero-visually-hidden">HHBAR Electronic Music Bar</h1>
         <div class="floating-logo">
-            <img src="img/logo-main.png" alt="HHBAR Electronic Music Bar" width="1080" height="1080" fetchpriority="high" decoding="async" style="width:100%; filter: drop-shadow(0 0 20px rgba(0,243,255,0.5));">
+            <img src="img/logo-main.png" alt="" width="1080" height="1080" fetchpriority="high" decoding="async" style="width:100%; filter: drop-shadow(0 0 20px rgba(0,243,255,0.5));">
         </div>
         <p class="reveal-text" id="heroSubtitle">DJ-сеты, вечеринки, авторские напитки и кухня</p>
         <div class="hero-buttons">
@@ -430,7 +431,7 @@
 <script src="src/data/events-data.js?v=20260922-2" defer></script>
 <script src="src/scripts/music-data.js?v=20260922-1" defer></script>
 <script src="src/scripts/analytics.js" defer></script>
-<script src="src/scripts/index.js?v=20260922-2" defer></script>
-<script src="src/scripts/site.js?v=20260922-2" defer></script>
+<script src="src/scripts/index.js?v=20261005-1" defer></script>
+<script src="src/scripts/site.js?v=20261005-1" defer></script>
 </body>
 </html>
