@@ -5,8 +5,8 @@ const { pathToFileURL } = require('node:url');
 
 const root = path.resolve(__dirname, '..');
 const server = spawn(process.execPath, ['tools/serve.cjs'], { cwd: root, stdio: 'ignore' });
-const tableNumber = process.argv[2] || '16';
-const expectedId = tableNumber === 'VIP' ? '830890' : String(830803 + Number(tableNumber));
+const tableNumber = process.argv[2] || '15';
+const expectedId = tableNumber === 'VIP' ? '830890' : String(830803 + Number(tableNumber) + (Number(tableNumber) >= 15 ? 1 : 0));
 
 (async () => {
   await new Promise(resolve => setTimeout(resolve, 700));
@@ -31,9 +31,10 @@ const expectedId = tableNumber === 'VIP' ? '830890' : String(830803 + Number(tab
     throw error;
   }
   const tableIds = await page.evaluate(() => window.HHRestoplace.config.tableIds);
-  for (let number = 1; number <= 20; number++) {
-    if (tableIds[String(number)] !== String(830803 + number)) throw new Error(`Wrong local mapping for table ${number}`);
+  for (let number = 1; number <= 19; number++) {
+    if (tableIds[String(number)] !== String(830803 + number + (number >= 15 ? 1 : 0))) throw new Error(`Wrong local mapping for table ${number}`);
   }
+  if (tableIds['20'] || Object.values(tableIds).includes('830818')) throw new Error('Deleted table still mapped');
   if (tableIds.VIP !== '830890') throw new Error('Wrong local mapping for VIP');
   await page.locator(`.table[data-table="${tableNumber}"]`).click();
   if (!await page.locator('#tablePreviewModal').evaluate(el => el.classList.contains('active'))) throw new Error('Table photo preview did not open');
@@ -64,7 +65,7 @@ const expectedId = tableNumber === 'VIP' ? '830890' : String(830803 + Number(tab
   }
   const bodyText = (await frame.locator('body').innerText()).trim();
   if (!bodyText.includes('Забронировать')) throw new Error('RestoPlace table booking action is missing');
-  if (tableNumber === '16') {
+  if (tableNumber === '15') {
     await frame.getByText('Забронировать', { exact: true }).last().click();
     try {
       await frame.waitForFunction(() => document.body.innerText.includes('ДАТА И ВРЕМЯ') && document.body.innerText.includes('Во сколько вы придёте?'), null, { timeout: 15000 });
