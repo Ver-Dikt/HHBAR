@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v18';
-const DYNAMIC_CACHE = 'dynamic-v18';
+const STATIC_CACHE = 'static-v19';
+const DYNAMIC_CACHE = 'dynamic-v19';
 const OFFLINE_PAGE = new URL('offline.html', self.registration.scope).href;
 
 const STATIC_ASSETS = [
@@ -9,7 +9,6 @@ const STATIC_ASSETS = [
   'src/styles/refresh.css',
   'src/scripts/safe-data.js',
   'src/data/events-data.js',
-  'src/scripts/music-data.js',
   'src/scripts/site.js',
   'src/scripts/index.js',
   'src/scripts/analytics.js',
@@ -83,16 +82,6 @@ self.addEventListener('fetch', (event) => {
           caches.open(STATIC_CACHE).then(cache => cache.put(request, copy));
           return resp;
         }).catch(() => caches.match(request).then(cached => cached || caches.match(OFFLINE_PAGE)))
-    );
-    return;
-  }
-
-  // Audio files — network first with fallback
-  if (url.pathname.includes('.mp3')) {
-    event.respondWith(
-      fetch(request).catch(() => {
-        return caches.match(request);
-      })
     );
     return;
   }

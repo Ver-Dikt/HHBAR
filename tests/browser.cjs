@@ -12,10 +12,17 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     await page.goto('http://127.0.0.1:4173/index.html');
     await page.locator('#eventsGrid').waitFor();
     if(await page.locator('#eventsGrid .event-card-3d').count()!==3) throw new Error('Event cards not rendered');
-    await page.locator('.playlist button.track-item').first().waitFor();
-    await page.locator('#playBtn').click(); await page.waitForTimeout(600);
-    if (!await page.locator('#audioPlayer').evaluate(audio => audio.src.includes('/audio/') && !audio.paused)) throw new Error('Audio player failed');
-    await page.locator('#playBtn').click();
+    const residents = page.locator('#residents .resident-card img');
+    if (await residents.count() !== 9) throw new Error('Resident gallery is incomplete');
+    await residents.last().scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => {
+      const photo = document.querySelector('#residents .resident-card:last-child img');
+      return photo.complete && photo.naturalWidth > 0;
+    });
+    if (await page.locator('#music, audio').count()) throw new Error('Music section is still present');
+    if (await page.evaluate(() => performance.getEntriesByType('resource').some(
+      entry => /\/audio\/|music[-_]data/.test(entry.name)
+    ))) throw new Error('Music resources still load');
     await page.screenshot({path:path.join(root,`hhbar-${viewport.name}.png`),fullPage:true});
     if (await page.locator('body').evaluate(el => el.scrollWidth > el.clientWidth)) throw new Error(`Horizontal overflow on ${viewport.name}`);
     await page.goto('http://127.0.0.1:4173/menu.html');
@@ -77,8 +84,7 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     const image = new Image(); image.src = match[1];
     return image.complete && image.naturalWidth > 0;
   }));
-  await localPage.locator('.playlist button.track-item').first().waitFor();
-  if(await localPage.locator('.playlist button.track-item').count()<3) throw new Error('Local-file music library failed');
+  if (await localPage.locator('#residents img[loading="lazy"]').count() !== 9) throw new Error('Local resident gallery is incomplete');
   if(localErrors.length) throw new Error(`Local-file errors: ${localErrors.join('; ')}`);
   await browser.close(); server.kill(); console.log('Browser checks passed; screenshots created.');
 })().catch(error=>{server.kill();console.error(error);process.exit(1);});

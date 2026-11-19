@@ -3,8 +3,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const jobs = [
-  ['src/data/events.json', 'src/data/events-data.js', 'HHBAR_EVENTS'],
-  ['src/scripts/music_data.json', 'src/scripts/music-data.js', 'HHBAR_MUSIC']
+  ['src/data/events.json', 'src/data/events-data.js', 'HHBAR_EVENTS']
 ];
 
 for (const [source, target, globalName] of jobs) {

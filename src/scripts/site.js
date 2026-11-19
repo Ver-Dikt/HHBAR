@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => { frame.src = frame.dataset.src; frame.hidden = false; panel.remove(); });
     panel.append(button, text); frame.before(panel);
   });
-  document.querySelectorAll('.dj-item, .dj-photo, .menu-item').forEach(el => {
+  document.querySelectorAll('.menu-item').forEach(el => {
     el.tabIndex = 0; el.setAttribute('role', 'button');
-    el.setAttribute('aria-label', el.dataset.name || el.dataset.dj || el.closest('.dj-item')?.dataset.dj || 'Открыть');
+    el.setAttribute('aria-label', el.dataset.name || 'Открыть');
     el.addEventListener('keydown', e => { if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopPropagation(); el.click(); } });
   });
   const banner = document.createElement('div'); banner.className = 'offline-banner'; banner.setAttribute('role','status');
