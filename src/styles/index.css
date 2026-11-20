@@ -415,6 +415,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
     padding: 15px; text-align: center; font-weight: 600; font-size: 1.1rem;
     transition: var(--transition); z-index: 3;
 }
+.video-title time { display: block; margin-top: 4px; font-size: .85em; font-weight: 400; }
 .video-card:hover .video-title { background: rgba(0, 243, 255, 0.85); color: var(--darker); }
 
 /* Residents */
