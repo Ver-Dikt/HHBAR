@@ -5,13 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const video = document.querySelector('.page-video-bg');
   const hero = document.getElementById('home');
   const toggle = document.getElementById('motionToggle');
-  const videoToggle = document.getElementById('heroVideoToggle');
-  let videoRequested = false;
   let videoReady = false;
   const heroBounds = hero?.getBoundingClientRect();
   let heroVisible = !heroBounds || (heroBounds.bottom > 0 && heroBounds.top < innerHeight);
   function loadBackgroundVideo() {
-    if (!video || videoReady || !videoRequested || document.hidden || !heroVisible) return;
+    if (!video || videoReady || !motion || document.hidden || !heroVisible) return;
     const sources = video.querySelectorAll('source[data-src]');
     if (!sources.length) { videoReady = true; return; }
     sources.forEach(source => {
@@ -21,48 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
     video.preload = 'auto';
     video.load();
     videoReady = true;
-    updateVideo();
+    video.play().catch(() => {});
   }
   function updateMotion() {
     document.documentElement.dataset.motion = motion ? 'on' : 'off';
     if (toggle) { toggle.textContent = motion ? 'Анимация: включена' : 'Анимация: выключена'; toggle.setAttribute('aria-pressed', String(!motion)); }
-
-  }
-  function updateVideo() {
-    if (!video || !videoToggle) return;
-    if (videoRequested && !document.hidden && heroVisible && videoReady) {
-      video.play().catch(() => {
-        videoRequested = false;
-        updateVideo();
-      });
-    } else {
-      video.pause();
+    if (video) {
+      if (motion && !document.hidden && heroVisible && videoReady) video.play().catch(() => {});
+      else video.pause();
     }
-    videoToggle.setAttribute('aria-pressed', String(videoRequested));
-    videoToggle.textContent = videoRequested ? 'Остановить видео' : 'Смотреть атмосферу';
   }
-  videoToggle?.addEventListener('click', () => {
-    videoRequested = !videoRequested;
-    if (videoRequested && !videoReady) loadBackgroundVideo();
-    else updateVideo();
-  });
-  if (videoToggle && video) videoToggle.hidden = false;
-  toggle?.addEventListener('click', () => { motion = !motion; updateMotion(); });
-  reduced.addEventListener('change', () => {
-    motion = !reduced.matches && !navigator.connection?.saveData;
-    if (reduced.matches) videoRequested = false;
-    updateMotion();
-    updateVideo();
-  });
-  document.addEventListener('visibilitychange', updateVideo);
+  toggle?.addEventListener('click', () => { motion = !motion; updateMotion(); if (motion) loadBackgroundVideo(); });
+  reduced.addEventListener('change', () => { motion = !reduced.matches; updateMotion(); if (motion) loadBackgroundVideo(); });
+  document.addEventListener('visibilitychange', () => { updateMotion(); if (!document.hidden) loadBackgroundVideo(); });
   if (hero && 'IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
       heroVisible = entry.isIntersecting;
-      if (videoRequested && !videoReady) loadBackgroundVideo();
-      else updateVideo();
+      updateMotion();
+      if (heroVisible) loadBackgroundVideo();
     }).observe(hero);
   }
   updateMotion();
+  // Start the local, fast-start MP4 as soon as the page is interactive.
+  // The poster covers the first paint; reduced-motion and Save-Data users keep it static.
+  loadBackgroundVideo();
   document.querySelectorAll('.feature-card').forEach(card => {
     card.addEventListener('pointermove', e => {
       if (!motion || e.pointerType !== 'mouse') return;

@@ -72,10 +72,7 @@ html[data-motion="off"] #particleCanvas { display: none; }
 
 /* Home, events and residents */
 h1, h2, h3, .event-info time { font-family: 'Barlow Condensed', 'Montserrat', sans-serif; }
-.hero-venue-title { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; }
 .hero .floating-logo { order: -1; }
-.hero-video-control { margin-top: 16px; min-height: 44px; padding: 8px 18px; color: white; background: #10171b; border: 1px solid #849296; border-radius: 999px; cursor: pointer; font: inherit; }
-.hero-video-control[hidden] { display: none; }
 .events-list { display: grid; gap: 18px; }
 .events-list > p a { text-decoration: underline; }
 .event-card { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); border: 1px solid #30434c; border-radius: 18px; overflow: hidden; background: #10171b; }

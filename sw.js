@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v20';
-const DYNAMIC_CACHE = 'dynamic-v20';
+const STATIC_CACHE = 'static-v21';
+const DYNAMIC_CACHE = 'dynamic-v21';
 const OFFLINE_PAGE = new URL('offline.html', self.registration.scope).href;
 
 const STATIC_ASSETS = [
