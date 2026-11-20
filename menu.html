@@ -94,7 +94,7 @@ nav {
     padding: 8px 16px; border-radius: 20px; border: 1px solid var(--primary);
     font-size: 0.9rem;
 }
-.back-link:hover { background: rgba(0, 243, 255, 0.1); box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); }
+
 
 /* HERO */
 .menu-hero {
@@ -140,7 +140,7 @@ section { padding: 60px 0; position: relative; z-index: 2; background-color: rgb
     padding: 0 24px;
     text-decoration: none;
 }
-.menu-jump a:hover { border-color: var(--primary); }
+
 .menu-book section {
     background: transparent;
     padding: 0;
@@ -188,7 +188,7 @@ section { padding: 60px 0; position: relative; z-index: 2; background-color: rgb
 .menu-viewer::backdrop { background: rgba(0, 0, 0, .85); }
 html:has(.menu-viewer[open]) { overflow: hidden; }
 .menu-viewer-bar { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: center; padding: 10px 16px; }
-.menu-viewer-bar button { min-height: 44px; padding: 0 14px; border: 1px solid var(--primary); border-radius: 8px; color: var(--primary); background: transparent; font: inherit; cursor: pointer; }
+.menu-viewer-bar button { min-height: 44px; padding: 0 14px; font: inherit; cursor: pointer; }
 .menu-viewer-page { flex: 1; min-height: 0; overflow: auto; }
 .menu-viewer-page img { width: 100%; height: auto; }
 
@@ -227,7 +227,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
                 <span class="logo-main">HHBAR</span>
                 <span class="logo-sub">Electronic Music Bar</span>
             </a>
-            <a href="index.html" class="back-link">
+            <a href="index.html" class="back-link btn btn-secondary">
                 <i class="fas fa-arrow-left"></i>
                 <span>Назад на сайт</span>
             </a>
@@ -298,7 +298,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 <dialog class="menu-viewer" aria-labelledby="menu-viewer-title">
     <form class="menu-viewer-bar" method="dialog">
-        <button type="submit" autofocus>← Назад к меню</button>
+        <button class="btn btn-secondary" type="submit" autofocus>← Назад к меню</button>
         <strong id="menu-viewer-title"></strong>
     </form>
     <div class="menu-viewer-page">
