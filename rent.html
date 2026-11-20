@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#0a0a0a">
 <meta name="yandex-metrika-id" content="">
 <link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -193,12 +193,14 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 footer { background: var(--darker); padding: 40px 0; text-align: center; color: #666; border-top: 1px solid #222; }
 
 /* Responsive */
+.rent-hero .rent-hero-call { display: none; }
 @media (max-width: 768px) {
     nav { gap: 12px; }
     .logo { flex-direction: column; align-items: flex-start; gap: 2px; }
     .logo-main { font-size: 1.3rem; }
     .logo-sub { font-size: 0.58rem; letter-spacing: 1.5px; }
     .rent-hero h1 { font-size: 2rem; }
+    .rent-hero .rent-hero-call { display: inline-flex; align-items: center; margin-top: 20px; }
     .rent-content { padding: 25px; }
     .rent-features { grid-template-columns: 1fr; }
 }
@@ -238,6 +240,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
     <div class="container">
         <h1>Аренда зала</h1>
         <p>Проведите ваше мероприятие в атмосфере электронной музыки и премиального сервиса</p>
+        <a href="tel:+78152707057" class="btn rent-hero-call">Позвонить по аренде</a>
     </div>
 </section>
 

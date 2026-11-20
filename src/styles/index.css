@@ -681,7 +681,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 .mobile-nav {
     display: none; position: fixed; bottom: 0; left: 0; width: 100%;
     background: rgba(10, 10, 10, 0.98); border-top: 1px solid #333;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 4px 2px;
     padding: 8px max(8px, env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
     z-index: 1000;

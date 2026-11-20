@@ -43,21 +43,21 @@ const server = spawn(process.execPath, ['tools/serve.cjs'], {
       }));
       await page.screenshot({ path: path.join(os.tmpdir(), `hhbar-${name}-optimized.png`) });
       if (name === 'menu') {
-        const kitchen = metrics.resources.find(item => item.file === 'menu-block%203.webp');
-        if (!kitchen || kitchen.bytes > 200000 || metrics.resources.some(item => item.file === 'menu-block%203.png')) {
-          throw new Error('Kitchen card image was not optimized');
+        const preview = metrics.resources.find(item => item.file === 'page-14-preview.webp');
+        if (!preview || preview.bytes > 200000 || metrics.resources.some(item => /^page-\d+\.webp$/.test(item.file))) {
+          throw new Error('Menu should load previews before full-size pages');
         }
-        await page.locator('.kitchen-cat-card').first().click();
-        if (!await page.locator('#kitchenModal').evaluate(modal => modal.classList.contains('active'))) {
-          throw new Error('Kitchen category stopped opening');
-        }
+        await page.getByRole('link', { name: 'Напитки', exact: true }).click();
+        if (new URL(page.url()).hash !== '#drinks') throw new Error('Menu section jump failed');
+        await page.locator('#drinks .menu-sheet').first().click();
+        await page.waitForURL('**/img/menu/page-9.webp');
       }
       const hero = metrics.resources.find(item => item.file === 'hhbar-hero-bg.webp');
       if (!hero || hero.bytes > 200000 || errors.length) throw new Error(`${name}: optimized hero missing or script error: ${errors.join('; ')}`);
       console.log(JSON.stringify({ page: name, ...metrics }));
       await page.close();
     }
-    for (const file of ['img/hhbar-hero-bg.webp', 'img/kitchen/menu-block 3.webp']) {
+    for (const file of ['img/hhbar-hero-bg.webp', 'img/menu/page-14.webp']) {
       const response = await browser.newPage().then(async page => {
         const result = await page.request.get(`http://127.0.0.1:${port}/${file}`);
         await page.close();

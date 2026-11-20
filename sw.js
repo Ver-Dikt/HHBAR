@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'static-v21';
-const DYNAMIC_CACHE = 'dynamic-v21';
+const STATIC_CACHE = 'static-v22';
+const DYNAMIC_CACHE = 'dynamic-v22';
 const OFFLINE_PAGE = new URL('offline.html', self.registration.scope).href;
 
 const STATIC_ASSETS = [
@@ -19,13 +19,12 @@ const STATIC_ASSETS = [
   'cookies.html',
   'offline.html',
   'favicon.ico',
-  'favicon.svg',
+  'favicon.svg?v=2',
   'img/logo-main.png',
   'img/icons/icon-192.png',
   'img/icons/icon-512.png',
   'img/hhbar-hero-bg.jpg',
   'img/hhbar-hero-bg.webp',
-  'img/kitchen/menu-block 3.webp',
   'img/hero-video-poster.jpg',
   'manifest.json'
 ];
