@@ -234,63 +234,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventsGrid = document.getElementById('eventsGrid');
 
     function createEventCard(event) {
-        const card = document.createElement('div');
-        card.className = 'event-card-3d';
-        card.tabIndex = 0;
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-expanded', 'false');
-        card.setAttribute('aria-label', event.ariaLabel || `${event.title}, ${event.date}`);
+        const card = document.createElement('article');
+        card.className = 'event-card';
+        const poster = document.createElement('img');
+        poster.className = 'event-poster';
+        poster.src = event.image;
+        poster.alt = '';
+        poster.loading = 'lazy';
+        poster.decoding = 'async';
 
-        const front = document.createElement('div');
-        front.className = 'card-face card-front';
-        front.style.backgroundImage = `linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%), url('${event.image}')`;
-
-        const date = document.createElement('div');
-        date.className = 'event-date';
+        const info = document.createElement('div');
+        info.className = 'event-info';
+        const date = document.createElement('time');
+        date.dateTime = event.datetime;
         date.textContent = event.date;
-
-        const hint = document.createElement('p');
-        hint.className = 'event-hint';
-        hint.textContent = 'Нажмите, чтобы узнать больше';
-        front.append(date, hint);
-
-        const back = document.createElement('div');
-        back.className = 'card-face card-back';
-        back.inert = true;
-
         const title = document.createElement('h3');
         title.textContent = event.title;
-        back.appendChild(title);
-
-        (event.description || []).forEach(text => {
+        info.append(date, title);
+        for (const text of event.description) {
             const paragraph = document.createElement('p');
             paragraph.textContent = text;
-            back.appendChild(paragraph);
-        });
-
-        const booking = document.createElement('a');
-        booking.href = event.bookingUrl || 'booking.html';
-        booking.className = 'btn magnetic-btn book-trigger';
-        booking.style.marginTop = '20px';
-        booking.textContent = 'Забронировать столик';
-        bindMagneticButton(booking);
-        back.appendChild(booking);
-
-        card.append(front, back);
+            info.append(paragraph);
+        }
+        if (!event.archived) {
+            const booking = document.createElement('a');
+            booking.href = event.bookingUrl;
+            booking.className = 'btn';
+            booking.textContent = 'Забронировать столик';
+            info.append(booking);
+        }
+        card.append(poster, info);
         return card;
-    }
-
-    function bindEventCard(card) {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('a')) return;
-            toggleEventCard(card);
-        });
-        card.addEventListener('keydown', (e) => {
-            if (e.key !== 'Enter' && e.key !== ' ') return;
-            if (e.target.closest('a')) return;
-            e.preventDefault();
-            toggleEventCard(card);
-        });
     }
 
     async function loadEvents() {
@@ -302,24 +276,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) throw new Error(`events.json ${response.status}`);
                 data = await response.json();
             }
-            if (!Array.isArray(data)) throw new Error('Invalid events');
+            if (!Array.isArray(data)) return;
             const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-            const events = data.slice(0, 100).map(item => HHData.eventData(item, location.href, today)).filter(Boolean);
-            eventsGrid.replaceChildren(...events.map(createEventCard));
-            eventsGrid.querySelectorAll('.event-card-3d').forEach(bindEventCard);
+            const events = data.slice(0, 100).map(item => HHData.eventData(item, location.href, today))
+                .filter(Boolean).sort((a, b) => a.datetime.localeCompare(b.datetime));
+            const upcoming = events.filter(event => !event.archived);
+            const archived = events.filter(event => event.archived).reverse();
+            if (upcoming.length) eventsGrid.replaceChildren(...upcoming.map(createEventCard));
+            const archive = document.getElementById('eventsArchive');
+            const archiveGrid = document.getElementById('eventsArchiveGrid');
+            archiveGrid.replaceChildren(...archived.map(createEventCard));
+            archive.hidden = archived.length === 0;
         } catch (error) {
-            const fallback = document.createElement('p');
-            fallback.className = 'events-empty';
-            fallback.textContent = 'Афиша скоро обновится. Для актуальных событий смотрите VK или Telegram.';
-            eventsGrid.replaceChildren(fallback);
+            console.warn('Не удалось обновить афишу', error);
         }
     }
-
-    const toggleEventCard = (card) => {
-        const flipped = card.classList.toggle('flipped');
-        card.setAttribute('aria-expanded', flipped);
-        card.querySelector('.card-back').inert = !flipped;
-    };
 
     loadEvents();
 

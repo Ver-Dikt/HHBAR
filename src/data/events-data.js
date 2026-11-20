@@ -1,6 +1,18 @@
 /* Generated from src/data/events.json. Run npm run build:data after editing JSON. */
 window.HHBAR_EVENTS = [
   {
+    "title": "8 лет Хе-хе бар · CATMOONK",
+    "date": "12 ДЕКАБРЯ",
+    "datetime": "2026-12-12",
+    "image": "img/events/hhbar-8-catmoonk.jpg",
+    "description": [
+      "Специальный гость — CATMOONK (live vocal).",
+      "Ver-Dikt & Andy Dav · Globus · Dany’s · AHO · Nikto · Paul P · Teit",
+      "21+ · FC/DC · Мурманск, Кольский проспект, 44"
+    ],
+    "bookingUrl": "booking.html"
+  },
+  {
     "title": "День рождения АРЧИ",
     "date": "29 МАЯ",
     "datetime": "2026-05-29",

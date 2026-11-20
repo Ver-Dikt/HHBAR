@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hhbar51.ru/sitemap.xml

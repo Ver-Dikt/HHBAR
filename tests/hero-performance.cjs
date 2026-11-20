@@ -41,7 +41,9 @@ const server = spawn(process.execPath, ['tools/serve.cjs'], {
       await page.goto(`http://127.0.0.1:${port}/index.html`, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(1000);
       await page.screenshot({ path: path.join(os.tmpdir(), `hhbar-hero-poster-${viewport.width}.png`) });
-      await page.waitForTimeout(11000);
+      if (await page.locator('.page-video-bg').evaluate(video => Boolean(video.currentSrc))) throw new Error('Background video loaded before opt-in');
+      await page.locator('#heroVideoToggle').click();
+      await page.waitForFunction(() => Boolean(window.__heroMetrics.videoPlaying));
       await page.screenshot({ path: path.join(os.tmpdir(), `hhbar-hero-video-${viewport.width}.png`) });
       const metrics = await page.evaluate(() => ({
         lcpMs: Math.round(window.__heroMetrics.lcp || 0),
@@ -71,7 +73,7 @@ const server = spawn(process.execPath, ['tools/serve.cjs'], {
         }))
       }));
       console.log(JSON.stringify({ viewport: viewport.width, ...metrics }));
-      if (metrics.orbCount !== 0 || metrics.horizontalOverflow || !metrics.heroButtonsVisible || !metrics.videoPlayingMs || metrics.h1Count !== 1 || metrics.missingAlts !== 0 || !metrics.canonical.startsWith('https://hhbar.ru/')) {
+      if (metrics.orbCount !== 0 || metrics.horizontalOverflow || !metrics.heroButtonsVisible || !metrics.videoPlayingMs || metrics.h1Count !== 1 || metrics.missingAlts !== 0 || !metrics.canonical.startsWith('https://hhbar51.ru/')) {
         throw new Error(`Hero regression at ${viewport.width}px`);
       }
       if (viewport.width === 375 && !metrics.videoUrl.endsWith('hero-video-mobile.mp4')) throw new Error('Mobile video variant not selected');
@@ -89,6 +91,7 @@ const server = spawn(process.execPath, ['tools/serve.cjs'], {
     await reducedPage.close();
     const localPage = await browser.newPage({ serviceWorkers: 'block' });
     await localPage.goto(pathToFileURL(path.join(root, 'index.html')).href, { waitUntil: 'domcontentloaded' });
+    await localPage.locator('#heroVideoToggle').click();
     await localPage.waitForFunction(() => document.querySelector('.page-video-bg')?.currentSrc.startsWith('file:'));
     if (await localPage.locator('.orbital-scene').count()) throw new Error('Orbital graphic exists in local file');
     await localPage.close();

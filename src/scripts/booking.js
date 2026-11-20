@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewText = document.getElementById('tablePreviewText');
     const closePreview = document.getElementById('closeTablePreview');
     const guestCount = document.getElementById('guestCount');
+    const tablePicker = document.getElementById('tablePicker');
+    const tableOptions = document.getElementById('tableOptions');
+    const tableListStatus = document.getElementById('tableListStatus');
     let lastTableButton = null;
 
     function resizeHallScheme() {
@@ -42,11 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return `img/tables/table-${num}.jpg`;
     }
 
-    function openTablePreview(table) {
+    function openTablePreview(table, trigger) {
         const num = table.dataset.table;
         const cap = table.dataset.capacity;
         const title = num === 'VIP' ? 'VIP столик' : `Столик ${num}`;
-        lastTableButton = table;
+        lastTableButton = trigger;
 
         previewTitle.textContent = title;
         previewText.textContent = `За этот столик комфортно сядет до ${cap} человек. Проверьте доступность и завершите бронь в RestoPlace.`;
@@ -73,10 +76,38 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeHallScheme();
     window.addEventListener('resize', resizeHallScheme);
 
-    guestCount?.addEventListener('change', () => {
+    function selectTable(table, trigger) {
+        tables.forEach(item => item.classList.toggle('selected', item === table));
+        openTablePreview(table, trigger);
+    }
+
+    function updateTableOptions() {
         const requested = Number(guestCount.value);
-        tables.forEach(table => { table.hidden = Boolean(requested && Number(table.dataset.capacity) < requested); });
-    });
+        const options = [];
+        for (const table of tables) {
+            const capacity = Number(table.dataset.capacity);
+            table.hidden = capacity < requested;
+            if (table.hidden) {
+                table.classList.remove('selected');
+                continue;
+            }
+            const option = document.createElement('button');
+            option.type = 'button';
+            option.className = 'table-option';
+            const label = document.createElement('strong');
+            label.textContent = table.dataset.table === 'VIP' ? 'VIP столик' : `Столик ${table.dataset.table}`;
+            const seats = document.createElement('span');
+            seats.textContent = `До ${capacity} гостей`;
+            option.append(label, seats);
+            option.addEventListener('click', () => selectTable(table, option));
+            options.push(option);
+        }
+        tableOptions.replaceChildren(...options);
+        tableListStatus.textContent = requested
+            ? `Подходящих по вместимости столиков: ${options.length}. Доступность покажет RestoPlace.`
+            : 'Выберите число гостей, чтобы увидеть подходящие столики.';
+        tableOptions.hidden = !requested;
+    }
 
     tables.forEach(table => {
         table.setAttribute('role', 'button');
@@ -85,12 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
         table.addEventListener('keydown', event => {
             if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); table.click(); }
         });
-        table.addEventListener('click', () => {
-            tables.forEach(t => t.classList.remove('selected'));
-            table.classList.add('selected');
-            openTablePreview(table);
-        });
+        table.addEventListener('click', () => selectTable(table, table));
     });
+
+    guestCount.addEventListener('change', updateTableOptions);
+    tablePicker.hidden = false;
+    updateTableOptions();
 
     document.querySelectorAll('[data-restoplace-booking]').forEach(button => {
         button.addEventListener('click', event => {

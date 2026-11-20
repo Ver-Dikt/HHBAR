@@ -420,7 +420,7 @@ section:not(.hero) { background-color: rgba(10, 10, 10, 0.82); }
 /* Residents */
 .residents-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(10px, 2vw, 18px);
     max-width: 980px;
     margin: 0 auto;

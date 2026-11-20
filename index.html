@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>HHBAR | Electronic Music Bar — техно-бар в Мурманске</title>
+<title>Хе-хе бар (HHBAR) — бар электронной музыки в Мурманске</title>
 <meta name="description" content="HHBAR — электронный бар в Мурманске: DJ-сеты, вечеринки, авторские напитки и бронь столиков. Телефон: +7 (8152) 70-70-57">
 <meta name="keywords" content="HHBAR, бар Мурманск, электронная музыка, техно, DJ сеты, вечеринки Мурманск, коктейли, лимонады, кальяны">
-<link rel="canonical" href="https://hhbar.ru/">
+<link rel="canonical" href="https://hhbar51.ru/">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:type" content="business.business">
-<meta property="og:title" content="HHBAR | Electronic Music Bar — техно-бар в Мурманске">
+<meta property="og:title" content="Хе-хе бар (HHBAR) — бар электронной музыки в Мурманске">
 <meta property="og:description" content="Электронная музыка, вечеринки, авторские напитки и бронь столиков в Мурманске.">
-<meta property="og:image" content="https://hhbar.ru/img/hhbar-hero-bg.jpg">
-<meta property="og:url" content="https://hhbar.ru">
+<meta property="og:image" content="https://hhbar51.ru/img/hhbar-hero-bg.jpg">
+<meta property="og:url" content="https://hhbar51.ru/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="geo.region" content="RU-MUR">
 <meta name="geo.placename" content="Мурманск">
@@ -29,12 +29,12 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Montserrat:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-<link rel="stylesheet" href="src/styles/index.css?v=20261119-1">
-<link rel="stylesheet" href="src/styles/refresh.css?v=20261119-1">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BarOrPub","name":"HHBAR Electronic Music Bar","url":"https://hhbar.ru/","image":"https://hhbar.ru/img/hhbar-hero-bg.jpg","telephone":"+7 8152 70-70-57","address":{"@type":"PostalAddress","addressLocality":"Мурманск","addressCountry":"RU"},"servesCuisine":["Bar","European"],"priceRange":"₽₽","sameAs":["https://vk.com/hhbar","https://t.me/hhbar_murmansk"]}</script>
+<link rel="stylesheet" href="src/styles/index.css?v=20261120-1">
+<link rel="stylesheet" href="src/styles/refresh.css?v=20261120-1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BarOrPub","name":"Хе-хе бар","alternateName":"HHBAR Electronic Music Bar","url":"https://hhbar51.ru/","image":"https://hhbar51.ru/img/hhbar-hero-bg.jpg","telephone":"+7 8152 70-70-57","address":{"@type":"PostalAddress","streetAddress":"Кольский проспект, 44","addressLocality":"Мурманск","addressCountry":"RU"},"servesCuisine":["Bar","European"],"priceRange":"₽₽","sameAs":["https://vk.com/hhbar","https://t.me/hhbar_murmansk"]}</script>
 </head>
 <body>
 
@@ -78,16 +78,31 @@
 <section id="home" class="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-        <h1 class="hero-visually-hidden">HHBAR Electronic Music Bar</h1>
         <div class="floating-logo">
             <img src="img/logo-main.png" alt="" width="1080" height="1080" fetchpriority="high" decoding="async" style="width:100%; filter: drop-shadow(0 0 20px rgba(0,243,255,0.5));">
         </div>
+        <h1 class="hero-venue-title">Хе-хе бар в Мурманске</h1>
         <p class="reveal-text" id="heroSubtitle">DJ-сеты, вечеринки, авторские напитки и кухня</p>
+        <p class="hero-address">Кольский проспект, 44</p>
         <div class="hero-buttons">
-            <a href="booking.html" class="btn magnetic-btn">Забронировать столик</a>
+            <a href="booking.html" class="btn">Забронировать столик</a>
             <a href="menu.html" class="btn btn-secondary magnetic-btn">Меню</a>
-            <a href="#events" class="btn btn-tertiary magnetic-btn">Мероприятия</a>
+            <a href="#events" class="btn btn-secondary">Афиша</a>
         </div>
+        <button type="button" class="hero-video-control" id="heroVideoToggle" aria-pressed="false" hidden>Смотреть атмосферу</button>
+    </div>
+</section>
+
+<section id="events" aria-labelledby="events-title">
+    <div class="container">
+        <div class="section-title"><h2 id="events-title">Афиша</h2></div>
+        <div id="eventsGrid" class="events-list">
+            <p>Анонсы вечеринок публикуем в <a href="https://vk.com/hhbar">VK</a> и <a href="https://t.me/hhbar_murmansk">Telegram</a>.</p>
+        </div>
+        <details id="eventsArchive" class="events-archive" hidden>
+            <summary>Прошедшие события</summary>
+            <div id="eventsArchiveGrid" class="events-list"></div>
+        </details>
     </div>
 </section>
 
@@ -114,20 +129,6 @@
                 <h3>Уютная атмосфера</h3>
                 <p>Стильный интерьер и комфортная обстановка</p>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- EVENTS - NO CAPTIONS ON FRONT -->
-<section id="events">
-    <div class="events-overlay"></div>
-    <div class="container">
-        <div class="section-title reveal">
-            <h2>Афиша</h2>
-            <p>Не пропустите самые яркие события</p>
-        </div>
-        <div class="events-grid-3d" id="eventsGrid" aria-live="polite">
-            <p class="events-empty">Загружаем афишу...</p>
         </div>
     </div>
 </section>
@@ -253,10 +254,6 @@
                 <span>Dany`S</span>
             </li>
             <li class="resident-card">
-                <img src="img/Dj/dj-4.jpg" alt="" width="320" height="400" loading="lazy" decoding="async">
-                <span>Darsa</span>
-            </li>
-            <li class="resident-card">
                 <img src="img/Dj/dj-5.jpg" alt="" width="320" height="400" loading="lazy" decoding="async">
                 <span>AHO</span>
             </li>
@@ -334,14 +331,10 @@
 
 <!-- MOBILE NAV -->
 <nav class="mobile-nav" aria-label="Быстрая навигация">
-    <a href="#home" class="active"><i class="fas fa-home"></i><span>Главная</span></a>
-    <a href="#events"><i class="fas fa-calendar"></i><span>Афиша</span></a>
-    <a href="menu.html"><i class="fas fa-utensils"></i><span>Меню</span></a>
-    <a href="#features"><i class="fas fa-circle-info"></i><span>О нас</span></a>
-    <a href="#gallery"><i class="fas fa-images"></i><span>Галерея</span></a>
-    <a href="#videos"><i class="fas fa-video"></i><span>Видео</span></a>
-    <a href="#residents"><i class="fas fa-users"></i><span>Резиденты</span></a>
-    <a href="#contact"><i class="fas fa-map-marker-alt"></i><span>Контакты</span></a>
+    <a href="#events"><i class="fas fa-calendar" aria-hidden="true"></i><span>Афиша</span></a>
+    <a href="menu.html"><i class="fas fa-utensils" aria-hidden="true"></i><span>Меню</span></a>
+    <a href="booking.html"><i class="fas fa-chair" aria-hidden="true"></i><span>Бронь</span></a>
+    <a href="#contact"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span>Как добраться</span></a>
 </nav>
 
 <!-- Toast Notification -->
@@ -355,10 +348,10 @@
     </div>
 </div>
 
-<script src="src/scripts/safe-data.js?v=20260922-2" defer></script>
-<script src="src/data/events-data.js?v=20260922-2" defer></script>
+<script src="src/scripts/safe-data.js?v=20261120-1" defer></script>
+<script src="src/data/events-data.js?v=20261120-1" defer></script>
 <script src="src/scripts/analytics.js" defer></script>
-<script src="src/scripts/index.js?v=20261119-1" defer></script>
-<script src="src/scripts/site.js?v=20261119-1" defer></script>
+<script src="src/scripts/index.js?v=20261120-1" defer></script>
+<script src="src/scripts/site.js?v=20261120-1" defer></script>
 </body>
 </html>

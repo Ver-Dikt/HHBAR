@@ -69,3 +69,34 @@ header { background: rgba(11,15,18,.92); }
 html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 html[data-motion="off"] #particleCanvas { display: none; }
 @media(prefers-reduced-motion:reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } .reveal,.reveal-text .word { opacity: 1 !important; transform: none !important; } }
+
+/* Home, events and residents */
+h1, h2, h3, .event-info time { font-family: 'Barlow Condensed', 'Montserrat', sans-serif; }
+.hero-venue-title { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; }
+.hero .floating-logo { order: -1; }
+.hero-video-control { margin-top: 16px; min-height: 44px; padding: 8px 18px; color: white; background: #10171b; border: 1px solid #849296; border-radius: 999px; cursor: pointer; font: inherit; }
+.hero-video-control[hidden] { display: none; }
+.events-list { display: grid; gap: 18px; }
+.events-list > p a { text-decoration: underline; }
+.event-card { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); border: 1px solid #30434c; border-radius: 18px; overflow: hidden; background: #10171b; }
+.event-poster { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: contain; background: #0a1014; display: block; }
+.event-info { align-self: center; padding: clamp(16px, 4vw, 42px); overflow-wrap: anywhere; }
+.event-info time { display: block; color: var(--primary); font-weight: 700; font-size: 1.5rem; }
+.event-info h3 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.05; margin: 8px 0 12px; }
+.event-info p + p { margin-top: 6px; }
+.event-info .btn { margin-top: 16px; min-height: 44px; }
+.events-archive[hidden] { display: none; }
+.events-archive .events-list { margin-top: 10px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  #eventsGrid .event-card:first-child { transition: transform .2s ease, box-shadow .2s ease; }
+  #eventsGrid .event-card:first-child:hover { transform: perspective(900px) rotateX(1deg) translateY(-2px); box-shadow: 0 12px 24px #0007; }
+}
+@media (max-width: 640px) {
+  .residents-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .event-card { grid-template-columns: 1fr; }
+  .event-poster { max-height: 460px; }
+  .mobile-nav a { min-height: 44px; flex: 1 1 0; }
+}
+
+.hero .floating-logo { width: clamp(135px, 26vw, 300px); margin-bottom: 12px; }
+@media (max-width: 768px) { .hero { min-height: 620px; } .hero .floating-logo { width: min(48vw, 200px); } }

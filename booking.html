@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Бронирование столика — HHBAR Electronic Music Bar</title>
 <meta name="description" content="Забронируйте столик в HHBAR — электронном баре Мурманска. Выберите столик на схеме зала и проверьте доступность в RestoPlace.">
-<link rel="canonical" href="https://hhbar.ru/booking.html">
+<link rel="canonical" href="https://hhbar51.ru/booking.html">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="yandex-metrika-id" content="">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -31,6 +31,15 @@
 .close-table-preview { position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; background: rgba(0,0,0,0.7); color: #fff; font-size: 1.6rem; cursor: pointer; }
 #restoplace-wrapper-btn { display: none !important; }
 :where(a, button, input, [role="button"], [tabindex]):focus-visible { outline: 2px solid var(--primary, #00f3ff); outline-offset: 4px; box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.22); }
+
+.table-picker { margin: 20px 0; }
+.table-picker > a { display: inline-flex; min-height: 44px; align-items: center; text-decoration: underline; }
+.table-options[hidden] { display: none; }
+.table-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr)); gap: 8px; margin-top: 12px; }
+.table-option { display: grid; text-align: left; gap: 2px; padding: 9px 12px; border-radius: 9px; background: #10171b; border: 1px solid #53747d; color: #fff; min-height: 48px; cursor: pointer; font: inherit; }
+.table-option span { color: #b8c6cf; font-size: .85rem; }
+.table-option:focus-visible, .table-picker > a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+#hall-map { scroll-margin-top: 85px; }
 </style>
 <link rel="stylesheet" href="src/styles/refresh.css">
 </head>
@@ -66,7 +75,12 @@
             <p>Нажмите на столик, чтобы посмотреть фото и перейти к бронированию</p>
         </div>
 
-        <div class="hall-scheme">
+        <div class="table-picker" id="tablePicker" hidden>
+            <a href="#hall-map">Выбрать на схеме зала</a>
+            <p id="tableListStatus" role="status"></p>
+            <div class="table-options" id="tableOptions"></div>
+        </div>
+        <div class="hall-scheme" id="hall-map">
             <div class="hall-container" id="hallContainer">
 
                 <!-- DJ Booth -->
@@ -260,7 +274,7 @@
 <script id="restoplaceWidget" src="https://app.restoplace.cc/widget.js?h=a9b70bdfa9ef9eb0b7f6" async></script>
 <script src="src/scripts/analytics.js" defer></script>
 <script src="src/scripts/restoplace.js" defer></script>
-<script src="src/scripts/booking.js" defer></script>
+<script src="src/scripts/booking.js?v=20261120-1" defer></script>
 <script src="src/scripts/site.js" defer></script>
 </body>
 </html>

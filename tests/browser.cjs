@@ -11,9 +11,9 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     const page=await browser.newPage({viewport}); const errors=[]; page.on('pageerror',e=>errors.push(e.message));
     await page.goto('http://127.0.0.1:4173/index.html');
     await page.locator('#eventsGrid').waitFor();
-    if(await page.locator('#eventsGrid .event-card-3d').count()!==3) throw new Error('Event cards not rendered');
+    if (await page.locator('#eventsGrid .event-card, #eventsArchiveGrid .event-card').count() !== 4) throw new Error('Event cards not rendered');
     const residents = page.locator('#residents .resident-card img');
-    if (await residents.count() !== 9) throw new Error('Resident gallery is incomplete');
+    if (await residents.count() !== 8) throw new Error('Resident gallery is incomplete');
     await residents.last().scrollIntoViewIfNeeded();
     await page.waitForFunction(() => {
       const photo = document.querySelector('#residents .resident-card:last-child img');
@@ -39,7 +39,7 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     const tableIds = await page.evaluate(() => window.HHRestoplace?.config.tableIds);
     if(tableIds?.['1'] !== '830804' || tableIds?.['20'] !== '830823' || tableIds?.VIP !== '830890') throw new Error('RestoPlace table mapping failed');
     if(await page.locator('.table[data-capacity="2"]:visible').count()) throw new Error('Table filter failed');
-    await page.locator('.table[data-table="16"]').click();
+    await page.locator('#tableOptions').getByRole('button', { name: /Столик 16/ }).click();
     if(await page.evaluate(() => window.__restoplaceOpens || 0)) throw new Error('Widget opened before photo preview');
     if(!await page.locator('#tablePreviewModal').evaluate(el => el.classList.contains('active'))) throw new Error('Table photo preview did not open');
     if(await page.locator('#tablePreviewTitle').innerText() !== 'Столик 16') throw new Error('Wrong table photo title');
@@ -76,15 +76,12 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
   }
   const localPage=await browser.newPage({viewport:{width:1440,height:900}}); const localErrors=[]; localPage.on('pageerror',e=>localErrors.push(e.message));
   await localPage.goto(pathToFileURL(path.join(root,'index.html')).href,{waitUntil:'domcontentloaded'});
-  await localPage.locator('#eventsGrid .event-card-3d').first().waitFor();
-  if(await localPage.locator('#eventsGrid .event-card-3d').count()!==3) throw new Error('Local-file events failed');
-  await localPage.waitForFunction(() => [...document.querySelectorAll('.card-front')].every(card => {
-    const match = getComputedStyle(card).backgroundImage.match(/url\(["']?(.*?)["']?\)/);
-    if (!match) return false;
-    const image = new Image(); image.src = match[1];
-    return image.complete && image.naturalWidth > 0;
-  }));
-  if (await localPage.locator('#residents img[loading="lazy"]').count() !== 9) throw new Error('Local resident gallery is incomplete');
+  await localPage.locator('#eventsGrid').waitFor();
+  const localEvents = localPage.locator('#eventsGrid .event-card, #eventsArchiveGrid .event-card');
+  if (await localEvents.count() !== 4) throw new Error('Local-file events failed');
+  const eventSrc = await localEvents.first().locator('img').getAttribute('src');
+  if (!eventSrc.startsWith('file:')) throw new Error('Local event poster URL is invalid');
+  if (await localPage.locator('#residents img[loading="lazy"]').count() !== 8) throw new Error('Local resident gallery is incomplete');
   if(localErrors.length) throw new Error(`Local-file errors: ${localErrors.join('; ')}`);
   await browser.close(); server.kill(); console.log('Browser checks passed; screenshots created.');
 })().catch(error=>{server.kill();console.error(error);process.exit(1);});
