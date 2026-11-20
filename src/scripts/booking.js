@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
         lastTableButton = trigger;
 
         previewTitle.textContent = title;
-        previewText.textContent = `За этот столик комфортно сядет до ${cap} человек. Проверьте доступность и завершите бронь в RestoPlace.`;
+        previewText.textContent = `За этот столик комфортно сядет до ${cap} человек. Позвоните нам, чтобы уточнить доступность и подтвердить бронь.`;
         previewImage.src = getTablePhoto(num);
         previewImage.alt = `${title} в HHBAR`;
         previewImage.onerror = () => {
             previewImage.onerror = null;
             previewImage.src = 'img/hhbar-hero-bg.jpg';
             previewImage.alt = 'Зал HHBAR';
-            previewText.textContent = `Столик до ${cap} человек. Фото именно этого столика пока нет — показан общий вид зала. Доступность проверьте в RestoPlace.`;
+            previewText.textContent = `Столик до ${cap} человек. Фото именно этого столика пока нет — показан общий вид зала. Доступность уточните у администратора по телефону.`;
         };
 
         previewModal.classList.add('active');
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         tableOptions.replaceChildren(...options);
         tableListStatus.textContent = requested
-            ? `Подходящих по вместимости столиков: ${options.length}. Доступность покажет RestoPlace.`
+            ? `Подходящих по вместимости столиков: ${options.length}. Финальную доступность подтвердит администратор по телефону.`
             : 'Выберите число гостей, чтобы увидеть подходящие столики.';
         tableOptions.hidden = !requested;
     }
@@ -122,28 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     guestCount.addEventListener('change', updateTableOptions);
     tablePicker.hidden = false;
     updateTableOptions();
-
-    document.querySelectorAll('[data-restoplace-booking]').forEach(button => {
-        button.addEventListener('click', event => {
-            const selected = document.querySelector('.table.selected');
-            if (!selected) return;
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            if (previewModal.classList.contains('active')) closeTablePreview({ restoreFocus: false });
-            window.HHRestoplace.open({
-                tableNumber: selected.dataset.table,
-                guestCount: Number(guestCount?.value) || Number(selected.dataset.capacity)
-            });
-        }, true);
-    });
-
-    document.addEventListener('hhbar:booking-error', () => {
-        const toast = document.getElementById('toast');
-        if (!toast) return;
-        toast.textContent = 'Не удалось загрузить онлайн-бронирование. Позвоните: +7 (8152) 70-70-57';
-        toast.classList.add('active');
-        window.setTimeout(() => toast.classList.remove('active'), 5000);
-    });
 
     closePreview.addEventListener('click', closeTablePreview);
     previewModal.addEventListener('click', (event) => {
