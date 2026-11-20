@@ -26,7 +26,7 @@ const server = spawn(process.execPath,['tools/serve.cjs'],{cwd:root,stdio:'ignor
     await page.screenshot({path:path.join(root,`hhbar-${viewport.name}.png`),fullPage:true});
     if (await page.locator('body').evaluate(el => el.scrollWidth > el.clientWidth)) throw new Error(`Horizontal overflow on ${viewport.name}`);
     await page.goto('http://127.0.0.1:4173/menu.html');
-    if (await page.locator('.menu-sheet').count() !== 7) throw new Error('Menu pages are incomplete');
+    if (await page.locator('.menu-sheet').count() !== 17) throw new Error('Menu pages are incomplete');
     for (const preview of await page.locator('.menu-sheet img').all()) {
       await preview.scrollIntoViewIfNeeded();
       await preview.evaluate(image => image.decode());

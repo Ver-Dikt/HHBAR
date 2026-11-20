@@ -38,7 +38,7 @@ const server = spawn(process.execPath, ['tools/serve.cjs'], {
         lcpMs: Math.round(window.__assetMetrics.lcp || 0),
         cls: Number(window.__assetMetrics.cls.toFixed(3)),
         resources: performance.getEntriesByType('resource').filter(entry => entry.name.startsWith(location.origin)).map(entry => ({
-          file: entry.name.split('/').pop(), bytes: entry.transferSize
+          file: new URL(entry.name).pathname.split('/').pop(), bytes: entry.transferSize
         }))
       }));
       await page.screenshot({ path: path.join(os.tmpdir(), `hhbar-${name}-optimized.png`) });
@@ -50,7 +50,7 @@ const server = spawn(process.execPath, ['tools/serve.cjs'], {
         await page.getByRole('link', { name: 'Напитки', exact: true }).click();
         if (new URL(page.url()).hash !== '#drinks') throw new Error('Menu section jump failed');
         await page.locator('#drinks .menu-sheet').first().click();
-        await page.waitForURL('**/img/menu/page-9.webp');
+        await page.waitForURL(url => url.pathname.endsWith('/img/menu/page-9.webp'));
       }
       const hero = metrics.resources.find(item => item.file === 'hhbar-hero-bg.webp');
       if (!hero || hero.bytes > 200000 || errors.length) throw new Error(`${name}: optimized hero missing or script error: ${errors.join('; ')}`);
