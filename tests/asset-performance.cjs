@@ -50,7 +50,12 @@ const server = spawn(process.execPath, ['tools/serve.cjs'], {
         await page.getByRole('link', { name: 'Напитки', exact: true }).click();
         if (new URL(page.url()).hash !== '#drinks') throw new Error('Menu section jump failed');
         await page.locator('#drinks .menu-sheet').first().click();
-        await page.waitForURL(url => url.pathname.endsWith('/img/menu/page-9.webp'));
+        const viewer = page.getByRole('dialog');
+        await viewer.locator('img').evaluate(image => image.decode());
+        await viewer.getByRole('button', { name: /Назад к меню/ }).click();
+        if (await viewer.isVisible() || new URL(page.url()).hash !== '#drinks') {
+          throw new Error('Menu viewer did not return to the drinks section');
+        }
       }
       const hero = metrics.resources.find(item => item.file === 'hhbar-hero-bg.webp');
       if (!hero || hero.bytes > 200000 || errors.length) throw new Error(`${name}: optimized hero missing or script error: ${errors.join('; ')}`);

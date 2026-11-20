@@ -174,6 +174,27 @@ section { padding: 60px 0; position: relative; z-index: 2; background-color: rgb
 .menu-sheet span { color: #bfb6a7; font-size: .9rem; }
 .menu-sheet:hover span { text-decoration: underline; }
 
+.menu-viewer {
+    position: fixed;
+    inset: 0;
+    width: min(100%, 920px);
+    max-width: none;
+    max-height: 100%;
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: #171512;
+    color: #f1e7d4;
+}
+.menu-viewer[open] { display: flex; flex-direction: column; }
+.menu-viewer::backdrop { background: rgba(0, 0, 0, .85); }
+html:has(.menu-viewer[open]) { overflow: hidden; }
+.menu-viewer-bar { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: center; padding: 10px 16px; }
+.menu-viewer-bar button { min-height: 44px; padding: 0 14px; border: 1px solid #a99874; border-radius: 8px; color: inherit; background: transparent; font: inherit; cursor: pointer; }
+.menu-viewer-page { flex: 1; min-height: 0; overflow: auto; }
+.menu-viewer-page img { width: 100%; height: auto; }
+
 /* Footer */
 footer { background: var(--darker); padding: 40px 0; text-align: center; color: #666; border-top: 1px solid #222; }
 
@@ -278,6 +299,15 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 </div>
 </main>
 
+<dialog class="menu-viewer" aria-labelledby="menu-viewer-title">
+    <form class="menu-viewer-bar" method="dialog">
+        <button type="submit" autofocus>← Назад к меню</button>
+        <strong id="menu-viewer-title"></strong>
+    </form>
+    <div class="menu-viewer-page">
+        <img alt="">
+    </div>
+</dialog>
 <footer>
     <div class="container">
         <p>&#169; 2026 HHBAR Electronic Music Bar. Все права защищены.</p>
@@ -286,6 +316,7 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 <script src="src/scripts/analytics.js" defer></script>
 <script src="src/scripts/site.js" defer></script>
+<script src="src/scripts/menu-viewer.js" defer></script>
 
 </body>
 </html>
