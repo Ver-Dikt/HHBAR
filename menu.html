@@ -138,19 +138,16 @@ section { padding: 60px 0; position: relative; z-index: 2; background-color: rgb
     place-items: center;
     min-height: 44px;
     padding: 0 24px;
-    border: 1px solid #a998743d;
-    border-radius: 24px;
-    color: #f1e7d4;
     text-decoration: none;
 }
-.menu-jump a:hover { border-color: #c4ad80; }
+.menu-jump a:hover { border-color: var(--primary); }
 .menu-book section {
     background: transparent;
     padding: 0;
     scroll-margin-top: 105px;
 }
 .menu-book section + section { margin-top: 44px; }
-.menu-book h2 { margin-bottom: 16px; color: #f1e7d4; }
+.menu-book h2 { margin-bottom: 16px; color: var(--light); }
 .menu-sheets {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
@@ -159,7 +156,7 @@ section { padding: 60px 0; position: relative; z-index: 2; background-color: rgb
 .menu-sheet {
     display: block;
     min-width: 0;
-    color: #f1e7d4;
+    color: var(--light);
     text-decoration: none;
 }
 .menu-sheet img {
@@ -171,7 +168,7 @@ section { padding: 60px 0; position: relative; z-index: 2; background-color: rgb
 }
 .menu-sheet strong, .menu-sheet span { display: block; }
 .menu-sheet strong { margin-top: 9px; }
-.menu-sheet span { color: #bfb6a7; font-size: .9rem; }
+.menu-sheet span { color: #b8b8b8; font-size: .9rem; }
 .menu-sheet:hover span { text-decoration: underline; }
 
 .menu-viewer {
@@ -184,8 +181,8 @@ section { padding: 60px 0; position: relative; z-index: 2; background-color: rgb
     margin: auto;
     padding: 0;
     border: 0;
-    background: #171512;
-    color: #f1e7d4;
+    background: var(--dark);
+    color: var(--light);
 }
 .menu-viewer[open] { display: flex; flex-direction: column; }
 .menu-viewer::backdrop { background: rgba(0, 0, 0, .85); }
@@ -248,8 +245,8 @@ footer { background: var(--darker); padding: 40px 0; text-align: center; color: 
 
 <div class="menu-book">
     <nav class="menu-jump" aria-label="Разделы меню">
-        <a href="#kitchen">Кухня</a>
-        <a href="#drinks">Напитки</a>
+        <a class="btn btn-secondary" href="#kitchen">Кухня</a>
+        <a class="btn btn-secondary" href="#drinks">Напитки</a>
     </nav>
     <section id="kitchen" aria-labelledby="kitchen-title">
         <h2 id="kitchen-title">Кухня</h2>
