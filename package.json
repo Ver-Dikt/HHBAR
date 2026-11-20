@@ -9,8 +9,9 @@
     "test:browser": "node tests/browser.cjs",
     "test:hero": "node tests/hero-performance.cjs",
     "test:assets": "node tests/asset-performance.cjs",
-    "test:restoplace": "node tests/restoplace-live.cjs",
     "check": "node tools/check.cjs"
   },
-  "devDependencies": { "playwright": "^1.55.0" }
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  }
 }
