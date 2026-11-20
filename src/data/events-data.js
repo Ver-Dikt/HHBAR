@@ -1,7 +1,7 @@
 /* Generated from src/data/events.json. Run npm run build:data after editing JSON. */
 window.HHBAR_EVENTS = [
   {
-    "title": "8 лет Хе-хе бар · CATMOONK",
+    "title": "8 лет HHBAR · CATMOONK",
     "date": "12 ДЕКАБРЯ",
     "datetime": "2026-12-12",
     "image": "img/events/hhbar-8-catmoonk.jpg",
