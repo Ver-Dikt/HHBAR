@@ -179,7 +179,7 @@
 .hall-container .table-small-sofa { --table-inset: 3px 9px 32px; padding-bottom: 23px; }
 .hall-container .table-small-sofa[data-table="17"] { --table-inset: 3px 9px 32px 32px; padding-left: 22px; }
 .table-small-sofa[data-table="17"] .hall-furniture-left { top: 0; height: 96%; }
-.table-small-sofa[data-table="17"] .hall-furniture-bottom { left: 29px; width: calc(100% - 32px); }
+.table-small-sofa[data-table="17"] .hall-furniture-bottom { left: 29px; width: 52px; }
 .hall-container .table-three-sofas-right { --table-inset: 32px 32px 32px 5px; padding-right: 15px; }
 .table-three-sofas-right :is(.hall-furniture-top, .hall-furniture-bottom) { width: calc(100% - 34px); left: 5px; }
 .table-three-sofas-right .hall-furniture-right { top: 0; height: 100%; }
@@ -212,9 +212,22 @@
 .table-compact.table-booth { --table-inset: 7% 28px; }
 .hall-container .table-compact.table-left-sofa { --table-inset: 12px 5px 12px 28px; padding-left: 22px; }
 .hall-container .table-compact.table-top-sofa { --table-inset: 28px 8px 5px; padding-top: 22px; }
-.hall-container .table-compact.table-bottom-sofa { --table-inset: 5px 7px 28px; padding-bottom: 21px; }
+.hall-container .table-compact.table-bottom-sofa { --table-inset: 6px 17px 28px; padding-bottom: 21px; }
 .hall-container .table-compact.table-corner-left { --table-inset: 28px 5px 5px 28px; padding: 22px 2px 2px 22px; }
 .hall-container .table-compact.table-corner-right { --table-inset: 6px 28px 28px 6px; padding: 2px 20px 20px 2px; }
+
+.table-compact:is([data-table="9"], [data-table="10"], [data-table="11"]) .hall-furniture-left {
+    top: 50%;
+    bottom: auto;
+    height: 42px;
+    transform: translateY(-50%);
+}
+.table-compact[data-table="11"] .hall-furniture-left { top: 0; transform: none; }
+.table-compact[data-table="12"] .hall-furniture-top {
+    left: 50%;
+    width: 42px;
+    transform: translateX(-50%);
+}
 </style>
 <link rel="stylesheet" href="src/styles/refresh.css">
 </head>
@@ -363,7 +376,7 @@
                     <span class="table-capacity">3 чел</span>
                 </div>
                 <!-- Table 15 -->
-                <div class="table table-refined table-compact table-bottom-sofa table-round" data-table="15" data-capacity="3" style="left: 570px; top: 339px; width: 76px; height: 74px;">
+                <div class="table table-refined table-compact table-bottom-sofa" data-table="15" data-capacity="3" style="left: 570px; top: 339px; width: 76px; height: 74px;">
                     <svg class="hall-furniture hall-furniture-bottom" viewBox="0 0 80 25" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#hall-sofa" transform="translate(80 25) rotate(180)"></use></svg>
                     <span class="table-number">15</span>
                     <span class="table-capacity">3 чел</span>
@@ -392,7 +405,7 @@
 
                 <!-- ========== BOTTOM CENTER/RIGHT BLOCK ========== -->
                 <!-- Table 16 (10 С‡РµР») - tall vertical, left of bottom row -->
-                <div class="table table-refined table-double-sofa table-round" data-table="16" data-capacity="10" style="top: 502px; left: 497px; width: 84px; height: 129px;">
+                <div class="table table-refined table-double-sofa table-round" data-table="16" data-capacity="10" style="top: 502px; left: 424px; width: 84px; height: 129px;">
                     <svg class="hall-furniture hall-furniture-left" viewBox="0 0 25 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#hall-sofa" transform="translate(0 80) rotate(-90)"></use></svg>
                     <svg class="hall-furniture hall-furniture-right" viewBox="0 0 25 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#hall-sofa" transform="translate(25 0) rotate(90)"></use></svg>
                     <span class="table-number">16</span>
@@ -400,7 +413,7 @@
                 </div>
 
                 <!-- VIP (10 С‡РµР») - horizontal, next to 16 -->
-                <div class="table table-refined table-vip table-three-sofas" data-table="VIP" data-capacity="10" style="top: 519px; left: 361px; width: 129px; height: 94px;">
+                <div class="table table-refined table-vip table-three-sofas" data-table="VIP" data-capacity="10" style="top: 519px; left: 262px; width: 129px; height: 94px;">
                     <svg class="hall-furniture hall-furniture-left" viewBox="0 0 25 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#hall-sofa" transform="translate(0 80) rotate(-90)"></use></svg>
                     <svg class="hall-furniture hall-furniture-top" viewBox="0 0 80 25" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#hall-sofa" transform="translate(0 0)"></use></svg>
                     <svg class="hall-furniture hall-furniture-bottom" viewBox="0 0 80 25" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#hall-sofa" transform="translate(80 25) rotate(180)"></use></svg>
