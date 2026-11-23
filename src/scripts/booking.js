@@ -41,9 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getTablePhoto(num) {
-        if (num === 'VIP') return 'img/tables/table-20.jpg';
+        if (num === 'VIP') return null;
         if (num === '2') return 'img/tables/table-4.jpg';
         if (num === '4') return 'img/tables/table-2.jpg';
+        if (num === '14') return 'img/tables/table-13.jpg';
+        if (num === '15') return 'img/tables/table-14.jpg';
         return `img/tables/table-${num}.jpg`;
     }
 
@@ -55,14 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         previewTitle.textContent = title;
         previewText.textContent = `За этот столик комфортно сядет до ${cap} человек. Позвоните нам, чтобы уточнить доступность и подтвердить бронь.`;
-        previewImage.src = getTablePhoto(num);
+        const photo = getTablePhoto(num);
         previewImage.alt = `${title} в HHBAR`;
-        previewImage.onerror = () => {
+        const showHallPhoto = () => {
             previewImage.onerror = null;
             previewImage.src = 'img/hhbar-hero-bg.jpg';
             previewImage.alt = 'Зал HHBAR';
             previewText.textContent = `Столик до ${cap} человек. Фото именно этого столика пока нет — показан общий вид зала. Доступность уточните у администратора по телефону.`;
         };
+        if (photo) {
+            previewImage.onerror = showHallPhoto;
+            previewImage.src = photo;
+        } else {
+            showHallPhoto();
+        }
 
         previewModal.classList.add('active');
         document.body.style.overflow = 'hidden';
