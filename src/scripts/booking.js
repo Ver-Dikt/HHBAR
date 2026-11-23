@@ -58,20 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         previewTitle.textContent = title;
         previewText.textContent = `За этот столик комфортно сядет до ${cap} человек. Позвоните нам, чтобы уточнить доступность и подтвердить бронь.`;
-        const photo = getTablePhoto(num);
+        previewImage.hidden = true;
+        previewImage.removeAttribute('src');
         previewImage.alt = `${title} в HHBAR`;
-        const showHallPhoto = () => {
-            previewImage.onerror = null;
-            previewImage.src = 'img/hhbar-hero-bg.jpg';
-            previewImage.alt = 'Зал HHBAR';
-            previewText.textContent = `Столик до ${cap} человек. Фото именно этого столика пока нет — показан общий вид зала. Доступность уточните у администратора по телефону.`;
+        previewImage.onload = () => {
+            previewImage.hidden = false;
         };
-        if (photo) {
-            previewImage.onerror = showHallPhoto;
-            previewImage.src = photo;
-        } else {
-            showHallPhoto();
-        }
+        previewImage.onerror = () => {
+            previewImage.hidden = true;
+            previewText.textContent = `Столик до ${cap} человек. Фото не загрузилось. Доступность уточните у администратора по телефону.`;
+        };
+        previewImage.src = getTablePhoto(num);
 
         previewModal.classList.add('active');
         document.body.style.overflow = 'hidden';
