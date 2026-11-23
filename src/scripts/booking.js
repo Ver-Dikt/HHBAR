@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getTablePhoto(num) {
-        if (num === 'VIP') return null;
+        if (num === 'VIP') return 'img/tables/table-vip.webp';
+        if (num === '8') return 'img/tables/table-8.webp';
         if (num === '2') return 'img/tables/table-4.jpg';
         if (num === '4') return 'img/tables/table-2.jpg';
         if (num === '14') return 'img/tables/table-13.jpg';
