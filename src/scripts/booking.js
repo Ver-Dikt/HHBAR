@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (num === '8') return 'img/tables/table-8.webp';
         if (num === '2') return 'img/tables/table-4.jpg';
         if (num === '4') return 'img/tables/table-2.jpg';
-        if (num === '14') return 'img/tables/table-13.jpg';
-        if (num === '15') return 'img/tables/table-14.jpg';
-        return `img/tables/table-${num}.jpg`;
+        if (num === '14') return 'img/tables/table-14.jpg';
+        const photoNumber = Number(num);
+        return `img/tables/table-${photoNumber >= 15 ? photoNumber + 1 : photoNumber}.jpg`;
     }
 
     function openTablePreview(table, trigger) {
